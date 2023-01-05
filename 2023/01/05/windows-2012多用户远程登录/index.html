@@ -6,18 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://www.ink8s.com">
-  <title>Tag: Linux-base | INK8S</title>
+  <title>windows 2012多用户远程登录 | INK8S</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="in 运维">
-<meta property="og:type" content="website">
-<meta property="og:title" content="INK8S">
-<meta property="og:url" content="https://www.ink8s.com/tags/Linux-base/index.html">
+  <meta name="description" content="windows 2012多用户登陆 默认只允许2个用户同时登录 通过相关配置解决多用户登陆并且打开任务进程互不影响">
+<meta property="og:type" content="article">
+<meta property="og:title" content="windows 2012多用户远程登录">
+<meta property="og:url" content="https://www.ink8s.com/2023/01/05/windows-2012%E5%A4%9A%E7%94%A8%E6%88%B7%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/index.html">
 <meta property="og:site_name" content="INK8S">
-<meta property="og:description" content="in 运维">
+<meta property="og:description" content="windows 2012多用户登陆 默认只允许2个用户同时登录 通过相关配置解决多用户登陆并且打开任务进程互不影响">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-01-05T14:58:52.000Z">
+<meta property="article:modified_time" content="2023-01-05T15:00:09.777Z">
 <meta property="article:author" content="weixj@inadm.com">
+<meta property="article:tag" content="Windows-svc">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="INK8S" type="application/atom+xml">
@@ -206,154 +209,274 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-windows-2012多用户远程登录" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
   
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2023" class="archive-year">2023</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/01/05/iptables-%E9%98%B2%E7%81%AB%E5%A2%99/" class="archive-article-date">
-        <time datetime="2023-01-05T09:18:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-01-05</time>
-</a>
-
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/01/05/iptables-%E9%98%B2%E7%81%AB%E5%A2%99/">iptables 防火墙</a>
-	
+    <h1 class="article-title" itemprop="name">
+      windows 2012多用户远程登录
     </h1>
   
 
 
-        <div class="article-info info-on-right">
+  
+  
+        
+
+
+<a href="/2023/01/05/windows-2012%E5%A4%9A%E7%94%A8%E6%88%B7%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/" class="archive-article-date">
+        <time datetime="2023-01-05T14:58:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-01-05</time>
+</a>
+
+
+  
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <ul>
+<li><strong>windows 2012多用户登陆</strong><ul>
+<li>默认只允许2个用户同时登录</li>
+<li>通过相关配置解决多用户登陆并且打开任务进程互不影响</li>
+</ul>
+</li>
+</ul>
+<span id="more"></span>
+
+<h4 id="1-安装桌面会话主机和远程桌面授权"><a href="#1-安装桌面会话主机和远程桌面授权" class="headerlink" title="1. 安装桌面会话主机和远程桌面授权"></a>1. <strong>安装桌面会话主机和远程桌面授权</strong></h4><p>   1）服务器管理器 – 添加角色和功能，下一步 – 基于角色或基于功能的安装，下一步 – 从服务器池中选择服务器，下一步 – 远程桌面服务，下一步 – 下一步 – 下一步 – 勾选”远程会话主机”和“远程桌面授权”，下一步 – 安装 – 重启服务器生效</p>
+<h4 id="2-Web-申请激活码"><a href="#2-Web-申请激活码" class="headerlink" title="2. Web 申请激活码"></a>2. <strong>Web 申请激活码</strong></h4><p>   1）管理工具 – 远程桌面服务 – 远程桌面授权管理器 – 未激活的服务器右键”属性”</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">连接方法</span><br><span class="line">  连接方法：Web浏览器</span><br><span class="line">  记录下:产品ID：00252-20000-06400-AT602</span><br><span class="line">必须信息：</span><br><span class="line">  姓：TEST</span><br><span class="line">  名：TEST</span><br><span class="line">  公司：TEST</span><br><span class="line">  国家：中国</span><br><span class="line">  确定</span><br></pre></td></tr></table></figure>
+<p>   2）IE浏览器输入：<a target="_blank" rel="noopener" href="https://activate.microsoft.com/">https://activate.microsoft.com</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">英文界面可选择为中文 go 即跳转到中文</span><br><span class="line">选中：启用许可证服务器，下一步</span><br><span class="line">  产品 ID：输入刚才记录下来的20位ID&lt;00252-20000-06400-AT602&gt; </span><br><span class="line">  公司：TEST</span><br><span class="line">  国家：中国，下一步 -- 下一步，得到35位许可ID：&lt;PDRVV-B47F4-VFPDY-9FHWF-YRTQV-DQDM7-JGR4Q&gt; 单击：是</span><br><span class="line">  许可证程序：企业协议&lt;如没有许可证，则选择企业协议&gt;，下一步</span><br><span class="line">  产品类型：Windows Server 2012 远程桌面服务每用户客户端访问许可证</span><br><span class="line">  数量：500&lt;根据自己需求设置&gt;</span><br><span class="line">  协议号：如果没有如下号可使用&lt;6565792，4954438，6879321，5296992&gt;，下一步 -- 下一步</span><br><span class="line">  得到另外 ID：KB8KG-9VT7F-XC4JY-CGR6B-8BV62-MB73Y-464D3  ，结束，确定</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-激活终端服务"><a href="#3-激活终端服务" class="headerlink" title="3. 激活终端服务"></a>3. <strong>激活终端服务</strong></h4><p>   1）管理工具 – 远程桌面服务 – 远程桌面授权管理器 – 选择服务器右键：激活服务器 – 下一步 – Web 浏览器,下一步 – 输入许可服务器ID：<PDRVV-B47F4-VFPDY-9FHWF-YRTQV-DQDM7-JGR4Q>，下一步 – 下一步 – 下一步 – 输入：<KB8KG-9VT7F-XC4JY-CGR6B-8BV62-MB73Y-464D3>,下一步 – 完成</p>
+<h4 id="4-配置远程桌面会话主机授权服务器"><a href="#4-配置远程桌面会话主机授权服务器" class="headerlink" title="4. 配置远程桌面会话主机授权服务器"></a>4. <strong>配置远程桌面会话主机授权服务器</strong></h4><p>   1）管理工具 – 远程桌面服务 – RD 授权诊断程序 &lt;当前为没有授权&gt;<br>   2）gpedit.msc – 计算机配置 – 管理模板 – Windows 组件 – 远程桌面服务 – 远程桌面会话主机 – 授权<br>    找到：使用指定的远程桌面许可服务器，设置为”启用”并设置本机IP或主机名</p>
+<h4 id="5-gpedit-msc-策略配置"><a href="#5-gpedit-msc-策略配置" class="headerlink" title="5. gpedit.msc 策略配置"></a>5. <strong>gpedit.msc 策略配置</strong></h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">1) gpedit.msc -- 计算机配置 -- 管理模板 -- windows组件 -- 远程桌面服务 -- 远程桌面会话主机 -- 授权</span><br><span class="line">  找到：设置远程桌面授权模式</span><br><span class="line">    启用</span><br><span class="line">    指定RD：按用户</span><br><span class="line">  重新打开RD授权诊断程序</span><br><span class="line">2）gpedit.msc -- 计算机配置 -- 管理模板 -- windows组件 -- 远程桌面服务 -- 远程桌面会话主机 -- 连接 -- 限制连接的数量</span><br><span class="line">  已启用</span><br><span class="line">  最大连接数：500</span><br><span class="line">3) gpedit.msc -- 计算机配置 -- 管理模板 -- windows组件 -- 远程桌面服务 -- 远程桌面会话主机 -- 连接</span><br><span class="line">  将远程桌面服务限制到单独的远程桌面会话</span><br><span class="line">  禁用  启用较好</span><br><span class="line">4) gpedit.msc -- 计算机配置 -- 管理模板 -- windows组件 -- 远程桌面服务 -- 远程桌面会话主机 -- 会话时间限制</span><br><span class="line">  启用：设置为1分钟（关闭远程管理工具后1分钟后注销用户）</span><br></pre></td></tr></table></figure>
+
+<h4 id="6-关闭不必要端口防止被攻击"><a href="#6-关闭不必要端口防止被攻击" class="headerlink" title="6. 关闭不必要端口防止被攻击"></a>6. <strong>关闭不必要端口防止被攻击</strong></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">1) 关闭端口137、138、139、445端口、关闭智能卡。防止0day攻击</span><br><span class="line">  禁止445端口</span><br><span class="line">    本地连接 --&gt; 卸载<span class="string">&quot;Microsoft 网络客户端&quot;</span> <span class="string">&quot;Microsoft 网络的文件和打印机共享&quot;</span> --&gt; 重启系统生效</span><br><span class="line">2) 禁止137、138、139端口</span><br><span class="line">    本地连<span class="string">&quot;”右键 &quot;</span>属性<span class="string">&quot; --&gt; &quot;</span>Internet 协议版本 4（TCP/IPv4）<span class="string">&quot; &quot;</span>属性<span class="string">&quot; --&gt; 高级 --&gt; WINS --&gt; 选择 &quot;</span>禁用 TCP/IP 上的 NetBIOS(S)<span class="string">&quot;</span></span><br><span class="line"><span class="string">3) 关闭智能卡</span></span><br><span class="line"><span class="string">    进入 &quot;</span>本地组策略编辑器<span class="string">&quot; （gpedit.msc） --&gt; 计算机配置 --&gt; 管理模板 --&gt; Windows组件 --&gt; 智能卡</span></span><br><span class="line"><span class="string">      启用智能卡中的证书传播 --&gt; 禁用</span></span><br><span class="line"><span class="string">      启用智能卡中的根证书传播 --&gt; 禁用</span></span><br><span class="line"><span class="string">      强制从智能卡读取所有证书 --&gt; 禁用</span></span><br><span class="line"><span class="string">      打开智能卡即插即用服务 --&gt; 禁用</span></span><br><span class="line"><span class="string">      重启系统生效</span></span><br><span class="line"><span class="string">4) 检查端口是否已关闭：netstat -an|findstr xxx</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="7-禁用windows远程同本地直接复制粘贴数据和其它设置"><a href="#7-禁用windows远程同本地直接复制粘贴数据和其它设置" class="headerlink" title="7. 禁用windows远程同本地直接复制粘贴数据和其它设置"></a>7. <strong>禁用windows远程同本地直接复制粘贴数据和其它设置</strong></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1. C:\Windows\System32\rdpclip.exe 文件 &lt;删除后重启系统确认系统是否能正常启动&gt;</span><br><span class="line">2. 禁止挂载本地磁盘：gpedit.msc –- 计算机配置 — Windows 组件 — 远程桌面服务 — 远程桌面会话主机 — 设备和资源重定向 ---（启用，所有不允许项） ；gpupdate</span><br><span class="line">3. 启用会话时间限制：gpedit.msc –- 计算机配置 — Windows 组件 — 远程桌面服务 — 远程桌面会话主机 — 会话时间限制 -- <span class="string">&quot;设置已中断的时间限制&quot;</span>、<span class="string">&quot;设置RemoteApp回话的注销时间限制&quot;</span></span><br><span class="line">4. 启用会话时间限制：gpedit.msc –- 计算机配置 — Windows 组件 — 远程桌面服务 — 远程桌面会话主机 — 连接 - 将远程桌面服务用户限制到单独的远程桌面服务回话_启用</span><br></pre></td></tr></table></figure>
+
+
+
+    
+
+    
+    <div class="page-reward">
+      <a href="javascript:void(0);" class="page-reward-btn tooltip-top" target="_self">
+        <div class="tooltip tooltip-east">
+          <span class="tooltip-item">
+            +V
+          </span>
+          <span class="tooltip-content">
+            <span class="tooltip-text">
+              <span class="tooltip-inner">
+                <p class="reward-p"><i class="icon icon-quo-left"></i>扫码添加博主微信,邀请你加入运维技术交流群<i
+                    class="icon icon-quo-right"></i></p>
+                <div class="reward-box">
+                  
+                  
+                  <div class="reward-box-item">
+                    <img class="reward-img" src="/img/wechat.jpg">
+                    <span class="reward-type">微信</span>
+                  </div>
+                  
+                </div>
+              </span>
+            </span>
+          </span>
+        </div>
+      </a>
+    </div>
+    
+
+    
+    <div class="declare"> 
+      <ul class="post-copyright">
+        <li>
+          <strong>本文作者：</strong>
+          weixj@inadm.com
+        </li>
+        <li>
+          <strong>本文链接：</strong>
+          <a href="https://www.ink8s.com/2023/01/05/windows-2012多用户远程登录/" title="windows 2012多用户远程登录" target="_blank">https://www.ink8s.com/2023/01/05/windows-2012多用户远程登录/</a>
+        </li>
+        
+        <li>
+          <strong>版权声明： </strong>
           
+          本博客所有文章除特别声明外，均采用 <a href="https://github.com/JoeyBling/hexo-theme-yilia-plus/blob/master/LICENSE" rel="external nofollow" target="_blank">MIT</a> 许可协议。转载请注明出处！
+        </li>
+        
+      </ul>
+    </div>
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux-base</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Windows-svc</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+    
 
+    
+
+    
+    
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <!-- <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a> -->
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=https://www.ink8s.com/2023/01/05/windows-2012%E5%A4%9A%E7%94%A8%E6%88%B7%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/" alt="微信分享二维码"> -->
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+
+    
+    <div class="clearfix"></div>
+  </div>
   </div>
 </article>
+
+
+<nav id="article-nav">
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/01/05/linux-%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4/" class="archive-article-date">
-        <time datetime="2023-01-05T05:55:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-01-05</time>
-</a>
+    <a href="/2023/01/05/cobbler-%E6%89%B9%E9%87%8F%E5%AE%89%E8%A3%85-Linux-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          cobbler 批量安装 Linux 操作系统
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/01/05/ipmitool-%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">ipmitool 服务器管理工具</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
 
 
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/01/05/linux-%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4/">linux 系统命令</a>
-	
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux-base</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%AE%89%E8%A3%85%E6%A1%8C%E9%9D%A2%E4%BC%9A%E8%AF%9D%E4%B8%BB%E6%9C%BA%E5%92%8C%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2%E6%8E%88%E6%9D%83"><span class="toc-number">1.</span> <span class="toc-text">1. 安装桌面会话主机和远程桌面授权</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-Web-%E7%94%B3%E8%AF%B7%E6%BF%80%E6%B4%BB%E7%A0%81"><span class="toc-number">2.</span> <span class="toc-text">2. Web 申请激活码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E6%BF%80%E6%B4%BB%E7%BB%88%E7%AB%AF%E6%9C%8D%E5%8A%A1"><span class="toc-number">3.</span> <span class="toc-text">3. 激活终端服务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E9%85%8D%E7%BD%AE%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2%E4%BC%9A%E8%AF%9D%E4%B8%BB%E6%9C%BA%E6%8E%88%E6%9D%83%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-number">4.</span> <span class="toc-text">4. 配置远程桌面会话主机授权服务器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-gpedit-msc-%E7%AD%96%E7%95%A5%E9%85%8D%E7%BD%AE"><span class="toc-number">5.</span> <span class="toc-text">5. gpedit.msc 策略配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-%E5%85%B3%E9%97%AD%E4%B8%8D%E5%BF%85%E8%A6%81%E7%AB%AF%E5%8F%A3%E9%98%B2%E6%AD%A2%E8%A2%AB%E6%94%BB%E5%87%BB"><span class="toc-number">6.</span> <span class="toc-text">6. 关闭不必要端口防止被攻击</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-%E7%A6%81%E7%94%A8windows%E8%BF%9C%E7%A8%8B%E5%90%8C%E6%9C%AC%E5%9C%B0%E7%9B%B4%E6%8E%A5%E5%A4%8D%E5%88%B6%E7%B2%98%E8%B4%B4%E6%95%B0%E6%8D%AE%E5%92%8C%E5%85%B6%E5%AE%83%E8%AE%BE%E7%BD%AE"><span class="toc-number">7.</span> <span class="toc-text">7. 禁用windows远程同本地直接复制粘贴数据和其它设置</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+  <div id="giteement-ctn"></div>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/01/04/vim-%E5%BF%AB%E6%8D%B7%E9%94%AE%E4%BD%BF%E7%94%A8/" class="archive-article-date">
-        <time datetime="2023-01-04T08:58:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-01-04</time>
-</a>
-
-
-        </div>
-    	 
+    <link rel="stylesheet" href="/lib/default.css">
+    <script src="/lib/giteement.browser.js"></script>
   
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/01/04/vim-%E5%BF%AB%E6%8D%B7%E9%94%AE%E4%BD%BF%E7%94%A8/">vim 快捷键使用</a>
-	
-    </h1>
-  
+  <script>
+  <!-- id: "windows 2012多用户远程登录" -->
+  var giteement = new Giteement({
+    id: '20230105225852',
+    owner: 'weixj90',
+    repo: 'ink8s-msg',
+    backcall_uri: 'https://www.ink8s.com',
+    oauth_uri: 'https://cors-anywhere.herokuapp.com/https://gitee.com/oauth/token',
+    oauth: {
+      client_id: '50776f958ea15d74ac6d512eeadb5d45fce926378764764cb8d6998f95617e18',
+      client_secret: '5b53bcab62e8a4c917eab413aa2dc40ec6b2b69344411c51bf11285bbe734d8c'
+    },
+  })
+  giteement.render('giteement-ctn')
+  </script>
 
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux-base</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
 
-    
+
 
 
           </div>
@@ -394,9 +517,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,

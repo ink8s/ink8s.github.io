@@ -6,19 +6,27 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://www.ink8s.com">
-  <title>Tag: Linux-base | INK8S</title>
+  <title>lvm 磁盘管理工具 | INK8S</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="in 运维">
-<meta property="og:type" content="website">
-<meta property="og:title" content="INK8S">
-<meta property="og:url" content="https://www.ink8s.com/tags/Linux-base/index.html">
+  <meta name="description" content="LVM Linux 磁盘管理工具 逻辑扩展磁盘空间大小和缩减磁盘空间大小 多个硬盘或者多个分区均可使用LVM卷组管理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="lvm 磁盘管理工具">
+<meta property="og:url" content="https://www.ink8s.com/2023/01/05/lvm-%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/index.html">
 <meta property="og:site_name" content="INK8S">
-<meta property="og:description" content="in 运维">
+<meta property="og:description" content="LVM Linux 磁盘管理工具 逻辑扩展磁盘空间大小和缩减磁盘空间大小 多个硬盘或者多个分区均可使用LVM卷组管理">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://www.ink8s.com/images/pasted-1.png">
+<meta property="og:image" content="https://www.ink8s.com/images/pasted-2.png">
+<meta property="og:image" content="https://www.ink8s.com/images/pasted-3.png">
+<meta property="og:image" content="https://www.ink8s.com/images/pasted-51.png">
+<meta property="article:published_time" content="2023-01-05T14:18:51.000Z">
+<meta property="article:modified_time" content="2023-01-05T14:35:07.798Z">
 <meta property="article:author" content="weixj@inadm.com">
+<meta property="article:tag" content="Server-tool">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.ink8s.com/images/pasted-1.png">
   
     <link rel="alternative" href="/atom.xml" title="INK8S" type="application/atom+xml">
   
@@ -206,154 +214,341 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-lvm-磁盘管理工具" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
   
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2023" class="archive-year">2023</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/01/05/iptables-%E9%98%B2%E7%81%AB%E5%A2%99/" class="archive-article-date">
-        <time datetime="2023-01-05T09:18:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-01-05</time>
-</a>
-
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/01/05/iptables-%E9%98%B2%E7%81%AB%E5%A2%99/">iptables 防火墙</a>
-	
+    <h1 class="article-title" itemprop="name">
+      lvm 磁盘管理工具
     </h1>
   
 
 
-        <div class="article-info info-on-right">
+  
+  
+        
+
+
+<a href="/2023/01/05/lvm-%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/" class="archive-article-date">
+        <time datetime="2023-01-05T14:18:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-01-05</time>
+</a>
+
+
+  
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <ul>
+<li><strong>LVM Linux 磁盘管理工具</strong><ul>
+<li>逻辑扩展磁盘空间大小和缩减磁盘空间大小</li>
+<li>多个硬盘或者多个分区均可使用LVM卷组管理</li>
+</ul>
+</li>
+</ul>
+<span id="more"></span>
+
+
+<figure class="highlight bash"><figcaption><span>lvm 卷类型</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">    PV 		<span class="comment"># 物理卷</span></span><br><span class="line">    VG		<span class="comment"># 卷组</span></span><br><span class="line">    LV		<span class="comment"># 逻辑卷</span></span><br><span class="line">    PE		<span class="comment"># 物理盘区,默认大小4.00 MiB</span></span><br><span class="line">    LE		<span class="comment"># 逻辑盘区</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># lvm 创建顺序和缩减顺序</span></span><br><span class="line">创建顺序：PV——&gt;VG——&gt;LV</span><br><span class="line">缩减顺序：LV——&gt;VG——&gt;PV</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># libudev-devel 不安装会影响lvcreate命令正常执行</span></span><br><span class="line">yum -y install lvm2 libudev-devel		<span class="comment"># lvm包和依赖包</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="1-0-命令介绍"><a href="#1-0-命令介绍" class="headerlink" title="1.0 命令介绍"></a>1.0 命令介绍</h4><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>pv命令</th>
+<th>vg命令</th>
+<th>lv命令</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>查看</td>
+<td>pvdisplay</td>
+<td>vgdisplay</td>
+<td>lvdisplay</td>
+<td>详细查看</td>
+</tr>
+<tr>
+<td>查看</td>
+<td>pvs</td>
+<td>vgs</td>
+<td>lvs</td>
+<td>简单查看,常用</td>
+</tr>
+<tr>
+<td>创建</td>
+<td>pvcreate</td>
+<td>vgcreate</td>
+<td>lvcreate</td>
+<td></td>
+</tr>
+<tr>
+<td>扩展</td>
+<td>——</td>
+<td>vgextend</td>
+<td>lvextend</td>
+<td></td>
+</tr>
+<tr>
+<td>缩减</td>
+<td>——</td>
+<td>vgreduce</td>
+<td>lvreduce</td>
+<td></td>
+</tr>
+<tr>
+<td>删除</td>
+<td>pvremove</td>
+<td>vgremove</td>
+<td>lvremove</td>
+<td></td>
+</tr>
+</tbody></table>
+<figure class="highlight bash"><figcaption><span>命令选项介绍</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">例: lvcreate -L +SIZE(K、M、G、T) /dev/CentOS7_VGName/lvname</span><br><span class="line">    <span class="comment"># +SIZE	&quot;+&quot;表示扩展多少！！！</span></span><br><span class="line">    <span class="comment"># SIZE	不带&quot;+&quot;表示扩展到多少SIZE！！！</span></span><br><span class="line">    <span class="comment"># -L 大写,表示使用扩展到多少SIZE,使用单位(K、M、G、T)</span></span><br><span class="line">    <span class="comment"># -l 小写,表示使用PE数量(默认扩展,推荐使用方法)</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="2-0-创建-PV—-gt-VG—-gt-LV-并格式化后挂载为数据盘"><a href="#2-0-创建-PV—-gt-VG—-gt-LV-并格式化后挂载为数据盘" class="headerlink" title="2.0 创建 PV—&gt;VG—&gt;LV 并格式化后挂载为数据盘"></a>2.0 创建 PV—&gt;VG—&gt;LV 并格式化后挂载为数据盘</h4><figure class="highlight bash"><figcaption><span>整盘创建lv</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">lsblk							<span class="comment"># 查看磁盘信息</span></span><br><span class="line">pvcreate /dev/sd&#123;b,c&#125;					<span class="comment"># 创建pv</span></span><br><span class="line">vgcreate CentOS7_VGName /dev/sd&#123;b,c&#125;			<span class="comment"># 创建vg</span></span><br><span class="line">vgdisplay CentOS7_VGName|awk <span class="string">&#x27;/Total PE/&#123;print $3&#125;&#x27;</span>	<span class="comment"># 获取PE总数</span></span><br><span class="line">lvcreate -l 38398 -n lvname CentOS7_VGName		<span class="comment"># 创建lv</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><figcaption><span>挂载磁盘</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用UUID方式挂在磁盘</span></span><br><span class="line">mkfs.xfs -f /dev/CentOS7_VGName/lvname				<span class="comment"># [1]格式化lv为xfs</span></span><br><span class="line">mkfs.ext4 /dev/CentOS7_VGName/lvname				<span class="comment"># [2]格式化lv为ext4</span></span><br><span class="line">blkid /dev/CentOS7_VGName/lvname |awk -F \&quot; <span class="string">&#x27;&#123;print $2&#125;&#x27;</span>	<span class="comment"># 获取uuid</span></span><br><span class="line"><span class="comment"># 写入fstab</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;UUID=e0c284c9-9b15-4623-a434-65a162d158f1 /data                    xfs    defaults        0 0&quot;</span> &gt;&gt; /etc/fstab</span><br><span class="line">[ ! -d /data ] &amp;&amp; &#123; <span class="built_in">mkdir</span> /data;&#125; &amp;&amp; mount -a			<span class="comment"># 挂载到&quot;/data&quot;目录</span></span><br></pre></td></tr></table></figure>
+<p><img src="/images/pasted-1.png" alt="upload successful"></p>
+<p><img src="/images/pasted-2.png" alt="upload successful"></p>
+<h4 id="3-0-新增独立磁盘-扩展VG、LV"><a href="#3-0-新增独立磁盘-扩展VG、LV" class="headerlink" title="3.0 新增独立磁盘,扩展VG、LV"></a>3.0 新增独立磁盘,扩展VG、LV</h4><figure class="highlight bash"><figcaption><span>扩展vg</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">lsblk							<span class="comment"># 查看新增磁盘盘符信息</span></span><br><span class="line">pvcreate /dev/sdd					<span class="comment"># 创建pv</span></span><br><span class="line">vgs							<span class="comment"># 查看vg未扩展前信息</span></span><br><span class="line">vgextend CentOS7_VGName /dev/sdd			<span class="comment"># 新增pv到vg中</span></span><br><span class="line">vgs							<span class="comment"># 查看vg新增后信息</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><figcaption><span>扩展lv</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">lvs							<span class="comment"># 查看lv未扩展前信息</span></span><br><span class="line">vgdisplay CentOS7_VGName|awk <span class="string">&#x27;/Total PE/&#123;print $3&#125;&#x27;</span>	<span class="comment"># 获取PE总数量</span></span><br><span class="line">lvextend -l 51197 /dev/CentOS7_VGName/lvname		<span class="comment"># 扩展lv</span></span><br><span class="line">lvs							<span class="comment"># 查看lv扩展后信息</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><figcaption><span>扩展文件系统</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">xfs_growfs /dev/CentOS7_VGName/lvname			<span class="comment"># [1]xfs格式扩展文件系统方式</span></span><br><span class="line">resize2fs /dev/CentOS7_VGName/lvname			<span class="comment"># [2]ext4格式扩展文件系统方式</span></span><br><span class="line">e2fsck -f /dev/CentOS7_VGName/lvname			<span class="comment"># 检测磁盘</span></span><br></pre></td></tr></table></figure>
+<p><img src="/images/pasted-3.png" alt="upload successful"></p>
+<h4 id="4-0-原有磁盘上-扩展PV、LV"><a href="#4-0-原有磁盘上-扩展PV、LV" class="headerlink" title="4.0 原有磁盘上,扩展PV、LV"></a>4.0 原有磁盘上,扩展PV、LV</h4><figure class="highlight bash"><figcaption><span>vm原有磁盘上追加磁盘空间后,需重启vm才能查看到追加的空间</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># /dev/sdb 原有基础上增加50G</span></span><br><span class="line">pvresize /dev/sdb					<span class="comment"># 将增加的50G空间更新到pv</span></span><br><span class="line">vgdisplay CentOS7_VGName|awk <span class="string">&#x27;/Total PE/&#123;print $3&#125;&#x27;</span>	<span class="comment"># sdb已经在vg组中无需vgextend</span></span><br><span class="line">lvextend -l 63997 /dev/CentOS7_VGName/lvname		<span class="comment"># 扩展lv</span></span><br><span class="line">xfs_growfs /dev/CentOS7_VGName/lvname			<span class="comment"># 更新文件系统</span></span><br></pre></td></tr></table></figure>
+<p><img src="/images/pasted-51.png" alt="upload successful"></p>
+<h4 id="5-0-缩减LV"><a href="#5-0-缩减LV" class="headerlink" title="5.0 缩减LV"></a>5.0 缩减LV</h4><figure class="highlight bash"><figcaption><span>缩减lv</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># xfs格式不支持缩减</span></span><br><span class="line"><span class="comment"># 以下为ext4缩减</span></span><br><span class="line">e2fsck -f /dev/CentOS7_VGName/lvname			<span class="comment"># 缩减前,强烈建议检测一次,检查是否有磁盘错误</span></span><br><span class="line">umount /data						<span class="comment"># 缩减需要卸载挂载</span></span><br><span class="line">resize2fs /dev/CentOS7_VGName/lvname +51G		<span class="comment"># 缩减逻辑边界;缩减51G</span></span><br><span class="line">e2fsck -f /dev/CentOS7_VGName/lvname			<span class="comment"># 强制检测</span></span><br><span class="line">lvreduce -L -51G /dev/CentOS7_VGName/lvname		<span class="comment"># lv减小51G</span></span><br><span class="line">e2fsck -f /dev/CentOS7_VGName/lvname			<span class="comment"># 检测磁盘</span></span><br><span class="line">lvs							<span class="comment"># 查看lv大小</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="6-0-缩减VG"><a href="#6-0-缩减VG" class="headerlink" title="6.0 缩减VG"></a>6.0 缩减VG</h4><figure class="highlight bash"><figcaption><span>vg缩减</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vgs							<span class="comment"># 查看vg缩减前信息</span></span><br><span class="line">pvmove /dev/sdb /dev/sdd				<span class="comment"># 将sdb盘数据迁移到sdd盘</span></span><br><span class="line">vgreduce CentOS7_VGName /dev/sdb			<span class="comment"># 将sdb移除vg</span></span><br><span class="line">vgs							<span class="comment"># 查看vg缩减后信息</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="7-0-删除"><a href="#7-0-删除" class="headerlink" title="7.0 删除"></a>7.0 删除</h4><figure class="highlight bash"><figcaption><span>lv/vg/pv 删除</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># lv 磁盘上无数据情况下,可直接删除</span></span><br><span class="line">lvremove /dev/CentOS7_VGName/lvname</span><br><span class="line">vgremove CentOS7_VGName</span><br><span class="line">pvremove /dev/sd&#123;b,c,d&#125;</span><br></pre></td></tr></table></figure>
+
+    
+
+    
+    <div class="page-reward">
+      <a href="javascript:void(0);" class="page-reward-btn tooltip-top" target="_self">
+        <div class="tooltip tooltip-east">
+          <span class="tooltip-item">
+            +V
+          </span>
+          <span class="tooltip-content">
+            <span class="tooltip-text">
+              <span class="tooltip-inner">
+                <p class="reward-p"><i class="icon icon-quo-left"></i>扫码添加博主微信,邀请你加入运维技术交流群<i
+                    class="icon icon-quo-right"></i></p>
+                <div class="reward-box">
+                  
+                  
+                  <div class="reward-box-item">
+                    <img class="reward-img" src="/img/wechat.jpg">
+                    <span class="reward-type">微信</span>
+                  </div>
+                  
+                </div>
+              </span>
+            </span>
+          </span>
+        </div>
+      </a>
+    </div>
+    
+
+    
+    <div class="declare"> 
+      <ul class="post-copyright">
+        <li>
+          <strong>本文作者：</strong>
+          weixj@inadm.com
+        </li>
+        <li>
+          <strong>本文链接：</strong>
+          <a href="https://www.ink8s.com/2023/01/05/lvm-磁盘管理工具/" title="lvm 磁盘管理工具" target="_blank">https://www.ink8s.com/2023/01/05/lvm-磁盘管理工具/</a>
+        </li>
+        
+        <li>
+          <strong>版权声明： </strong>
           
+          本博客所有文章除特别声明外，均采用 <a href="https://github.com/JoeyBling/hexo-theme-yilia-plus/blob/master/LICENSE" rel="external nofollow" target="_blank">MIT</a> 许可协议。转载请注明出处！
+        </li>
+        
+      </ul>
+    </div>
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux-base</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Server-tool</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+    
 
+    
+
+    
+    
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <!-- <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a> -->
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=https://www.ink8s.com/2023/01/05/lvm-%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/" alt="微信分享二维码"> -->
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+
+    
+    <div class="clearfix"></div>
+  </div>
   </div>
 </article>
+
+
+<nav id="article-nav">
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/01/05/linux-%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4/" class="archive-article-date">
-        <time datetime="2023-01-05T05:55:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-01-05</time>
-</a>
+    <a href="/2023/01/05/ipmitool-%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          ipmitool 服务器管理工具
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/01/05/ansible%E3%80%81Ansible-playbook%E3%80%81Ansible-playbook-roles-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4%E5%B7%A5%E5%85%B7/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">ansible、Ansible-playbook、Ansible-playbook roles 自动化运维工具</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
 
 
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/01/05/linux-%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4/">linux 系统命令</a>
-	
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux-base</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-0-%E5%91%BD%E4%BB%A4%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.</span> <span class="toc-text">1.0 命令介绍</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-0-%E5%88%9B%E5%BB%BA-PV%E2%80%94-gt-VG%E2%80%94-gt-LV-%E5%B9%B6%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%90%8E%E6%8C%82%E8%BD%BD%E4%B8%BA%E6%95%B0%E6%8D%AE%E7%9B%98"><span class="toc-number">2.</span> <span class="toc-text">2.0 创建 PV—&gt;VG—&gt;LV 并格式化后挂载为数据盘</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-0-%E6%96%B0%E5%A2%9E%E7%8B%AC%E7%AB%8B%E7%A3%81%E7%9B%98-%E6%89%A9%E5%B1%95VG%E3%80%81LV"><span class="toc-number">3.</span> <span class="toc-text">3.0 新增独立磁盘,扩展VG、LV</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-0-%E5%8E%9F%E6%9C%89%E7%A3%81%E7%9B%98%E4%B8%8A-%E6%89%A9%E5%B1%95PV%E3%80%81LV"><span class="toc-number">4.</span> <span class="toc-text">4.0 原有磁盘上,扩展PV、LV</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-0-%E7%BC%A9%E5%87%8FLV"><span class="toc-number">5.</span> <span class="toc-text">5.0 缩减LV</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-0-%E7%BC%A9%E5%87%8FVG"><span class="toc-number">6.</span> <span class="toc-text">6.0 缩减VG</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-0-%E5%88%A0%E9%99%A4"><span class="toc-number">7.</span> <span class="toc-text">7.0 删除</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+  <div id="giteement-ctn"></div>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/01/04/vim-%E5%BF%AB%E6%8D%B7%E9%94%AE%E4%BD%BF%E7%94%A8/" class="archive-article-date">
-        <time datetime="2023-01-04T08:58:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-01-04</time>
-</a>
-
-
-        </div>
-    	 
+    <link rel="stylesheet" href="/lib/default.css">
+    <script src="/lib/giteement.browser.js"></script>
   
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/01/04/vim-%E5%BF%AB%E6%8D%B7%E9%94%AE%E4%BD%BF%E7%94%A8/">vim 快捷键使用</a>
-	
-    </h1>
-  
+  <script>
+  <!-- id: "lvm 磁盘管理工具" -->
+  var giteement = new Giteement({
+    id: '20230105221851',
+    owner: 'weixj90',
+    repo: 'ink8s-msg',
+    backcall_uri: 'https://www.ink8s.com',
+    oauth_uri: 'https://cors-anywhere.herokuapp.com/https://gitee.com/oauth/token',
+    oauth: {
+      client_id: '50776f958ea15d74ac6d512eeadb5d45fce926378764764cb8d6998f95617e18',
+      client_secret: '5b53bcab62e8a4c917eab413aa2dc40ec6b2b69344411c51bf11285bbe734d8c'
+    },
+  })
+  giteement.render('giteement-ctn')
+  </script>
 
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux-base</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
 
-    
+
 
 
           </div>
@@ -394,9 +589,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,

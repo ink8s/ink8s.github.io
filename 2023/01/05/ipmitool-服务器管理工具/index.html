@@ -6,19 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://www.ink8s.com">
-  <title>Tag: Linux-base | INK8S</title>
+  <title>ipmitool 服务器管理工具 | INK8S</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="in 运维">
-<meta property="og:type" content="website">
-<meta property="og:title" content="INK8S">
-<meta property="og:url" content="https://www.ink8s.com/tags/Linux-base/index.html">
+  <meta name="description" content="IPMITool可远程管理物理服务器 独立于系统、BIOS,是需要通电就可以远程开机关机、获取服务器硬件状态信息">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ipmitool 服务器管理工具">
+<meta property="og:url" content="https://www.ink8s.com/2023/01/05/ipmitool-%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/index.html">
 <meta property="og:site_name" content="INK8S">
-<meta property="og:description" content="in 运维">
+<meta property="og:description" content="IPMITool可远程管理物理服务器 独立于系统、BIOS,是需要通电就可以远程开机关机、获取服务器硬件状态信息">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://www.ink8s.com/images/pasted-47.png">
+<meta property="article:published_time" content="2023-01-05T14:54:15.000Z">
+<meta property="article:modified_time" content="2023-01-05T14:56:57.787Z">
 <meta property="article:author" content="weixj@inadm.com">
+<meta property="article:tag" content="Server-tool">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.ink8s.com/images/pasted-47.png">
   
     <link rel="alternative" href="/atom.xml" title="INK8S" type="application/atom+xml">
   
@@ -206,154 +211,271 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-ipmitool-服务器管理工具" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
   
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2023" class="archive-year">2023</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/01/05/iptables-%E9%98%B2%E7%81%AB%E5%A2%99/" class="archive-article-date">
-        <time datetime="2023-01-05T09:18:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-01-05</time>
-</a>
-
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/01/05/iptables-%E9%98%B2%E7%81%AB%E5%A2%99/">iptables 防火墙</a>
-	
+    <h1 class="article-title" itemprop="name">
+      ipmitool 服务器管理工具
     </h1>
   
 
 
-        <div class="article-info info-on-right">
+  
+  
+        
+
+
+<a href="/2023/01/05/ipmitool-%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/" class="archive-article-date">
+        <time datetime="2023-01-05T14:54:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-01-05</time>
+</a>
+
+
+  
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <ul>
+<li><strong>IPMITool可远程管理物理服务器</strong><ul>
+<li>独立于系统、BIOS,是需要通电就可以远程开机关机、获取服务器硬件状态信息</li>
+</ul>
+</li>
+</ul>
+<span id="more"></span>
+
+<h4 id="1-0-IPMITool-所需模块"><a href="#1-0-IPMITool-所需模块" class="headerlink" title="1.0 IPMITool 所需模块"></a>1.0 <strong>IPMITool 所需模块</strong></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># lsmod | grep ipmi                # 查询加载了哪些模块</span></span><br><span class="line"><span class="comment"># modprobe ipmi_msghandler         # 加载相关模块</span></span><br><span class="line"><span class="comment"># modprobe ipmi_devintf</span></span><br><span class="line"><span class="comment"># modprobe ipmi_si</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="2-0-IPMITool-命令用法"><a href="#2-0-IPMITool-命令用法" class="headerlink" title="2.0 IPMITool 命令用法"></a>2.0 <strong>IPMITool 命令用法</strong></h4><figure class="highlight bash"><figcaption><span>远程命令管理</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ipmitool -H Bmc_IP -U Bmc_UserName -a -I lanplus</span></span><br><span class="line">    -H                        	<span class="comment"># 指定管理网口IP地址</span></span><br><span class="line">    -U                        	<span class="comment"># 指定管理网口用户名</span></span><br><span class="line">    -a                        	<span class="comment"># 在提示符下输入密码</span></span><br><span class="line">    -I                        	<span class="comment"># 指定接口类型</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><figcaption><span>Linux本地物理机命令管理</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ipmitool -H BMC_IP -U root -a -I lanplus </span></span><br><span class="line">    fru                      	<span class="comment"># 判断品牌等</span></span><br><span class="line">    delloem mac              	<span class="comment"># 获取Dell Mac 地址信息，仅适用于Dell</span></span><br><span class="line">    shell                    	<span class="comment"># shell 交互方式</span></span><br><span class="line">    mc reset cold            	<span class="comment"># 强制重启ibmc</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="3-0-管理网口维护、账户维护"><a href="#3-0-管理网口维护、账户维护" class="headerlink" title="3.0 管理网口维护、账户维护"></a>3.0 管理网口维护、账户维护</h4><figure class="highlight bash"><figcaption><span>管理网口IP修改操作</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// 管理网口IP修改仅适用于物理机系统上本地命令执行,不适用于远端命令维护</span><br><span class="line"><span class="comment"># ipmitool lan print                                   # 本地查看Bmc_IP</span></span><br><span class="line"><span class="comment"># ipmitool lan set 1 ipaddr 192.168.x.x                # 本地修改Bmc_IP</span></span><br><span class="line"><span class="comment"># ipmitool lan set 1 netmask 255.255.255.0             # 本地修改Bmc MASK</span></span><br><span class="line"><span class="comment"># ipmitool lan set 1 defgw ipaddr 192.168.x.254        # 本地修改网关</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><figcaption><span>管理用户维护</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// ipmitool 创建用户分配权限适用于华为、浪潮服务器</span><br><span class="line">// 适用于CentOS6/7 操作系统本地命令操作</span><br><span class="line"><span class="comment"># ipmitool user list 1                                 # 本地命令查看通道1的用户信息</span></span><br><span class="line"><span class="comment"># ipmitool user set name 10 User01                     # 创建Bmc管理用户User01</span></span><br><span class="line"><span class="comment"># ipmitool user set password 2 &#x27;Pass&#x27;                  # 本地命令修改BMC root 的密码</span></span><br><span class="line"><span class="comment"># ipmitool user set password 10 &#x27;Pass&#x27;                 # 本地命令修改新创建的BMC用户的密码</span></span><br><span class="line"><span class="comment"># ipmitool user priv 10 4 1                            # 本地配置Bmc权限ID_10，权限4[2为User权限、3为Operator权限、4为Administrator权限]，通道1 </span></span><br><span class="line"><span class="comment"># ipmitool user enable 10                              # 本地启用用户；disable为禁用</span></span><br></pre></td></tr></table></figure>
+<p><img src="/images/pasted-47.png" alt="upload successful"></p>
+<h4 id="4-0-远程命令管理"><a href="#4-0-远程命令管理" class="headerlink" title="4.0 远程命令管理"></a>4.0 远程命令管理</h4><figure class="highlight bash"><figcaption><span>远程开关机命令</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ipmitool -H Bmc_IP -U BMC_UserName -a -I lanplus power status</span></span><br><span class="line">    power status                 <span class="comment"># 远程查看电源状态</span></span><br><span class="line">    power reset                  <span class="comment"># 远程硬重启服务器</span></span><br><span class="line">    power on                     <span class="comment"># 远程硬开机</span></span><br><span class="line">    power off                    <span class="comment"># 远程硬关机</span></span><br><span class="line"></span><br><span class="line">// 物理机操作系统本地操作方式</span><br><span class="line"><span class="comment"># ipmitool -I open power status</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><figcaption><span>BIOS 远程设置启动项</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ipmitool -H ip -U User -P Pass chassis bootdev &lt;device&gt;</span></span><br><span class="line">    none			 <span class="comment"># 不更改启动设备顺序</span></span><br><span class="line">    pxe				 <span class="comment"># 强制PXE引导仅一次</span></span><br><span class="line">    disk			 <span class="comment"># 从默认硬盘强制启动</span></span><br><span class="line">    cdrom			 <span class="comment"># 从CD / DVD强制启动</span></span><br><span class="line">    bios			 <span class="comment"># 强制启动进入BIOS设置程序</span></span><br><span class="line"></span><br><span class="line">// 物理机操作系统本地操作方式</span><br><span class="line"><span class="comment"># ipmitool chassis bootdev pxe	 			# 强制PXE引导仅一次</span></span><br><span class="line"><span class="comment"># ipmitool chassis bootdev pxe options=persistent	# 永久PXE引导</span></span><br></pre></td></tr></table></figure>
+
+
+    
+
+    
+    <div class="page-reward">
+      <a href="javascript:void(0);" class="page-reward-btn tooltip-top" target="_self">
+        <div class="tooltip tooltip-east">
+          <span class="tooltip-item">
+            +V
+          </span>
+          <span class="tooltip-content">
+            <span class="tooltip-text">
+              <span class="tooltip-inner">
+                <p class="reward-p"><i class="icon icon-quo-left"></i>扫码添加博主微信,邀请你加入运维技术交流群<i
+                    class="icon icon-quo-right"></i></p>
+                <div class="reward-box">
+                  
+                  
+                  <div class="reward-box-item">
+                    <img class="reward-img" src="/img/wechat.jpg">
+                    <span class="reward-type">微信</span>
+                  </div>
+                  
+                </div>
+              </span>
+            </span>
+          </span>
+        </div>
+      </a>
+    </div>
+    
+
+    
+    <div class="declare"> 
+      <ul class="post-copyright">
+        <li>
+          <strong>本文作者：</strong>
+          weixj@inadm.com
+        </li>
+        <li>
+          <strong>本文链接：</strong>
+          <a href="https://www.ink8s.com/2023/01/05/ipmitool-服务器管理工具/" title="ipmitool 服务器管理工具" target="_blank">https://www.ink8s.com/2023/01/05/ipmitool-服务器管理工具/</a>
+        </li>
+        
+        <li>
+          <strong>版权声明： </strong>
           
+          本博客所有文章除特别声明外，均采用 <a href="https://github.com/JoeyBling/hexo-theme-yilia-plus/blob/master/LICENSE" rel="external nofollow" target="_blank">MIT</a> 许可协议。转载请注明出处！
+        </li>
+        
+      </ul>
+    </div>
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux-base</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Server-tool</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+    
 
+    
+
+    
+    
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <!-- <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a> -->
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=https://www.ink8s.com/2023/01/05/ipmitool-%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/" alt="微信分享二维码"> -->
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+
+    
+    <div class="clearfix"></div>
+  </div>
   </div>
 </article>
+
+
+<nav id="article-nav">
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/01/05/linux-%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4/" class="archive-article-date">
-        <time datetime="2023-01-05T05:55:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-01-05</time>
-</a>
+    <a href="/2023/01/05/windows-2012%E5%A4%9A%E7%94%A8%E6%88%B7%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          windows 2012多用户远程登录
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/01/05/lvm-%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">lvm 磁盘管理工具</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
 
 
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/01/05/linux-%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4/">linux 系统命令</a>
-	
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux-base</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-0-IPMITool-%E6%89%80%E9%9C%80%E6%A8%A1%E5%9D%97"><span class="toc-number">1.</span> <span class="toc-text">1.0 IPMITool 所需模块</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-0-IPMITool-%E5%91%BD%E4%BB%A4%E7%94%A8%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text">2.0 IPMITool 命令用法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-0-%E7%AE%A1%E7%90%86%E7%BD%91%E5%8F%A3%E7%BB%B4%E6%8A%A4%E3%80%81%E8%B4%A6%E6%88%B7%E7%BB%B4%E6%8A%A4"><span class="toc-number">3.</span> <span class="toc-text">3.0 管理网口维护、账户维护</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-0-%E8%BF%9C%E7%A8%8B%E5%91%BD%E4%BB%A4%E7%AE%A1%E7%90%86"><span class="toc-number">4.</span> <span class="toc-text">4.0 远程命令管理</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+  <div id="giteement-ctn"></div>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/01/04/vim-%E5%BF%AB%E6%8D%B7%E9%94%AE%E4%BD%BF%E7%94%A8/" class="archive-article-date">
-        <time datetime="2023-01-04T08:58:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-01-04</time>
-</a>
-
-
-        </div>
-    	 
+    <link rel="stylesheet" href="/lib/default.css">
+    <script src="/lib/giteement.browser.js"></script>
   
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/01/04/vim-%E5%BF%AB%E6%8D%B7%E9%94%AE%E4%BD%BF%E7%94%A8/">vim 快捷键使用</a>
-	
-    </h1>
-  
+  <script>
+  <!-- id: "ipmitool 服务器管理工具" -->
+  var giteement = new Giteement({
+    id: '20230105225415',
+    owner: 'weixj90',
+    repo: 'ink8s-msg',
+    backcall_uri: 'https://www.ink8s.com',
+    oauth_uri: 'https://cors-anywhere.herokuapp.com/https://gitee.com/oauth/token',
+    oauth: {
+      client_id: '50776f958ea15d74ac6d512eeadb5d45fce926378764764cb8d6998f95617e18',
+      client_secret: '5b53bcab62e8a4c917eab413aa2dc40ec6b2b69344411c51bf11285bbe734d8c'
+    },
+  })
+  giteement.render('giteement-ctn')
+  </script>
 
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux-base</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
 
-    
+
 
 
           </div>
@@ -394,9 +516,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,

@@ -18,7 +18,7 @@
 <meta property="og:description" content="vim 共有3种模式 一般模式: 进入到文本文件界面,此时为不可编辑状态 末行模式: 用于搜索查询、批量修改、退出等 插入模式: 进入到文本文件可编辑状态">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2023-01-04T08:58:10.000Z">
-<meta property="article:modified_time" content="2023-01-04T10:58:02.827Z">
+<meta property="article:modified_time" content="2023-01-05T09:19:15.338Z">
 <meta property="article:author" content="weixj@inadm.com">
 <meta property="article:tag" content="Linux-base">
 <meta name="twitter:card" content="summary">
@@ -89,7 +89,13 @@
 			
 				<li><a href="/" >主页</a></li>
 			
-				<li><a href="/tags/Linux-base" >Linux_基础</a></li>
+				<li><a href="/tags/Linux-base" >Linux_系统类</a></li>
+			
+				<li><a href="/tags/Server-tool" >Linux_工具类</a></li>
+			
+				<li><a href="/tags/Linux-svc" >Linux_服务部署</a></li>
+			
+				<li><a href="/tags/Windows-svc" >Windows_服务配置</a></li>
 			
 			</ul>
 		</nav>
@@ -153,6 +159,12 @@
 			
 				
 			
+				
+			
+				
+			
+				
+			
 			
 			
 			<nav class="header-nav">
@@ -170,12 +182,18 @@
 			</nav>
 
 			<nav class="header-menu js-header-menu">
-				<ul style="width: 50%">
+				<ul style="width: 70%">
 				
 				
-					<li style="width: 50%"><a href="/">主页</a></li>
+					<li style="width: 20%"><a href="/">主页</a></li>
 		        
-					<li style="width: 50%"><a href="/tags/Linux-base">Linux_基础</a></li>
+					<li style="width: 20%"><a href="/tags/Linux-base">Linux_系统类</a></li>
+		        
+					<li style="width: 20%"><a href="/tags/Server-tool">Linux_工具类</a></li>
+		        
+					<li style="width: 20%"><a href="/tags/Linux-svc">Linux_服务部署</a></li>
+		        
+					<li style="width: 20%"><a href="/tags/Windows-svc">Windows_服务配置</a></li>
 		        
 				</ul>
 			</nav>
@@ -241,7 +259,7 @@
 <h4 id="4-0-插入模式"><a href="#4-0-插入模式" class="headerlink" title="4.0 插入模式"></a><strong>4.0 插入模式</strong></h4><figure class="highlight bash"><figcaption><span>插入模式</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// <span class="string">&quot;插入模式&quot;</span> 也称为 <span class="string">&quot;编辑模式&quot;</span></span><br><span class="line">// 如何进入(插入模式): 有 4 种方式可进入插入模式</span><br><span class="line">    1. 在<span class="string">&quot;一般模式&quot;</span>下,按小写 <span class="string">&quot;o&quot;</span> 键,进入光标所在行的下一行,进入编辑模式</span><br><span class="line">    2. 在<span class="string">&quot;一般模式&quot;</span>下,按大写 <span class="string">&quot;O&quot;</span> 键,进入光标所在行的上一行,进入编辑模式</span><br><span class="line">    3. 在<span class="string">&quot;一般模式&quot;</span>下,按小写 <span class="string">&quot;i&quot;</span> 键,光标所在位置进入编辑模式</span><br><span class="line">    4. 在<span class="string">&quot;一般模式&quot;</span>下,按小写 <span class="string">&quot;a&quot;</span> 键,光标所在位置的右侧下一个光标位置进入编辑模式</span><br></pre></td></tr></table></figure>
 
 <h4 id="5-0-vim-其它快捷使用方法"><a href="#5-0-vim-其它快捷使用方法" class="headerlink" title="5.0 vim 其它快捷使用方法"></a><strong>5.0 vim 其它快捷使用方法</strong></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># vim [options] file1 file2 ...     # 一次打开多个文件</span></span><br><span class="line">    :next                         <span class="comment"># 跳转到下一个文件</span></span><br><span class="line">    :first                        <span class="comment"># 回到第一个文件</span></span><br><span class="line">    :last                         <span class="comment"># 调到最后一个</span></span><br><span class="line">    :prev                         <span class="comment"># 返回到前一个</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># vim [options] file1 file2 ...   </span></span><br><span class="line">    -o                            <span class="comment"># 一次将多个文件打开横向显示</span></span><br><span class="line">    -O                            <span class="comment"># 一次性将多个文件竖立显示</span></span><br><span class="line">    <span class="comment"># Control + w 松开 然后按上下左右跳转至下一界面</span></span><br></pre></td></tr></table></figure>
-<h6 id=""><a href="#" class="headerlink" title=""></a></h6>
+
     
 
     
@@ -254,7 +272,7 @@
           <span class="tooltip-content">
             <span class="tooltip-text">
               <span class="tooltip-inner">
-                <p class="reward-p"><i class="icon icon-quo-left"></i>扫码+V,博主邀请你加入运维技术交流群<i
+                <p class="reward-p"><i class="icon icon-quo-left"></i>扫码添加博主微信,邀请你加入运维技术交流群<i
                     class="icon icon-quo-right"></i></p>
                 <div class="reward-box">
                   
@@ -408,7 +426,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-0-%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85"><span class="toc-number">1.</span> <span class="toc-text">1.0 软件安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-0-%E4%B8%80%E8%88%AC%E6%A8%A1%E5%BC%8F"><span class="toc-number">2.</span> <span class="toc-text">2.0 一般模式</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-1-%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%BF%AB%E9%80%9F%E8%BF%9B%E5%85%A5%E4%B8%80%E8%88%AC%E6%A8%A1%E5%BC%8F"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 命令行快速进入一般模式</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-0-%E6%9C%AB%E8%A1%8C%E6%A8%A1%E5%BC%8F"><span class="toc-number">3.</span> <span class="toc-text">3.0 末行模式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-0-%E6%8F%92%E5%85%A5%E6%A8%A1%E5%BC%8F"><span class="toc-number">4.</span> <span class="toc-text">4.0 插入模式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-0-vim-%E5%85%B6%E5%AE%83%E5%BF%AB%E6%8D%B7%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95"><span class="toc-number">5.</span> <span class="toc-text">5.0 vim 其它快捷使用方法</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link"><span class="toc-number">5.0.1.</span> <span class="toc-text"></span></a></li></ol></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-0-%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85"><span class="toc-number">1.</span> <span class="toc-text">1.0 软件安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-0-%E4%B8%80%E8%88%AC%E6%A8%A1%E5%BC%8F"><span class="toc-number">2.</span> <span class="toc-text">2.0 一般模式</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-1-%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%BF%AB%E9%80%9F%E8%BF%9B%E5%85%A5%E4%B8%80%E8%88%AC%E6%A8%A1%E5%BC%8F"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 命令行快速进入一般模式</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-0-%E6%9C%AB%E8%A1%8C%E6%A8%A1%E5%BC%8F"><span class="toc-number">3.</span> <span class="toc-text">3.0 末行模式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-0-%E6%8F%92%E5%85%A5%E6%A8%A1%E5%BC%8F"><span class="toc-number">4.</span> <span class="toc-text">4.0 插入模式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-0-vim-%E5%85%B6%E5%AE%83%E5%BF%AB%E6%8D%B7%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95"><span class="toc-number">5.</span> <span class="toc-text">5.0 vim 其它快捷使用方法</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -555,7 +573,19 @@
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Server-tool</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Linux-base</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Linux-svc</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Windows-svc</a>
               </li>
             
             <div class="clearfix"></div>

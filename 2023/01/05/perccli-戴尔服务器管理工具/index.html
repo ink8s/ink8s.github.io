@@ -6,18 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://www.ink8s.com">
-  <title>Tag: Linux-base | INK8S</title>
+  <title>perccli 戴尔服务器管理工具 | INK8S</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="in 运维">
-<meta property="og:type" content="website">
-<meta property="og:title" content="INK8S">
-<meta property="og:url" content="https://www.ink8s.com/tags/Linux-base/index.html">
+  <meta name="description" content="戴尔服务器管理工具 perccli 戴尔RAID管理工具 iDRAC 戴尔管理平台工具">
+<meta property="og:type" content="article">
+<meta property="og:title" content="perccli 戴尔服务器管理工具">
+<meta property="og:url" content="https://www.ink8s.com/2023/01/05/perccli-%E6%88%B4%E5%B0%94%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/index.html">
 <meta property="og:site_name" content="INK8S">
-<meta property="og:description" content="in 运维">
+<meta property="og:description" content="戴尔服务器管理工具 perccli 戴尔RAID管理工具 iDRAC 戴尔管理平台工具">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-01-05T12:57:50.000Z">
+<meta property="article:modified_time" content="2023-01-05T13:18:29.012Z">
 <meta property="article:author" content="weixj@inadm.com">
+<meta property="article:tag" content="Server-tool">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="INK8S" type="application/atom+xml">
@@ -206,154 +209,292 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-perccli-戴尔服务器管理工具" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
   
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2023" class="archive-year">2023</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/01/05/iptables-%E9%98%B2%E7%81%AB%E5%A2%99/" class="archive-article-date">
-        <time datetime="2023-01-05T09:18:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-01-05</time>
-</a>
-
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/01/05/iptables-%E9%98%B2%E7%81%AB%E5%A2%99/">iptables 防火墙</a>
-	
+    <h1 class="article-title" itemprop="name">
+      perccli 戴尔服务器管理工具
     </h1>
   
 
 
-        <div class="article-info info-on-right">
+  
+  
+        
+
+
+<a href="/2023/01/05/perccli-%E6%88%B4%E5%B0%94%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/" class="archive-article-date">
+        <time datetime="2023-01-05T12:57:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-01-05</time>
+</a>
+
+
+  
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <ul>
+<li><strong>戴尔服务器管理工具</strong><ul>
+<li>perccli 戴尔RAID管理工具</li>
+<li>iDRAC 戴尔管理平台工具</li>
+</ul>
+</li>
+</ul>
+<span id="more"></span>
+
+<h4 id="1-0-perccli-工具获取和安装"><a href="#1-0-perccli-工具获取和安装" class="headerlink" title="1.0 perccli 工具获取和安装"></a>1.0 <strong>perccli 工具获取和安装</strong></h4><figure class="highlight bash"><figcaption><span>获取安装包</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 戴尔官网使用SN查询选项驱动程序下载</span></span><br><span class="line">    关键字：PERCCLI            操作系统：Red Hat E... Linux7</span><br><span class="line">    类别：SAS RAID             格式：全部</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><figcaption><span>安装</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh &lt;percli-x.xx-x.noarch.rpm&gt; 或 rpm -iUh &lt;percli-x.xx-x.noarch.rpm&gt; </span><br><span class="line">/opt/MegaRAID/perccli</span><br><span class="line"><span class="built_in">ln</span> -s /opt/MegaRAID/perccli/perccli64 /bin/perccli</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="1-1-RAID-配置"><a href="#1-1-RAID-配置" class="headerlink" title="1.1 RAID 配置"></a>1.1 <strong>RAID 配置</strong></h5><figure class="highlight bash"><figcaption><span>Raid 0 配置</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">perccli /c0/eall/sall show                               <span class="comment"># 查看在线模式硬盘</span></span><br><span class="line">perccli /c0 add vd r0 drives=32:5 wb ra                  <span class="comment"># 配置32:5此单块盘为raid0，读写模式wb ra</span></span><br><span class="line">perccli /c0/eall/sall show                               <span class="comment"># 查看在线模式硬盘</span></span><br><span class="line">perccli /c0/v2 delete                                    <span class="comment"># 删除raid v2，raid0配置</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><figcaption><span>Raid 1 配置</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">perccli /c0 add vd r1 drives=32:5,6 wb ra                <span class="comment"># 创建raid1</span></span><br><span class="line">perccli /c0/vall show                                    <span class="comment"># 查看raid配置信息</span></span><br><span class="line">perccli /c0/v2 delete                                    <span class="comment"># 删除raid v2，raid1配置</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建RAID-1分2个分区</span></span><br><span class="line"><span class="comment"># perccli /c0 add vd r1 [size=&lt;VD1_sz&gt;,&lt;VD2_sz&gt;,..|all] drives=e:s|e:s-x|e:s-x,y,e:s-x,y,z wb ra</span></span><br><span class="line">perccli /c0 add vd r1 size=200G drives=32:0,1 wb ra      <span class="comment"># 创建raid1第一个分区200G</span></span><br><span class="line">perccli /c0 add vd r1 Size=all drives=32:0-1 wb ra       <span class="comment"># raid1剩余空间全部划分单独分区</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><figcaption><span>Raid 5 配置</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">perccli /c0 add vd r5 drives=32:5-7 wb ra                <span class="comment"># 创建raid5 &lt;需最少3块盘&gt;</span></span><br><span class="line">perccli /c0/vall show                                    <span class="comment"># 查看raid配置信息</span></span><br><span class="line">perccli /c0/v2 delete                                    <span class="comment"># 删除raid v2，raid5配置</span></span><br></pre></td></tr></table></figure>
+
+
+<h5 id="1-2-JBOD-直通模式配置"><a href="#1-2-JBOD-直通模式配置" class="headerlink" title="1.2 JBOD 直通模式配置"></a>1.2 <strong>JBOD 直通模式配置</strong></h5><figure class="highlight bash"><figcaption><span>JBOD模式配置</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">perccli /c0 show jbod                                    <span class="comment"># 查看直通模式是否开启</span></span><br><span class="line">perccli /c0 <span class="built_in">set</span> jbod=on                                  <span class="comment"># 开启直通模式</span></span><br><span class="line">perccli /c0/eall/sall show                               <span class="comment"># 查看有哪些磁盘为在线模式</span></span><br><span class="line">perccli /c0/e32/s5 <span class="built_in">set</span> jbod                              <span class="comment"># 配置为此块磁盘为直通模式</span></span><br><span class="line">perccli /c0/e32/s10 <span class="built_in">set</span> good force                       <span class="comment"># 强制设置为在线模式</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="1-3-其它命令"><a href="#1-3-其它命令" class="headerlink" title="1.3 其它命令"></a>1.3 <strong>其它命令</strong></h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">perccli show ctrlcount                                   <span class="comment"># 查看控制器数量</span></span><br><span class="line">perccli /c0/eall/sall show                               <span class="comment"># 查看物理硬盘信息</span></span><br><span class="line">perccli /c0/vall show                                    <span class="comment"># 查信RAID配置信息</span></span><br><span class="line">perccli /c0/fall show all                                <span class="comment"># 查看脱机硬盘信息</span></span><br><span class="line">perccli /c0 show jbod                                    <span class="comment"># 查看直通模式状态和是否启用&lt;ON为启用，OFF未关闭&gt;</span></span><br><span class="line">perccli /c0 <span class="built_in">set</span> jbod=off force                           <span class="comment"># 强制配置为关闭直通模式</span></span><br><span class="line">perccli /c0 show bios                                    <span class="comment"># 查看BIOS启动模式</span></span><br><span class="line">perccli /c0 show preservedcache                          <span class="comment"># 查看硬盘是否有缓存信息</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="2-0-iDRAC-戴尔管理平台工具"><a href="#2-0-iDRAC-戴尔管理平台工具" class="headerlink" title="2.0 iDRAC 戴尔管理平台工具"></a>2.0 <strong><font size=4>iDRAC 戴尔管理平台工具</font></strong></h4><h5 id="2-1-iDRAC-工具获取和安装"><a href="#2-1-iDRAC-工具获取和安装" class="headerlink" title="2.1 iDRAC 工具获取和安装"></a>2.1 <strong>iDRAC 工具获取和安装</strong></h5><figure class="highlight bash"><figcaption><span>安装iDRAC工具包</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">wget https://downloads.dell.com/FOLDER04651962M/1/OM-MgmtStat-Dell-Web-LX-9.1.0-2771_A00.tar.gz	<span class="comment"># 软件包地址</span></span><br><span class="line">tar -zxf OM-MgmtStat-Dell-Web-LX-9.1.0-2771_A00.tar.gz</span><br><span class="line"><span class="built_in">cd</span> linux/rac/RHEL7/x86_64/</span><br><span class="line">yum -y install net-snmp-utils pciutils</span><br><span class="line">rpm -ivh *.rpm --nodeps --force</span><br><span class="line"><span class="built_in">ln</span> -s /opt/dell/srvadmin/sbin/racadm /bin/racadm</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><figcaption><span>远程访问和本地登录交互式运行命令方式</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">racadm  -r <span class="string">&#x27;IDRAC_IP&#x27;</span> -u <span class="string">&#x27;IDRAC_USER&#x27;</span> -p <span class="string">&#x27;IDRAC_PASS&#x27;</span> --nocertwarn serveraction powerstatus	<span class="comment"># 远程执行方式</span></span><br><span class="line">    -r			<span class="comment"># IDRAC_I地址</span></span><br><span class="line">    -u			<span class="comment"># 登录用户名</span></span><br><span class="line">    -p			<span class="comment"># 登录密码</span></span><br><span class="line">    --nocertwarn	<span class="comment"># 认证警告取消</span></span><br><span class="line">racadm serveraction powerstatus 								<span class="comment"># 本地交互式执行方式</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="2-2-iDRAC-开关机物理机操作"><a href="#2-2-iDRAC-开关机物理机操作" class="headerlink" title="2.2 iDRAC 开关机物理机操作"></a>2.2 <strong>iDRAC 开关机物理机操作</strong></h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看</span></span><br><span class="line">racadm serveraction powerstatus                          <span class="comment"># 查看服务器状态</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 开关机</span></span><br><span class="line">racadm serveraction powerup                              <span class="comment"># 开启服务器</span></span><br><span class="line">racadm serveraction powerdown                            <span class="comment"># 关闭服务器</span></span><br><span class="line">racadm serveraction powercycle                           <span class="comment"># 关机后再开机</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="2-3-iDRAC-管理口重启"><a href="#2-3-iDRAC-管理口重启" class="headerlink" title="2.3 iDRAC 管理口重启"></a>2.3 <strong>iDRAC 管理口重启</strong></h5><figure class="highlight bash"><figcaption><span>管理平台网口重启命令</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">racadm racreset soft                                     <span class="comment"># 软重启iDRAC</span></span><br><span class="line">racadm racreset hard                                     <span class="comment"># 硬重启iDRAC</span></span><br><span class="line">racadm racreset soft -f                                  <span class="comment"># 强制软重启iDRAC</span></span><br><span class="line">racadm racreset hard -f                                  <span class="comment"># 强制硬重启iDRAC</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+<h5 id="2-4-iDRAC-用户管理"><a href="#2-4-iDRAC-用户管理" class="headerlink" title="2.4 iDRAC 用户管理"></a>2.4 <strong>iDRAC 用户管理</strong></h5><figure class="highlight bash"><figcaption><span>iDRAC 用户设置</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">远程方式执行操作参考前面<span class="string">&#x27;|-r|-u|-p|&#x27;</span>选项</span><br><span class="line"><span class="comment"># 查询</span></span><br><span class="line">racadm get idrac.users.2.username           	 	<span class="comment"># 查找root超管用户</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建用户、设置密码、配置权限、启用用户[新建用户需按顺序执行]</span></span><br><span class="line">racadm <span class="built_in">set</span> idrac.users.10.username CREATE_USER       	<span class="comment"># 创建用户</span></span><br><span class="line">racadm <span class="built_in">set</span> idrac.users.10.password <span class="string">&quot;SET_PASS&quot;</span>      	<span class="comment"># 给用户名设置密码</span></span><br><span class="line">racadm <span class="built_in">set</span> idrac.users.10.privilege 0x1ff      	 	<span class="comment"># 设置为管理员</span></span><br><span class="line">    0x1ff	<span class="comment"># 超管权限</span></span><br><span class="line">    0x1		<span class="comment"># 只读权限</span></span><br><span class="line">racadm <span class="built_in">set</span> idrac.users.10.enable enabled      		<span class="comment"># 启用用户</span></span><br></pre></td></tr></table></figure>
+    
+
+    
+    <div class="page-reward">
+      <a href="javascript:void(0);" class="page-reward-btn tooltip-top" target="_self">
+        <div class="tooltip tooltip-east">
+          <span class="tooltip-item">
+            +V
+          </span>
+          <span class="tooltip-content">
+            <span class="tooltip-text">
+              <span class="tooltip-inner">
+                <p class="reward-p"><i class="icon icon-quo-left"></i>扫码添加博主微信,邀请你加入运维技术交流群<i
+                    class="icon icon-quo-right"></i></p>
+                <div class="reward-box">
+                  
+                  
+                  <div class="reward-box-item">
+                    <img class="reward-img" src="/img/wechat.jpg">
+                    <span class="reward-type">微信</span>
+                  </div>
+                  
+                </div>
+              </span>
+            </span>
+          </span>
+        </div>
+      </a>
+    </div>
+    
+
+    
+    <div class="declare"> 
+      <ul class="post-copyright">
+        <li>
+          <strong>本文作者：</strong>
+          weixj@inadm.com
+        </li>
+        <li>
+          <strong>本文链接：</strong>
+          <a href="https://www.ink8s.com/2023/01/05/perccli-戴尔服务器管理工具/" title="perccli 戴尔服务器管理工具" target="_blank">https://www.ink8s.com/2023/01/05/perccli-戴尔服务器管理工具/</a>
+        </li>
+        
+        <li>
+          <strong>版权声明： </strong>
           
+          本博客所有文章除特别声明外，均采用 <a href="https://github.com/JoeyBling/hexo-theme-yilia-plus/blob/master/LICENSE" rel="external nofollow" target="_blank">MIT</a> 许可协议。转载请注明出处！
+        </li>
+        
+      </ul>
+    </div>
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux-base</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Server-tool</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+    
 
+    
+
+    
+    
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <!-- <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a> -->
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=https://www.ink8s.com/2023/01/05/perccli-%E6%88%B4%E5%B0%94%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/" alt="微信分享二维码"> -->
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+
+    
+    <div class="clearfix"></div>
+  </div>
   </div>
 </article>
+
+
+<nav id="article-nav">
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/01/05/linux-%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4/" class="archive-article-date">
-        <time datetime="2023-01-05T05:55:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-01-05</time>
-</a>
+    <a href="/2023/01/05/ansible%E3%80%81Ansible-playbook%E3%80%81Ansible-playbook-roles-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4%E5%B7%A5%E5%85%B7/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          ansible、Ansible-playbook、Ansible-playbook roles 自动化运维工具
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/01/05/iptables-%E9%98%B2%E7%81%AB%E5%A2%99/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">iptables 防火墙</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
 
 
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/01/05/linux-%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4/">linux 系统命令</a>
-	
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux-base</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-0-perccli-%E5%B7%A5%E5%85%B7%E8%8E%B7%E5%8F%96%E5%92%8C%E5%AE%89%E8%A3%85"><span class="toc-number">1.</span> <span class="toc-text">1.0 perccli 工具获取和安装</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-1-RAID-%E9%85%8D%E7%BD%AE"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 RAID 配置</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-2-JBOD-%E7%9B%B4%E9%80%9A%E6%A8%A1%E5%BC%8F%E9%85%8D%E7%BD%AE"><span class="toc-number">1.2.</span> <span class="toc-text">1.2 JBOD 直通模式配置</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-3-%E5%85%B6%E5%AE%83%E5%91%BD%E4%BB%A4"><span class="toc-number">1.3.</span> <span class="toc-text">1.3 其它命令</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-0-iDRAC-%E6%88%B4%E5%B0%94%E7%AE%A1%E7%90%86%E5%B9%B3%E5%8F%B0%E5%B7%A5%E5%85%B7"><span class="toc-number">2.</span> <span class="toc-text">2.0 iDRAC 戴尔管理平台工具</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-1-iDRAC-%E5%B7%A5%E5%85%B7%E8%8E%B7%E5%8F%96%E5%92%8C%E5%AE%89%E8%A3%85"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 iDRAC 工具获取和安装</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-2-iDRAC-%E5%BC%80%E5%85%B3%E6%9C%BA%E7%89%A9%E7%90%86%E6%9C%BA%E6%93%8D%E4%BD%9C"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 iDRAC 开关机物理机操作</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-3-iDRAC-%E7%AE%A1%E7%90%86%E5%8F%A3%E9%87%8D%E5%90%AF"><span class="toc-number">2.3.</span> <span class="toc-text">2.3 iDRAC 管理口重启</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-4-iDRAC-%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86"><span class="toc-number">2.4.</span> <span class="toc-text">2.4 iDRAC 用户管理</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+  <div id="giteement-ctn"></div>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/01/04/vim-%E5%BF%AB%E6%8D%B7%E9%94%AE%E4%BD%BF%E7%94%A8/" class="archive-article-date">
-        <time datetime="2023-01-04T08:58:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-01-04</time>
-</a>
-
-
-        </div>
-    	 
+    <link rel="stylesheet" href="/lib/default.css">
+    <script src="/lib/giteement.browser.js"></script>
   
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/01/04/vim-%E5%BF%AB%E6%8D%B7%E9%94%AE%E4%BD%BF%E7%94%A8/">vim 快捷键使用</a>
-	
-    </h1>
-  
+  <script>
+  <!-- id: "perccli 戴尔服务器管理工具" -->
+  var giteement = new Giteement({
+    id: '20230105205750',
+    owner: 'weixj90',
+    repo: 'ink8s-msg',
+    backcall_uri: 'https://www.ink8s.com',
+    oauth_uri: 'https://cors-anywhere.herokuapp.com/https://gitee.com/oauth/token',
+    oauth: {
+      client_id: '50776f958ea15d74ac6d512eeadb5d45fce926378764764cb8d6998f95617e18',
+      client_secret: '5b53bcab62e8a4c917eab413aa2dc40ec6b2b69344411c51bf11285bbe734d8c'
+    },
+  })
+  giteement.render('giteement-ctn')
+  </script>
 
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux-base</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
 
-    
+
 
 
           </div>
@@ -394,9 +535,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,

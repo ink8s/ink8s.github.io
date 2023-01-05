@@ -6,18 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://www.ink8s.com">
-  <title>Tag: Linux-base | INK8S</title>
+  <title>ansible、Ansible-playbook、Ansible-playbook roles 自动化运维工具 | INK8S</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="in 运维">
-<meta property="og:type" content="website">
-<meta property="og:title" content="INK8S">
-<meta property="og:url" content="https://www.ink8s.com/tags/Linux-base/index.html">
+  <meta name="description" content="Ansible 批量命令下发工具 自动化运维工具 无需Agent,管理节点直接远程SSH管理被管理节点   Ansible 自动化运维不同运用 Ansible 命令行用法 Ansible-playbook 剧本 Ansible-playbook roles可重复利用的剧本">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ansible、Ansible-playbook、Ansible-playbook roles 自动化运维工具">
+<meta property="og:url" content="https://www.ink8s.com/2023/01/05/ansible%E3%80%81Ansible-playbook%E3%80%81Ansible-playbook-roles-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4%E5%B7%A5%E5%85%B7/index.html">
 <meta property="og:site_name" content="INK8S">
-<meta property="og:description" content="in 运维">
+<meta property="og:description" content="Ansible 批量命令下发工具 自动化运维工具 无需Agent,管理节点直接远程SSH管理被管理节点   Ansible 自动化运维不同运用 Ansible 命令行用法 Ansible-playbook 剧本 Ansible-playbook roles可重复利用的剧本">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-01-05T13:24:06.000Z">
+<meta property="article:modified_time" content="2023-01-05T13:29:32.842Z">
 <meta property="article:author" content="weixj@inadm.com">
+<meta property="article:tag" content="Server-tool">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="INK8S" type="application/atom+xml">
@@ -206,154 +209,315 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-ansible、Ansible-playbook、Ansible-playbook-roles-自动化运维工具" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
   
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2023" class="archive-year">2023</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/01/05/iptables-%E9%98%B2%E7%81%AB%E5%A2%99/" class="archive-article-date">
-        <time datetime="2023-01-05T09:18:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-01-05</time>
-</a>
-
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/01/05/iptables-%E9%98%B2%E7%81%AB%E5%A2%99/">iptables 防火墙</a>
-	
+    <h1 class="article-title" itemprop="name">
+      ansible、Ansible-playbook、Ansible-playbook roles 自动化运维工具
     </h1>
   
 
 
-        <div class="article-info info-on-right">
+  
+  
+        
+
+
+<a href="/2023/01/05/ansible%E3%80%81Ansible-playbook%E3%80%81Ansible-playbook-roles-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4%E5%B7%A5%E5%85%B7/" class="archive-article-date">
+        <time datetime="2023-01-05T13:24:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-01-05</time>
+</a>
+
+
+  
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <ul>
+<li><strong>Ansible 批量命令下发工具</strong><ul>
+<li>自动化运维工具</li>
+<li>无需Agent,管理节点直接远程SSH管理被管理节点</li>
+</ul>
+</li>
+<li><a target="_blank" rel="noopener" href="https://docs.ansible.com/playbooks_roles.html"><strong>Ansible 自动化运维不同运用</strong></a><ul>
+<li>Ansible 命令行用法</li>
+<li>Ansible-playbook 剧本</li>
+<li>Ansible-playbook roles可重复利用的剧本</li>
+</ul>
+</li>
+</ul>
+<span id="more"></span>
+
+<h4 id="1-0-Ansible-命令行用法"><a href="#1-0-Ansible-命令行用法" class="headerlink" title="1.0 Ansible 命令行用法"></a>1.0 <strong><font size=4>Ansible 命令行用法</font></strong></h4><h5 id="1-1-Ansible-配置文件"><a href="#1-1-Ansible-配置文件" class="headerlink" title="1.1 Ansible 配置文件"></a>1.1 <strong>Ansible 配置文件</strong></h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> /etc/ansible/ansible.cfg </span><br><span class="line">    <span class="comment">#inventory      = /etc/ansible/hosts         # 资源清单</span></span><br><span class="line">    <span class="comment">#library        = /usr/share/my_modules/     # 指向存放ansible模块的目录。支持多目录方式，使用（:）隔开</span></span><br><span class="line">    <span class="comment">#forks          = 5                          # 默认最多5个进程并行处理</span></span><br><span class="line">    <span class="comment">#sudo_user      = root                       # 默认执行目录的用户，也可以在playbook中重新设置这个参数</span></span><br><span class="line">    remote_port    = 22                          <span class="comment"># 默认被连接管节点</span></span><br><span class="line">    host_key_checking = False                    <span class="comment"># 是否检查SSH主机密钥;True检查、False不检查</span></span><br><span class="line">    <span class="built_in">timeout</span> = 10                                 <span class="comment"># SSH连接超时间隔，单位秒</span></span><br><span class="line">    log_path = /var/log/ansible.log              <span class="comment"># 默认系统不记录日志。执行ansible用户需有写入日志权限</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="1-2-Ansible-用法"><a href="#1-2-Ansible-用法" class="headerlink" title="1.2 Ansible 用法"></a>1.2 <strong>Ansible 用法</strong></h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">ansible ip -i Host.conf -uUserName -b -k -m shell -a <span class="string">&quot;hostname&quot;</span></span><br><span class="line">    ip            				<span class="comment"># Hosts文件中第一行[ip]。也可直接用all,表示所有</span></span><br><span class="line">    -i            				<span class="comment"># 后面指定批量执行内容，常用于IP地址</span></span><br><span class="line">    -u            				<span class="comment"># 指定用户名</span></span><br><span class="line">    -b            				<span class="comment"># 权限提升;默认sudo</span></span><br><span class="line">    -k            				<span class="comment"># 请求连接密码</span></span><br><span class="line">    -m            				<span class="comment"># 后面指定模块名script/shell等</span></span><br><span class="line">    -T            				<span class="comment"># 超时时间</span></span><br><span class="line">    -f            				<span class="comment"># 并行进程数量，默认5</span></span><br><span class="line">    -a            				<span class="comment"># 调用模块的参数（yum模块使用:name=xxx state=started or present）</span></span><br><span class="line">    -o            				<span class="comment"># 单行压缩输出</span></span><br><span class="line">    -e            				<span class="comment"># 定义变量</span></span><br><span class="line">    -v            				<span class="comment"># 显示详细信息</span></span><br><span class="line">    --verbose            			<span class="comment"># 查看输出细节</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="1-3-Inventory-内存参数"><a href="#1-3-Inventory-内存参数" class="headerlink" title="1.3 Inventory 内存参数"></a>1.3 <strong>Inventory 内存参数</strong></h5><figure class="highlight bash"><figcaption><span>端口+密码方式</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 参数			解释				例子</span></span><br><span class="line">ansible_ssh_port   定义hosts ssh 端口		ansible_ssh_port=8220</span><br><span class="line">ansible_ssh_user   定义hosts ssh 认证用户		ansible_ssh_user=User01</span><br><span class="line">ansible_ssh_pass   定义hosts ssh 认证密码	   	ansible_ssh_pass=<span class="string">&#x27;123456&#x27;</span>	</span><br><span class="line">ansible_sudo	   定义hosts sudo 用户	    	ansible_sudo=User01</span><br><span class="line">ansible_sudo_pass  定义hosts sudo 密码		ansible_sudo_pass=<span class="string">&#x27;123456&#x27;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><figcaption><span>ssh_key方式</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 定义批量密码</span></span><br><span class="line">[all:vars]</span><br><span class="line">ansible_ssh_private_key_file=<span class="string">&quot;/root/.ssh/key&quot;</span></span><br></pre></td></tr></table></figure>
+
+
+<h5 id="1-4-Ansible-模块介绍"><a href="#1-4-Ansible-模块介绍" class="headerlink" title="1.4 Ansible 模块介绍"></a>1.4 <strong>Ansible 模块介绍</strong></h5><figure class="highlight bash"><figcaption><span>shell模块 和 script模块</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 直接将命令传递到远端主机执行</span></span><br><span class="line">ansible ip -i Host.conf -uUserName -b -k -m shell -a <span class="string">&quot;hostname&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 将本地脚本文件传到到远端主机执行</span></span><br><span class="line">ansible ip -i Host.conf -uUserName -b -k -m script -a <span class="string">&quot;vm_update.sh&quot;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><figcaption><span>copy 模块 [复制文件到远程主机]</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># src:复制本地文件到远程主机,绝对路径和相对路径都可,路径为目录时会递归复制.若路径以&quot;/&quot;结尾</span></span><br><span class="line">  ,只复制目录里的内容,若不以<span class="string">&quot;/&quot;</span>结尾,则复制包含目录在内的整个内容,类似于rsync</span><br><span class="line"><span class="comment"># dest:必选项。远程主机的绝对路径，如果源文件是一个目录,那该路径必须是目录</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># backup:覆盖前先备份原文件，备份文件包含时间信息。有两个选项:yes|no</span></span><br><span class="line"><span class="comment"># force:若目标主机包含该文件,但内容不同,如果设 置为yes，则强制覆盖,设为no</span></span><br><span class="line">   ,则只有当目标主机的目标位置不存在该文件时才复制。默认为<span class="built_in">yes</span></span><br><span class="line"></span><br><span class="line">ansible all -k -m copy -a <span class="string">&#x27;src=/etc/resolv.conf dest=/etc/resolv.conf&#x27;</span>		<span class="comment"># 直接覆盖文件</span></span><br><span class="line">ansible all -k -m copy -a <span class="string">&#x27;src=/etc/yum.repos.d/ dest=/etc/yum.repos.d/&#x27;</span>	<span class="comment"># 复制目录下的所有文件</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><figcaption><span>yum 模块</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用yum包管理器来管理软件包</span></span><br><span class="line">    1. name:要进行操作的软件包名字</span><br><span class="line">    2. state: 动作(installed， removed)</span><br><span class="line"></span><br><span class="line">ansible db -k -m yum -a <span class="string">&#x27;name=&quot;mariadb&quot; state=installed&#x27;</span>	<span class="comment"># 安装</span></span><br><span class="line">ansible db -k -m yum -a <span class="string">&#x27;name=&quot;mariadb&quot; state=removed&#x27;</span>		<span class="comment"># 卸载</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><figcaption><span>service 模块</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># name:必选项，服务名称</span></span><br><span class="line"><span class="comment"># enabled:是否开机启动 yes|no</span></span><br><span class="line"><span class="comment"># sleep:执行restarted，会在stop和start之间沉睡几秒钟</span></span><br><span class="line"><span class="comment"># state:对当前服务执行启动，停止、重启、重新加载等操作</span></span><br><span class="line">	started，stopped，restarted，reloaded</span><br><span class="line"></span><br><span class="line"><span class="comment"># 例: 关闭firewalld服务且开机自启关闭</span></span><br><span class="line">ansible other -k -m service -a <span class="string">&#x27;name=&quot;firewalld&quot; enabled=&quot;no&quot; state=&quot;stopped&quot;&#x27;</span></span><br><span class="line">ansible other -k -m service -a <span class="string">&#x27;name=&quot;firewalld&quot; state=&quot;stopped&quot;&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><figcaption><span>lineinfile模块 和 replace模块</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># lineinfile模块</span></span><br><span class="line">	<span class="comment"># 类似sed的一种行编辑替换模块</span></span><br><span class="line">	<span class="comment"># path 目标文件文件</span></span><br><span class="line">	<span class="comment"># regexp 正则表达式，要修改的行</span></span><br><span class="line">	<span class="comment"># line 最终修改的结果</span></span><br><span class="line"><span class="comment"># 匹配到的行全部删除,添加上去的行必选写全;</span></span><br><span class="line">ansible db -m lineinfile -a <span class="string">&#x27;path=&quot;/etc/my.cnf&quot; regexp=&quot;^binlog-format&quot; line=&quot;binlog-format = row&quot;&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># replace模块</span></span><br><span class="line">	<span class="comment"># 类似sed的一种行编辑替换模块</span></span><br><span class="line">	<span class="comment"># path 目的文件</span></span><br><span class="line">	<span class="comment"># regexp 正则表达式</span></span><br><span class="line">	<span class="comment"># replace 替换后的结果</span></span><br><span class="line"><span class="comment"># 精确匹配的字符串进行替换</span></span><br><span class="line">ansible db -m replace -a <span class="string">&#x27;path=&quot;/etc/my.cnf&quot; regexp=&quot;= row$&quot; replace=&quot;= mixed&quot;&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><figcaption><span>setup 模块</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 主要用于获取主机信息，playbooks里经常会用的另一个参数gather_facts与该模块相关</span></span><br><span class="line">  setup模块下经常用的是filter参数</span><br><span class="line"><span class="comment"># filter过滤所需信息</span></span><br><span class="line">ansible other -k -m setup</span><br><span class="line">ansible other -k -m setup|grep ansible_user_uid</span><br><span class="line">ansible other -k -m setup -a <span class="string">&#x27;filter=ansible_user_uid&#x27;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="2-0-Ansible-playbook-剧本用法"><a href="#2-0-Ansible-playbook-剧本用法" class="headerlink" title="2.0 Ansible-playbook 剧本用法"></a>2.0 <strong>Ansible-playbook 剧本用法</strong></h4><h5 id="2-1-Ansible-playbook-剧本"><a href="#2-1-Ansible-playbook-剧本" class="headerlink" title="2.1 Ansible-playbook 剧本"></a>2.1 <strong>Ansible-playbook 剧本</strong></h5><ul>
+<li>将需要完成的任务写到xxx.yml剧本中以单个文件方式完成编写的playbook</li>
+</ul>
+<figure class="highlight bash"><figcaption><span>以下展示一个httpd安装的剧本,后面进行逐行注解其意</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cat hosts </span></span><br><span class="line">[web]</span><br><span class="line">172.16.10.86 http_port=8080 server_name=<span class="string">&quot;www.ink8s.com&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># cat files/httpd.conf.j2</span></span><br><span class="line">42 Listen &#123;&#123; http_port &#125;&#125;</span><br><span class="line">95 ServerName &#123;&#123; server_name &#125;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># cat httpd_install.yml</span></span><br><span class="line">- hosts: all</span><br><span class="line">  vars:</span><br><span class="line">  - packges: httpd</span><br><span class="line">  - service: httpd</span><br><span class="line">  tasks:</span><br><span class="line">  - name: install httpd</span><br><span class="line">    yum: name=&#123;&#123; packges &#125;&#125; state=latest</span><br><span class="line">    tags:</span><br><span class="line">    - always</span><br><span class="line">  - name: copy httpd.conf</span><br><span class="line"><span class="comment">#   copy: src=files/httpd.conf dest=/etc/httpd/conf/httpd.conf</span></span><br><span class="line">    template: src=files/httpd.conf.j2 dest=/etc/httpd/conf/httpd.conf</span><br><span class="line">    notify:</span><br><span class="line">    - restart httpd</span><br><span class="line">    tags:</span><br><span class="line">    - web_conf</span><br><span class="line">  - name: start and <span class="built_in">enable</span> httpd</span><br><span class="line">    service: name=&#123;&#123; service &#125;&#125; state=started enabled=<span class="literal">true</span></span><br><span class="line">  handlers:</span><br><span class="line">  - name: restart httpd</span><br><span class="line">    service: name=&#123;&#123; service &#125;&#125; state=restarted</span><br><span class="line"><span class="comment"># ansible-playbook -i hosts -b -k -uroot ./httpd_install.yml</span></span><br><span class="line"><span class="comment"># ansible-playbook -i hosts -b -k -uroot ./httpd_install.yml --tags=web_conf	# 表示仅执行tags相关的模块,其它模块不执行</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><figcaption><span>hosts文件</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. hosts文件中必须定义主机名或者IP地址</span><br><span class="line">2. <span class="string">&quot;host_port&quot;</span>和<span class="string">&quot;server_name&quot;</span>表示定义的变量名称。等于号后面表示定义的变量值。</span><br><span class="line">   此变量名可在httpd.conf.j2模板文件中以花括号方式调用,例: &#123;&#123; http_port &#125;&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><figcaption><span>httpd.conf.j2模板</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1. 模板文件需事先准备好并放到指定目录</span><br><span class="line">2. 模板文件中需修改地方可以hosts文件中定义好的变量名替代</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><figcaption><span>httpd_install.yml文件</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">1. hosts: all 此处<span class="string">&quot;all&quot;</span>是ansible自带特殊变量,表示hosts文件中的所有IP地址或主机名。也可仅定义<span class="string">&quot;web&quot;</span>主机组,表示只会执行web主机组下的相关IP地址</span><br><span class="line">2. vars:  用于自定义ansible的变量。下文调用此变量时也需按照固定花括号格式。变量值可以是一样</span><br><span class="line">3. tasks: 表示所需要执行的任务。以不同模块完成所需要执行完成的任务,固定格式必须是<span class="string">&quot;- name:&quot;</span>开始与之<span class="string">&quot;tasks:&quot;</span>对齐</span><br><span class="line">  yum:        <span class="comment"># 安装模块。默认即是latest状态,表示获取最新的包</span></span><br><span class="line">  copy:       <span class="comment"># 复制模块。src表示源文件位置;dest表示目标文件位置</span></span><br><span class="line">  template:   <span class="comment"># 用于模板,模板文件中可定义相关变量。.j2仅表示见名知意用途</span></span><br><span class="line">  service:    <span class="comment"># 启动服务模块</span></span><br><span class="line">  notify:     <span class="comment"># service模块只有启动功能。当httpd.conf配置文件发生变化后,需要仅只重启服务而不执行其它模块时使用notify,用于传递给handlers执行重启</span></span><br><span class="line">  tags:       <span class="comment"># 当此yml文件执行过一次之后,如httpd.conf配置文件需要发生变化,但仅只需要template执行,即可使用tags模块; conf定义tags的名称</span></span><br><span class="line">4. handlers: 接收notify传递的信号并执行传递进来的指定变量的模块</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="3-0-Ansible-playbook-roles可重复利用的剧本"><a href="#3-0-Ansible-playbook-roles可重复利用的剧本" class="headerlink" title="3.0 Ansible-playbook roles可重复利用的剧本"></a>3.0 <strong>Ansible-playbook roles可重复利用的剧本</strong></h4><h5 id="3-1-roles文件内各文件夹所代表的角色"><a href="#3-1-roles文件内各文件夹所代表的角色" class="headerlink" title="3.1 roles文件内各文件夹所代表的角色"></a>3.1 <strong>roles文件内各文件夹所代表的角色</strong></h5><ul>
+<li><font size=1>tasks目录, 至少应该包含一个名为main.yml的文件,其定义了此角色的任务列表,此文件可以使用include包含其它的位于此目录中的task文件</font></li>
+<li><font size=1>files目录, 存放有copy或script等模块调用的文件</font></li>
+<li><font size=1>templates目录, template模块会自动在此目录中寻找jinja2模板文件</font></li>
+<li><font size=1>handlers目录, 此目录中应当包含一个main.yml文件,用于定义此角色用到的各handler。在handler中使用include包含的其它的handler文件也应该位于此目录中</font></li>
+<li><font size=1>vars目录, 应当包含一个main.yml文件, 用于定义此角色用到的变量</font></li>
+<li><font size=1>mate目录, 应当包含一个main.yml文件, 用于定义角色的特殊设定其依赖关系</font></li>
+<li><font size=1>default目录, 为当前角色设定默认变量时使用此目录。应当包含一个main.yml文件</font></li>
+</ul>
+<h5 id="3-2-将需要完成的任务写到roles定义的各自角色中"><a href="#3-2-将需要完成的任务写到roles定义的各自角色中" class="headerlink" title="3.2 将需要完成的任务写到roles定义的各自角色中"></a>3.2 <strong>将需要完成的任务写到roles定义的各自角色中</strong></h5><figure class="highlight bash"><figcaption><span>以下将展示httpd和myslq 2个服务安装在1台服务器和mysql 这1个服务安装到另外一台单独服务器上</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">// httpd yml</span><br><span class="line"><span class="comment"># mkdir inventory</span></span><br><span class="line"><span class="comment"># mkdir -p roles/&#123;web,db&#125;/&#123;files,templates,mate,handlers,vars,tasks&#125;</span></span><br><span class="line"><span class="comment"># cp /path/httpd.conf roles/web/files/</span></span><br><span class="line"><span class="comment"># vim roles/web/tasks/main.yml</span></span><br><span class="line">- name: install httpd</span><br><span class="line">  yum: name=&#123;&#123; package &#125;&#125; state=latest</span><br><span class="line">- name: copy configuration file</span><br><span class="line">  template: src=httpd.conf.j2 dest=/etc/httpd/conf/httpd.conf</span><br><span class="line">  tags:</span><br><span class="line">  - web_conf</span><br><span class="line">  notify:</span><br><span class="line">  - restart httpd</span><br><span class="line">- name: start and <span class="built_in">enable</span> httpd</span><br><span class="line">  service: name=&#123;&#123; service &#125;&#125; state=started enabled=<span class="literal">true</span></span><br><span class="line"><span class="comment"># vim roles/web/handlers/main.yml			# notify会将信号专递到handlers目录的main.yml中</span></span><br><span class="line">- name: restart httpd</span><br><span class="line">  service: name=&#123;&#123; service &#125;&#125; state=restarted</span><br><span class="line"><span class="comment"># cat roles/web/vars/main.yml				# 变量定义;templates和tasks均可调用</span></span><br><span class="line">http_port: 8080</span><br><span class="line">server_name: www.ink8s.com</span><br><span class="line">package: httpd</span><br><span class="line">service: httpd</span><br><span class="line"><span class="comment"># cat roles/web/templates/httpd.conf.j2</span></span><br><span class="line">42 Listen &#123;&#123; http_port &#125;&#125;</span><br><span class="line">5 ServerName &#123;&#123; server_name &#125;&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><figcaption><span>mysql yml</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cp /path/my.cnf roles/db/files/</span></span><br><span class="line"><span class="comment"># roles/db/tasks/main.yml</span></span><br><span class="line">- name: install mysql-server packege</span><br><span class="line">  yum: name=mysql-server state-latest</span><br><span class="line"></span><br><span class="line">- name: instal configuration file</span><br><span class="line">  copy: src=my.cnf dest=/etc/my.cnf</span><br><span class="line">  tags:</span><br><span class="line">  - myconf</span><br><span class="line">  notify:</span><br><span class="line">  - restart mysqld</span><br><span class="line">- name: start myslqd</span><br><span class="line">  service: name=mysqld enabled=<span class="literal">true</span> state=started</span><br><span class="line"><span class="comment"># vim roles/db/handlers/main.yml</span></span><br><span class="line">- name: restart mysqld</span><br><span class="line">  service: name=mysqld state=restarted</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cat inventory/hosts </span></span><br><span class="line">[websers]</span><br><span class="line">172.16.10.86</span><br><span class="line">[dbsers]</span><br><span class="line">172.16.10.87</span><br><span class="line"><span class="comment"># vim deploy.yml</span></span><br><span class="line">- hosts: websers</span><br><span class="line">  roles:</span><br><span class="line">  - web</span><br><span class="line">  - db</span><br><span class="line">- hosts: dbsers</span><br><span class="line">  roles:</span><br><span class="line">  - db</span><br><span class="line"><span class="comment"># ansible-playbook -i inventory/hosts -k -uroot ./deploy.yml</span></span><br><span class="line"><span class="comment"># ansible-playbook -i inventory/hosts -k -uroot ./site.yml tags=web_conf	# 仅执行tags部分,其余任务的模块不执行</span></span><br></pre></td></tr></table></figure>
+
+<h6 id=""><a href="#" class="headerlink" title=""></a></h6>
+    
+
+    
+    <div class="page-reward">
+      <a href="javascript:void(0);" class="page-reward-btn tooltip-top" target="_self">
+        <div class="tooltip tooltip-east">
+          <span class="tooltip-item">
+            +V
+          </span>
+          <span class="tooltip-content">
+            <span class="tooltip-text">
+              <span class="tooltip-inner">
+                <p class="reward-p"><i class="icon icon-quo-left"></i>扫码添加博主微信,邀请你加入运维技术交流群<i
+                    class="icon icon-quo-right"></i></p>
+                <div class="reward-box">
+                  
+                  
+                  <div class="reward-box-item">
+                    <img class="reward-img" src="/img/wechat.jpg">
+                    <span class="reward-type">微信</span>
+                  </div>
+                  
+                </div>
+              </span>
+            </span>
+          </span>
+        </div>
+      </a>
+    </div>
+    
+
+    
+    <div class="declare"> 
+      <ul class="post-copyright">
+        <li>
+          <strong>本文作者：</strong>
+          weixj@inadm.com
+        </li>
+        <li>
+          <strong>本文链接：</strong>
+          <a href="https://www.ink8s.com/2023/01/05/ansible、Ansible-playbook、Ansible-playbook-roles-自动化运维工具/" title="ansible、Ansible-playbook、Ansible-playbook roles 自动化运维工具" target="_blank">https://www.ink8s.com/2023/01/05/ansible、Ansible-playbook、Ansible-playbook-roles-自动化运维工具/</a>
+        </li>
+        
+        <li>
+          <strong>版权声明： </strong>
           
+          本博客所有文章除特别声明外，均采用 <a href="https://github.com/JoeyBling/hexo-theme-yilia-plus/blob/master/LICENSE" rel="external nofollow" target="_blank">MIT</a> 许可协议。转载请注明出处！
+        </li>
+        
+      </ul>
+    </div>
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux-base</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Server-tool</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+    
 
+    
+
+    
+    
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <!-- <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a> -->
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=https://www.ink8s.com/2023/01/05/ansible%E3%80%81Ansible-playbook%E3%80%81Ansible-playbook-roles-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4%E5%B7%A5%E5%85%B7/" alt="微信分享二维码"> -->
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+
+    
+    <div class="clearfix"></div>
+  </div>
   </div>
 </article>
+
+
+<nav id="article-nav">
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/01/05/linux-%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4/" class="archive-article-date">
-        <time datetime="2023-01-05T05:55:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-01-05</time>
-</a>
+    <a href="/2023/01/05/lvm-%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          lvm 磁盘管理工具
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/01/05/perccli-%E6%88%B4%E5%B0%94%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">perccli 戴尔服务器管理工具</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
 
 
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/01/05/linux-%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4/">linux 系统命令</a>
-	
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux-base</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-0-Ansible-%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%94%A8%E6%B3%95"><span class="toc-number">1.</span> <span class="toc-text">1.0 Ansible 命令行用法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-1-Ansible-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 Ansible 配置文件</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-2-Ansible-%E7%94%A8%E6%B3%95"><span class="toc-number">1.2.</span> <span class="toc-text">1.2 Ansible 用法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-3-Inventory-%E5%86%85%E5%AD%98%E5%8F%82%E6%95%B0"><span class="toc-number">1.3.</span> <span class="toc-text">1.3 Inventory 内存参数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-4-Ansible-%E6%A8%A1%E5%9D%97%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.4.</span> <span class="toc-text">1.4 Ansible 模块介绍</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-0-Ansible-playbook-%E5%89%A7%E6%9C%AC%E7%94%A8%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text">2.0 Ansible-playbook 剧本用法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-1-Ansible-playbook-%E5%89%A7%E6%9C%AC"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 Ansible-playbook 剧本</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-0-Ansible-playbook-roles%E5%8F%AF%E9%87%8D%E5%A4%8D%E5%88%A9%E7%94%A8%E7%9A%84%E5%89%A7%E6%9C%AC"><span class="toc-number">3.</span> <span class="toc-text">3.0 Ansible-playbook roles可重复利用的剧本</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#3-1-roles%E6%96%87%E4%BB%B6%E5%86%85%E5%90%84%E6%96%87%E4%BB%B6%E5%A4%B9%E6%89%80%E4%BB%A3%E8%A1%A8%E7%9A%84%E8%A7%92%E8%89%B2"><span class="toc-number">3.1.</span> <span class="toc-text">3.1 roles文件内各文件夹所代表的角色</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-2-%E5%B0%86%E9%9C%80%E8%A6%81%E5%AE%8C%E6%88%90%E7%9A%84%E4%BB%BB%E5%8A%A1%E5%86%99%E5%88%B0roles%E5%AE%9A%E4%B9%89%E7%9A%84%E5%90%84%E8%87%AA%E8%A7%92%E8%89%B2%E4%B8%AD"><span class="toc-number">3.2.</span> <span class="toc-text">3.2 将需要完成的任务写到roles定义的各自角色中</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link"><span class="toc-number">3.2.1.</span> <span class="toc-text"></span></a></li></ol></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+  <div id="giteement-ctn"></div>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/01/04/vim-%E5%BF%AB%E6%8D%B7%E9%94%AE%E4%BD%BF%E7%94%A8/" class="archive-article-date">
-        <time datetime="2023-01-04T08:58:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-01-04</time>
-</a>
-
-
-        </div>
-    	 
+    <link rel="stylesheet" href="/lib/default.css">
+    <script src="/lib/giteement.browser.js"></script>
   
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/01/04/vim-%E5%BF%AB%E6%8D%B7%E9%94%AE%E4%BD%BF%E7%94%A8/">vim 快捷键使用</a>
-	
-    </h1>
-  
+  <script>
+  <!-- id: "ansible、Ansible-playbook、Ansible-playbook roles 自动化运维工具" -->
+  var giteement = new Giteement({
+    id: '20230105212406',
+    owner: 'weixj90',
+    repo: 'ink8s-msg',
+    backcall_uri: 'https://www.ink8s.com',
+    oauth_uri: 'https://cors-anywhere.herokuapp.com/https://gitee.com/oauth/token',
+    oauth: {
+      client_id: '50776f958ea15d74ac6d512eeadb5d45fce926378764764cb8d6998f95617e18',
+      client_secret: '5b53bcab62e8a4c917eab413aa2dc40ec6b2b69344411c51bf11285bbe734d8c'
+    },
+  })
+  giteement.render('giteement-ctn')
+  </script>
 
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux-base</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
 
-    
+
 
 
           </div>
@@ -394,9 +558,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,

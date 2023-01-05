@@ -6,19 +6,27 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://www.ink8s.com">
-  <title>Tag: Linux-base | INK8S</title>
+  <title>shadowsocks 代理 | INK8S</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="in 运维">
-<meta property="og:type" content="website">
-<meta property="og:title" content="INK8S">
-<meta property="og:url" content="https://www.ink8s.com/tags/Linux-base/index.html">
+  <meta name="description" content="Centos 7 安装shadowsocks代理 三种模式:  全局模式: 所有流量全走代理 PAC自动模式: 自动根据PAC文件匹配则走代理,非自定义PAC文件的规则 PAC模式: 根据自身需求根据特定格式自定义IP或域名,匹配则走代理   单用户与多用户 客户端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="shadowsocks 代理">
+<meta property="og:url" content="https://www.ink8s.com/2023/01/05/shadowsocks-%E4%BB%A3%E7%90%86/index.html">
 <meta property="og:site_name" content="INK8S">
-<meta property="og:description" content="in 运维">
+<meta property="og:description" content="Centos 7 安装shadowsocks代理 三种模式:  全局模式: 所有流量全走代理 PAC自动模式: 自动根据PAC文件匹配则走代理,非自定义PAC文件的规则 PAC模式: 根据自身需求根据特定格式自定义IP或域名,匹配则走代理   单用户与多用户 客户端">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://www.ink8s.com/images/pasted-74.png">
+<meta property="og:image" content="https://www.ink8s.com/images/pasted-77.png">
+<meta property="og:image" content="https://www.ink8s.com/images/pasted-75.png">
+<meta property="og:image" content="https://www.ink8s.com/images/pasted-76.png">
+<meta property="article:published_time" content="2023-01-05T15:31:52.000Z">
+<meta property="article:modified_time" content="2023-01-05T15:39:06.515Z">
 <meta property="article:author" content="weixj@inadm.com">
+<meta property="article:tag" content="Linux-svc">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.ink8s.com/images/pasted-74.png">
   
     <link rel="alternative" href="/atom.xml" title="INK8S" type="application/atom+xml">
   
@@ -206,154 +214,290 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-shadowsocks-代理" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
   
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2023" class="archive-year">2023</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/01/05/iptables-%E9%98%B2%E7%81%AB%E5%A2%99/" class="archive-article-date">
-        <time datetime="2023-01-05T09:18:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-01-05</time>
-</a>
-
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/01/05/iptables-%E9%98%B2%E7%81%AB%E5%A2%99/">iptables 防火墙</a>
-	
+    <h1 class="article-title" itemprop="name">
+      shadowsocks 代理
     </h1>
   
 
 
-        <div class="article-info info-on-right">
+  
+  
+        
+
+
+<a href="/2023/01/05/shadowsocks-%E4%BB%A3%E7%90%86/" class="archive-article-date">
+        <time datetime="2023-01-05T15:31:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-01-05</time>
+</a>
+
+
+  
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <ul>
+<li><strong>Centos 7 安装shadowsocks代理</strong><ul>
+<li>三种模式: <ul>
+<li>全局模式: 所有流量全走代理</li>
+<li>PAC自动模式: 自动根据PAC文件匹配则走代理,非自定义PAC文件的规则</li>
+<li>PAC模式: 根据自身需求根据特定格式自定义IP或域名,匹配则走代理</li>
+</ul>
+</li>
+<li>单用户与多用户</li>
+<li>客户端</li>
+</ul>
+</li>
+</ul>
+<span id="more"></span>
+
+<h4 id="1-0-shadowsocks-客户端设置三种模式-流量请求图"><a href="#1-0-shadowsocks-客户端设置三种模式-流量请求图" class="headerlink" title="1.0 shadowsocks 客户端设置三种模式,流量请求图"></a>1.0 <strong>shadowsocks 客户端设置三种模式,流量请求图</strong></h4><p><img src="/images/pasted-74.png" alt="upload successful"></p>
+<figure class="highlight bash"><figcaption><span>PAC 文件规则模板</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">||       2个竖杠表示匹配规则</span><br><span class="line"></span><br><span class="line">@@||     竖杠后面2个at表示绕过规则</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><figcaption><span>Windows</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">// Windows<span class="string">&quot;编辑GFWList的用户规则&quot;</span>(user-rule)保存后默认会直接将编辑规则保存到pac文件</span><br></pre></td></tr></table></figure>
+<p><img src="/images/pasted-77.png" alt="upload successful"></p>
+<figure class="highlight bash"><figcaption><span>Mac OS</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">// Mac OS配置好PAC自定义规则后还需单击<span class="string">&quot;从GFW List更新PAC&quot;</span>并关闭再开启shadowsocks则生效</span><br></pre></td></tr></table></figure>
+<p><img src="/images/pasted-75.png" alt="upload successful"><br><img src="/images/pasted-76.png" alt="upload successful"></p>
+<h4 id="2-0-安装-pip"><a href="#2-0-安装-pip" class="headerlink" title="2.0 安装 pip"></a>2.0 安装 pip</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">curl <span class="string">&quot;https://bootstrap.pypa.io/get-pip.py&quot;</span> -o <span class="string">&quot;get-pip.py&quot;</span></span><br><span class="line">python get-pip.py</span><br><span class="line"><span class="comment"># 云主机安装如下错误请根据报错内容下载对应&quot;get-pip.py脚本即可&quot;: </span></span><br><span class="line">    ERROR: This script does not work on Python 2.7 The minimum supported Python version is 3.6. Please use https://bootstrap.pypa.io/pip/2.7/get-pip.py instead.</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-0-安装-shadowsocks"><a href="#3-0-安装-shadowsocks" class="headerlink" title="3.0 安装 shadowsocks"></a>3.0 安装 shadowsocks</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip install --upgrade pip</span><br><span class="line">pip install shadowsocks</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>单用户和多用户配置方式[1|2]</li>
+</ol>
+<ul>
+<li>method加密方式: 服务端指定什么加密方式,客户端选择同样加密方式<figure class="highlight bash"><figcaption><span>单用户[1]</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># vim /etc/shadowsocks.json</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;server&quot;</span>: <span class="string">&quot;0.0.0.0&quot;</span>,</span><br><span class="line">  <span class="string">&quot;server_port&quot;</span>: 8443,</span><br><span class="line">  <span class="string">&quot;password&quot;</span>: <span class="string">&quot;you_password&quot;</span>,</span><br><span class="line">  <span class="string">&quot;method&quot;</span>: <span class="string">&quot;aes-256-cfb&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><figcaption><span>多用户[2]</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># vim /etc/shadowsocks.json</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;server&quot;</span>: <span class="string">&quot;0.0.0.0&quot;</span>,</span><br><span class="line">  <span class="string">&quot;local_address&quot;</span>: <span class="string">&quot;127.0.0.1&quot;</span>,</span><br><span class="line">  <span class="string">&quot;local_port&quot;</span>: 8443,</span><br><span class="line">  <span class="string">&quot;port_password&quot;</span>:&#123;</span><br><span class="line">    <span class="string">&quot;port_1&quot;</span>:<span class="string">&quot;you_password_1&quot;</span>,</span><br><span class="line">    <span class="string">&quot;port_2&quot;</span>:<span class="string">&quot;you_password_2&quot;</span>,</span><br><span class="line">    <span class="string">&quot;port_3&quot;</span>:<span class="string">&quot;you_password_3&quot;</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">&quot;timeout&quot;</span>:600,</span><br><span class="line">  <span class="string">&quot;method&quot;</span>:<span class="string">&quot;aes-256-cfb&quot;</span>,</span><br><span class="line">  <span class="string">&quot;fast_open&quot;</span>: <span class="literal">false</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="3-0-启动设置"><a href="#3-0-启动设置" class="headerlink" title="3.0 启动设置"></a>3.0 启动设置</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cat /etc/systemd/system/shadowsocks.service</span></span><br><span class="line">[Unit]</span><br><span class="line">Description=Shadowsocks</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">TimeoutStartSec=0</span><br><span class="line">ExecStart=/usr/bin/ssserver -c /etc/shadowsocks.json</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br><span class="line"></span><br><span class="line"><span class="comment"># systemctl enable shadowsocks</span></span><br><span class="line"><span class="comment"># systemctl start shadowsocks</span></span><br><span class="line"><span class="comment"># systemctl status shadowsocks -l</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="4-0-客户端各平台软件"><a href="#4-0-客户端各平台软件" class="headerlink" title="4.0  客户端各平台软件"></a>4.0  <a target="_blank" rel="noopener" href="https://shadowsockshelp.github.io/Shadowsocks/download.html"><strong>客户端各平台软件</strong></a></h4><ul>
+<li>Windows <a target="_blank" rel="noopener" href="https://shadowsockshelp.github.io/Shadowsocks/windows.html">教程</a></li>
+<li>Mac OS <a target="_blank" rel="noopener" href="https://shadowsockshelp.github.io/Shadowsocks/mac.html">教程</a></li>
+<li>Linux <a target="_blank" rel="noopener" href="https://shadowsockshelp.github.io/Shadowsocks/linux.html">教程</a></li>
+<li>Android <a target="_blank" rel="noopener" href="https://shadowsockshelp.github.io/Shadowsocks/Android.html">教程</a></li>
+<li>iPhone、iPad <a target="_blank" rel="noopener" href="https://shadowsockshelp.github.io/Shadowsocks/ios.html">教程</a></li>
+<li><a target="_blank" rel="noopener" href="https://shadowsockshelp.github.io/Shadowsocks/Chrome.html">Chrome 浏览器教程</a></li>
+<li><a target="_blank" rel="noopener" href="https://shadowsockshelp.github.io/Shadowsocks/Firefox.html">Firefox 浏览器教程</a></li>
+</ul>
+<ul>
+<li>iPhone、iPad需要非大陆ID账号并且出口IP在非大陆区域才可搜索并下载 <a target="_blank" rel="noopener" href="https://shadowsockshelp.github.io/ios/">Shadowrocket</a></li>
+</ul>
+
+    
+
+    
+    <div class="page-reward">
+      <a href="javascript:void(0);" class="page-reward-btn tooltip-top" target="_self">
+        <div class="tooltip tooltip-east">
+          <span class="tooltip-item">
+            +V
+          </span>
+          <span class="tooltip-content">
+            <span class="tooltip-text">
+              <span class="tooltip-inner">
+                <p class="reward-p"><i class="icon icon-quo-left"></i>扫码添加博主微信,邀请你加入运维技术交流群<i
+                    class="icon icon-quo-right"></i></p>
+                <div class="reward-box">
+                  
+                  
+                  <div class="reward-box-item">
+                    <img class="reward-img" src="/img/wechat.jpg">
+                    <span class="reward-type">微信</span>
+                  </div>
+                  
+                </div>
+              </span>
+            </span>
+          </span>
+        </div>
+      </a>
+    </div>
+    
+
+    
+    <div class="declare"> 
+      <ul class="post-copyright">
+        <li>
+          <strong>本文作者：</strong>
+          weixj@inadm.com
+        </li>
+        <li>
+          <strong>本文链接：</strong>
+          <a href="https://www.ink8s.com/2023/01/05/shadowsocks-代理/" title="shadowsocks 代理" target="_blank">https://www.ink8s.com/2023/01/05/shadowsocks-代理/</a>
+        </li>
+        
+        <li>
+          <strong>版权声明： </strong>
           
+          本博客所有文章除特别声明外，均采用 <a href="https://github.com/JoeyBling/hexo-theme-yilia-plus/blob/master/LICENSE" rel="external nofollow" target="_blank">MIT</a> 许可协议。转载请注明出处！
+        </li>
+        
+      </ul>
+    </div>
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux-base</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Linux-svc</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+    
 
+    
+
+    
+    
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <!-- <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a> -->
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=https://www.ink8s.com/2023/01/05/shadowsocks-%E4%BB%A3%E7%90%86/" alt="微信分享二维码"> -->
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+
+    
+    <div class="clearfix"></div>
+  </div>
   </div>
 </article>
+
+
+<nav id="article-nav">
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/01/05/linux-%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4/" class="archive-article-date">
-        <time datetime="2023-01-05T05:55:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-01-05</time>
-</a>
+  
+    <a href="/2023/01/05/cobbler-%E6%89%B9%E9%87%8F%E5%AE%89%E8%A3%85-Linux-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">cobbler 批量安装 Linux 操作系统</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
 
 
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/01/05/linux-%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4/">linux 系统命令</a>
-	
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux-base</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-0-shadowsocks-%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%AE%BE%E7%BD%AE%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F-%E6%B5%81%E9%87%8F%E8%AF%B7%E6%B1%82%E5%9B%BE"><span class="toc-number">1.</span> <span class="toc-text">1.0 shadowsocks 客户端设置三种模式,流量请求图</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-0-%E5%AE%89%E8%A3%85-pip"><span class="toc-number">2.</span> <span class="toc-text">2.0 安装 pip</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-0-%E5%AE%89%E8%A3%85-shadowsocks"><span class="toc-number">3.</span> <span class="toc-text">3.0 安装 shadowsocks</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-0-%E5%90%AF%E5%8A%A8%E8%AE%BE%E7%BD%AE"><span class="toc-number">4.</span> <span class="toc-text">3.0 启动设置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-0-%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%90%84%E5%B9%B3%E5%8F%B0%E8%BD%AF%E4%BB%B6"><span class="toc-number">5.</span> <span class="toc-text">4.0  客户端各平台软件</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+  <div id="giteement-ctn"></div>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/01/04/vim-%E5%BF%AB%E6%8D%B7%E9%94%AE%E4%BD%BF%E7%94%A8/" class="archive-article-date">
-        <time datetime="2023-01-04T08:58:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-01-04</time>
-</a>
-
-
-        </div>
-    	 
+    <link rel="stylesheet" href="/lib/default.css">
+    <script src="/lib/giteement.browser.js"></script>
   
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/01/04/vim-%E5%BF%AB%E6%8D%B7%E9%94%AE%E4%BD%BF%E7%94%A8/">vim 快捷键使用</a>
-	
-    </h1>
-  
+  <script>
+  <!-- id: "shadowsocks 代理" -->
+  var giteement = new Giteement({
+    id: '20230105233152',
+    owner: 'weixj90',
+    repo: 'ink8s-msg',
+    backcall_uri: 'https://www.ink8s.com',
+    oauth_uri: 'https://cors-anywhere.herokuapp.com/https://gitee.com/oauth/token',
+    oauth: {
+      client_id: '50776f958ea15d74ac6d512eeadb5d45fce926378764764cb8d6998f95617e18',
+      client_secret: '5b53bcab62e8a4c917eab413aa2dc40ec6b2b69344411c51bf11285bbe734d8c'
+    },
+  })
+  giteement.render('giteement-ctn')
+  </script>
 
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux-base</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
 
-    
+
 
 
           </div>
@@ -394,9 +538,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,

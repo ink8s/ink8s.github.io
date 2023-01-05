@@ -19,7 +19,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://www.ink8s.com/images/pasted-118.png">
 <meta property="article:published_time" content="2023-01-05T05:55:42.000Z">
-<meta property="article:modified_time" content="2023-01-05T07:02:07.379Z">
+<meta property="article:modified_time" content="2023-01-05T09:19:06.480Z">
 <meta property="article:author" content="weixj@inadm.com">
 <meta property="article:tag" content="Linux-base">
 <meta name="twitter:card" content="summary">
@@ -91,7 +91,13 @@
 			
 				<li><a href="/" >主页</a></li>
 			
-				<li><a href="/tags/Linux-base" >Linux_基础</a></li>
+				<li><a href="/tags/Linux-base" >Linux_系统类</a></li>
+			
+				<li><a href="/tags/Server-tool" >Linux_工具类</a></li>
+			
+				<li><a href="/tags/Linux-svc" >Linux_服务部署</a></li>
+			
+				<li><a href="/tags/Windows-svc" >Windows_服务配置</a></li>
 			
 			</ul>
 		</nav>
@@ -155,6 +161,12 @@
 			
 				
 			
+				
+			
+				
+			
+				
+			
 			
 			
 			<nav class="header-nav">
@@ -172,12 +184,18 @@
 			</nav>
 
 			<nav class="header-menu js-header-menu">
-				<ul style="width: 50%">
+				<ul style="width: 70%">
 				
 				
-					<li style="width: 50%"><a href="/">主页</a></li>
+					<li style="width: 20%"><a href="/">主页</a></li>
 		        
-					<li style="width: 50%"><a href="/tags/Linux-base">Linux_基础</a></li>
+					<li style="width: 20%"><a href="/tags/Linux-base">Linux_系统类</a></li>
+		        
+					<li style="width: 20%"><a href="/tags/Server-tool">Linux_工具类</a></li>
+		        
+					<li style="width: 20%"><a href="/tags/Linux-svc">Linux_服务部署</a></li>
+		        
+					<li style="width: 20%"><a href="/tags/Windows-svc">Windows_服务配置</a></li>
 		        
 				</ul>
 			</nav>
@@ -264,7 +282,7 @@
 <h4 id="14-0-压缩命令"><a href="#14-0-压缩命令" class="headerlink" title="14.0 压缩命令"></a><strong>14.0 压缩命令</strong></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">// 压缩命令类型</span><br><span class="line">     *.Z          		<span class="comment"># compress 程序压缩的文件</span></span><br><span class="line">     *.gz        		<span class="comment"># gzip 程序压缩文件</span></span><br><span class="line">     *.bz2      		<span class="comment"># bzip2 程序压缩文件</span></span><br><span class="line">     *.tar       		<span class="comment"># tar 程序压缩文件,并没有压缩过</span></span><br><span class="line">     *.tar.gz  			<span class="comment"># tar 程序压缩文件，经过 gzip 压缩</span></span><br><span class="line">     *.tar.bz2 			<span class="comment"># 程序压缩文件，经过 bzip2 压缩</span></span><br><span class="line"></span><br><span class="line">// gzip [-cdtv] FileName</span><br><span class="line">     -c：压缩的数据传输到屏幕，可以通过数据流重导向来处理</span><br><span class="line">     -d：解压缩参数</span><br><span class="line">     -t：检验压缩文件一致性</span><br><span class="line">     -v：显示原文件和压缩文件比</span><br><span class="line">     -<span class="comment">#：压缩等级 -1 最快，但压缩比最差、 -9 最慢，但压缩比最好 、 默认是 -6</span></span><br><span class="line">// zcat 可以读取文字档压缩之后的文件</span><br><span class="line"></span><br><span class="line">// bzip2 [-cdkzv<span class="comment">#] 档名</span></span><br><span class="line">     -k：保留原始文件</span><br><span class="line">     -z：压缩的参数</span><br><span class="line">// bzcat 可读压缩的文件</span><br><span class="line"></span><br><span class="line">// tar 打包命令</span><br><span class="line">	1）tar [-j | -z] [cv] [-f 创建的档名] filename…             		<span class="comment"># 打包与压缩</span></span><br><span class="line">	2）tar [-j | -z] [tv] [-f 创建的档名]                                     <span class="comment"># 查看档名</span></span><br><span class="line">	3）tar [-j | -z] [xv] [-f 创建的档名] [-C 目录]                		<span class="comment"># 解压缩</span></span><br><span class="line">	          -c：创建打包文件，可搭配 -v 查看被打包档名</span><br><span class="line">	          -t：查看打包文件的内容有哪些档名</span><br><span class="line">	          -x：解打包或解压缩，可搭配 -C 在特定目录解开</span><br><span class="line">	               -c 、 -t 、-x 不可同时出现在一串命令列表中</span><br><span class="line">              -v：压缩/解压缩过程中，将正在处理的档名显示出来</span><br><span class="line">              -f filename：-f 后面必须接 被处理档名 ，建议 -f 单独写一个选项</span><br><span class="line">              </span><br><span class="line">	          -j：透过 bzip2 支持进行压缩/解压缩 ，档名最好为 *.tar.bz2</span><br><span class="line">	          -z：透过 gzip 支持进行压缩/解压缩， 档名最好为 *.tar.gz</span><br><span class="line"></span><br><span class="line">	          -C 目录：此选项用在解压缩，如要在特定目录解压缩，可使用这个选项</span><br><span class="line">	          -p：保留备份数据的原本权限与属性，常用于备份 -c 重要的配置档</span><br><span class="line">	          -P：保留绝对路径</span><br><span class="line">	4）使用方法</span><br><span class="line">	          压缩：tar -jcv -f filename.tar.bz2 要被压缩的文件或目录</span><br><span class="line">	          查询：tar -jtv -f filename.tar.bz2</span><br><span class="line">	          解压缩：tar -jxv -f filename.tar.bz2 -C 解压缩路径目录</span><br><span class="line">	5）如果不加 [-j | -z] 档名最好取为 *.tar即可。-j 代表 bzip2 档名取为 *.tar.bz2; -z 代表 gzip 档名取为 *.tar.gz</span><br><span class="line"></span><br><span class="line"><span class="comment"># zip file_name.zip file ..</span></span><br><span class="line">    -r		<span class="comment"># 压缩目录</span></span><br><span class="line">    -v		<span class="comment"># 打印过程</span></span><br></pre></td></tr></table></figure>
 
 
-<h6 id=""><a href="#" class="headerlink" title=""></a></h6>
+
     
 
     
@@ -277,7 +295,7 @@
           <span class="tooltip-content">
             <span class="tooltip-text">
               <span class="tooltip-inner">
-                <p class="reward-p"><i class="icon icon-quo-left"></i>扫码+V,博主邀请你加入运维技术交流群<i
+                <p class="reward-p"><i class="icon icon-quo-left"></i>扫码添加博主微信,邀请你加入运维技术交流群<i
                     class="icon icon-quo-right"></i></p>
                 <div class="reward-box">
                   
@@ -398,6 +416,15 @@
 
 <nav id="article-nav">
   
+    <a href="/2023/01/05/iptables-%E9%98%B2%E7%81%AB%E5%A2%99/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          iptables 防火墙
+        
+      </div>
+    </a>
+  
   
     <a href="/2023/01/04/vim-%E5%BF%AB%E6%8D%B7%E9%94%AE%E4%BD%BF%E7%94%A8/" id="article-nav-older" class="article-nav-link-wrap">
       <div class="article-nav-title">vim 快捷键使用</div>
@@ -427,7 +454,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-0-CentOS-7-root%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9"><span class="toc-number">1.</span> <span class="toc-text">1.0 CentOS 7 root密码修改</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-0-%E7%89%A9%E7%90%86-cpu-mem-%E6%9F%A5%E7%9C%8B%E6%96%B9%E5%BC%8F"><span class="toc-number">2.</span> <span class="toc-text">2.0 物理 cpu mem 查看方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-0-nload-%E7%BD%91%E5%8D%A1%E6%B5%81%E9%87%8F%E6%9F%A5%E8%AF%A2%E5%B7%A5%E5%85%B7"><span class="toc-number">3.</span> <span class="toc-text">3.0 nload 网卡流量查询工具</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#3-1-%E5%91%BD%E4%BB%A4%E7%94%A8%E6%B3%95"><span class="toc-number">3.1.</span> <span class="toc-text">3.1 命令用法</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-0-dd-%E5%91%BD%E4%BB%A4"><span class="toc-number">4.</span> <span class="toc-text">4.0 dd 命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-0-%E5%AD%98%E5%82%A8%E7%A9%BA%E9%97%B4%E5%8D%95%E4%BD%8D%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">5.</span> <span class="toc-text">5.0 存储空间单位的区别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-0-%E6%97%B6%E9%97%B4%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4"><span class="toc-number">6.</span> <span class="toc-text">6.0 时间相关命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-0-find-%E6%9F%A5%E6%89%BE%E5%91%BD%E4%BB%A4"><span class="toc-number">7.</span> <span class="toc-text">7.0 find 查找命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-0-%E6%8E%92%E5%BA%8F%E5%91%BD%E4%BB%A4"><span class="toc-number">8.</span> <span class="toc-text">8.0 排序命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9-0-ping-%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4"><span class="toc-number">9.</span> <span class="toc-text">9.0 ping 相关命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#10-0-crontab-%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E5%91%BD%E4%BB%A4"><span class="toc-number">10.</span> <span class="toc-text">10.0 crontab 定时任务命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#11-0-alias-%E5%88%AB%E5%90%8D"><span class="toc-number">11.</span> <span class="toc-text">11.0 alias 别名</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#12-0-cut-%E6%88%AA%E5%8F%96"><span class="toc-number">12.</span> <span class="toc-text">12.0 cut 截取</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#13-0-ln-%E8%BD%AF%E7%A1%AC%E9%93%BE%E6%8E%A5%E5%91%BD%E4%BB%A4"><span class="toc-number">13.</span> <span class="toc-text">13.0 ln 软硬链接命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#14-0-%E5%8E%8B%E7%BC%A9%E5%91%BD%E4%BB%A4"><span class="toc-number">14.</span> <span class="toc-text">14.0 压缩命令</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link"><span class="toc-number">14.0.1.</span> <span class="toc-text"></span></a></li></ol></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-0-CentOS-7-root%E5%AF%86%E7%A0%81%E4%BF%AE%E6%94%B9"><span class="toc-number">1.</span> <span class="toc-text">1.0 CentOS 7 root密码修改</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-0-%E7%89%A9%E7%90%86-cpu-mem-%E6%9F%A5%E7%9C%8B%E6%96%B9%E5%BC%8F"><span class="toc-number">2.</span> <span class="toc-text">2.0 物理 cpu mem 查看方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-0-nload-%E7%BD%91%E5%8D%A1%E6%B5%81%E9%87%8F%E6%9F%A5%E8%AF%A2%E5%B7%A5%E5%85%B7"><span class="toc-number">3.</span> <span class="toc-text">3.0 nload 网卡流量查询工具</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#3-1-%E5%91%BD%E4%BB%A4%E7%94%A8%E6%B3%95"><span class="toc-number">3.1.</span> <span class="toc-text">3.1 命令用法</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-0-dd-%E5%91%BD%E4%BB%A4"><span class="toc-number">4.</span> <span class="toc-text">4.0 dd 命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-0-%E5%AD%98%E5%82%A8%E7%A9%BA%E9%97%B4%E5%8D%95%E4%BD%8D%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">5.</span> <span class="toc-text">5.0 存储空间单位的区别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-0-%E6%97%B6%E9%97%B4%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4"><span class="toc-number">6.</span> <span class="toc-text">6.0 时间相关命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-0-find-%E6%9F%A5%E6%89%BE%E5%91%BD%E4%BB%A4"><span class="toc-number">7.</span> <span class="toc-text">7.0 find 查找命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-0-%E6%8E%92%E5%BA%8F%E5%91%BD%E4%BB%A4"><span class="toc-number">8.</span> <span class="toc-text">8.0 排序命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9-0-ping-%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4"><span class="toc-number">9.</span> <span class="toc-text">9.0 ping 相关命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#10-0-crontab-%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E5%91%BD%E4%BB%A4"><span class="toc-number">10.</span> <span class="toc-text">10.0 crontab 定时任务命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#11-0-alias-%E5%88%AB%E5%90%8D"><span class="toc-number">11.</span> <span class="toc-text">11.0 alias 别名</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#12-0-cut-%E6%88%AA%E5%8F%96"><span class="toc-number">12.</span> <span class="toc-text">12.0 cut 截取</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#13-0-ln-%E8%BD%AF%E7%A1%AC%E9%93%BE%E6%8E%A5%E5%91%BD%E4%BB%A4"><span class="toc-number">13.</span> <span class="toc-text">13.0 ln 软硬链接命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#14-0-%E5%8E%8B%E7%BC%A9%E5%91%BD%E4%BB%A4"><span class="toc-number">14.</span> <span class="toc-text">14.0 压缩命令</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -574,7 +601,19 @@
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Server-tool</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Linux-base</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Linux-svc</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Windows-svc</a>
               </li>
             
             <div class="clearfix"></div>
