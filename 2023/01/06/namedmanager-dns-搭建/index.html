@@ -6,19 +6,33 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://www.ink8s.com">
-  <title>Archives: 2023 | INK8S</title>
+  <title>namedmanager dns 搭建 | INK8S</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="in 运维">
-<meta property="og:type" content="website">
-<meta property="og:title" content="INK8S">
-<meta property="og:url" content="https://www.ink8s.com/archives/2023/page/2/index.html">
+  <meta name="description" content="NamedManager 基于web的dns服务">
+<meta property="og:type" content="article">
+<meta property="og:title" content="namedmanager dns 搭建">
+<meta property="og:url" content="https://www.ink8s.com/2023/01/06/namedmanager-dns-%E6%90%AD%E5%BB%BA/index.html">
 <meta property="og:site_name" content="INK8S">
-<meta property="og:description" content="in 运维">
+<meta property="og:description" content="NamedManager 基于web的dns服务">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://www.ink8s.com/images/pasted-27.png">
+<meta property="og:image" content="https://www.ink8s.com/images/pasted-30.png">
+<meta property="og:image" content="https://www.ink8s.com/images/pasted-31.png">
+<meta property="og:image" content="https://www.ink8s.com/images/pasted-32.png">
+<meta property="og:image" content="https://www.ink8s.com/images/pasted-33.png">
+<meta property="og:image" content="https://www.ink8s.com/images/pasted-34.png">
+<meta property="og:image" content="https://www.ink8s.com/images/pasted-35.png">
+<meta property="og:image" content="https://www.ink8s.com/images/pasted-36.png">
+<meta property="og:image" content="https://www.ink8s.com/images/pasted-37.png">
+<meta property="og:image" content="https://www.ink8s.com/images/pasted-38.png">
+<meta property="article:published_time" content="2023-01-06T10:32:42.000Z">
+<meta property="article:modified_time" content="2023-01-06T14:30:50.569Z">
 <meta property="article:author" content="weixj@inadm.com">
+<meta property="article:tag" content="Linux-svc">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.ink8s.com/images/pasted-27.png">
   
     <link rel="alternative" href="/atom.xml" title="INK8S" type="application/atom+xml">
   
@@ -206,202 +220,303 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-namedmanager-dns-搭建" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
   
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2023" class="archive-year">2023</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/01/05/perccli-%E6%88%B4%E5%B0%94%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/" class="archive-article-date">
-        <time datetime="2023-01-05T12:57:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-01-05</time>
-</a>
-
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/01/05/perccli-%E6%88%B4%E5%B0%94%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/">perccli 戴尔服务器管理工具</a>
-	
+    <h1 class="article-title" itemprop="name">
+      namedmanager dns 搭建
     </h1>
   
 
 
-        <div class="article-info info-on-right">
+  
+  
+        
+
+
+<a href="/2023/01/06/namedmanager-dns-%E6%90%AD%E5%BB%BA/" class="archive-article-date">
+        <time datetime="2023-01-06T10:32:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-01-06</time>
+</a>
+
+
+  
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <ul>
+<li><strong>NamedManager 基于web的dns服务</strong></li>
+</ul>
+<span id="more"></span>
+
+<h4 id="1-数据库及所需软件安装"><a href="#1-数据库及所需软件安装" class="headerlink" title="1. 数据库及所需软件安装"></a>1. <strong>数据库及所需软件安装</strong></h4><figure class="highlight bash"><figcaption><span>mysql 5.7</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># yum -y remove mariadb-libs						# 移除cnetos7 系统自带的mariadb库</span></span><br><span class="line"><span class="comment"># wget https://repo.mysql.com//mysql80-community-release-el7-3.noarch.rpm</span></span><br><span class="line"><span class="comment"># rpm -ivh mysql80-community-release-el7-3.noarch.rpm</span></span><br><span class="line"><span class="comment"># sed -i &#x27;28c enabled=0&#x27; /etc/yum.repos.d/mysql-community.repo</span></span><br><span class="line"><span class="comment"># sed -i &#x27;21c enabled=1&#x27; /etc/yum.repos.d/mysql-community.repo</span></span><br><span class="line"><span class="comment"># yum clean all &amp;&amp; yum repolist</span></span><br><span class="line"><span class="comment"># yum -y install mysql-server</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><figcaption><span>修改数据库密码</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">systemctl start mysqld &amp;&amp; systemctl <span class="built_in">enable</span> mysqld</span><br><span class="line">grep <span class="string">&quot;password&quot;</span> /var/log/mysqld.log</span><br><span class="line">mysql -uroot -p</span><br><span class="line">mysql&gt; <span class="built_in">set</span> global validate_password_policy=0;</span><br><span class="line">mysql&gt; <span class="built_in">set</span> global validate_password_length=6;</span><br><span class="line">mysql&gt; alter user user() identified by <span class="string">&#x27;Zd6Uv8QJiLKj&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="2-安装-httpd-php-msyql-php-namedmanager-www-namedmanager-bind"><a href="#2-安装-httpd-php-msyql-php-namedmanager-www-namedmanager-bind" class="headerlink" title="2. 安装 httpd php-msyql php namedmanager-www namedmanager-bind"></a>2. <strong>安装 httpd php-msyql php <a target="_blank" rel="noopener" href="https://repos.jethrocarr.com/">namedmanager-www namedmanager-bind</a></strong></h4><figure class="highlight bash"><figcaption><span>named主程序安装</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget -O /etc/yum.repos.d/jethrocarr-c7-public.repo http://repos.jethrocarr.com/config/centos/7/jethrocarr-c7-public.repo</span><br><span class="line">yum clean all &amp;&amp; yum repolist</span><br><span class="line">yum -y install namedmanager-www namedmanager-bind php-mysql httpd php</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/pasted-27.png" alt="upload successful"></p>
+<h4 id="3-安装bind-bind-chroot"><a href="#3-安装bind-bind-chroot" class="headerlink" title="3. 安装bind bind-chroot"></a>3. <strong>安装bind bind-chroot</strong></h4><figure class="highlight bash"><figcaption><span>dns包安装</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install <span class="built_in">bind</span> bind-chroot</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><figcaption><span>初始化chroot环境</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/usr/libexec/setup-named-chroot.sh /var/named/chroot on		<span class="comment"># setup-named-chroot.sh会自动挂载到chroot目录</span></span><br><span class="line">systemctl start named-chroot &amp;&amp; systemctl <span class="built_in">enable</span> named-chroot</span><br><span class="line">ll /var/named/chroot/etc					<span class="comment"># 检查目录是否挂载成功</span></span><br><span class="line">ll /var/named/chroot/var/named</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="4-主配置文件设置"><a href="#4-主配置文件设置" class="headerlink" title="4. 主配置文件设置"></a>4. <strong>主配置文件设置</strong></h4><figure class="highlight bash"><figcaption><span>创建主配置文件中的所需文件及赋权</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">touch</span> /var/named/chroot/var/named/data/cache_dump.db</span><br><span class="line"><span class="built_in">touch</span> /var/named/chroot/var/named/data/named_stats.txt</span><br><span class="line"><span class="built_in">touch</span> /var/named/chroot/var/named/data/named_mem_stats.txt</span><br><span class="line"></span><br><span class="line"><span class="built_in">chmod</span> -R 777 /var/named/chroot/var/named/data</span><br><span class="line"><span class="built_in">chmod</span> -R 777 /var/named/chroot/var/named/dynamic</span><br><span class="line"><span class="built_in">ln</span> /etc/named.namedmanager.conf /var/named/chroot/named.namedmanager.conf</span><br><span class="line"><span class="built_in">chown</span> named:named /etc/named.namedmanager.conf</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><figcaption><span>配置文件修改</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cat /var/named/chroot/etc/named.conf</span></span><br><span class="line">options &#123;</span><br><span class="line">        listen-on port 53        &#123; any; &#125;;</span><br><span class="line">        directory               <span class="string">&quot;/var/named&quot;</span>;</span><br><span class="line">        dump-file               <span class="string">&quot;/var/named/data/cache_dump.db&quot;</span>;</span><br><span class="line">        statistics-file         <span class="string">&quot;/var/named/data/named_stats.txt&quot;</span>;</span><br><span class="line">        memstatistics-file      <span class="string">&quot;/var/named/data/named_mem_stats.txt&quot;</span>;</span><br><span class="line">        recursing-file          <span class="string">&quot;/var/named/data/named.recursing&quot;</span>;</span><br><span class="line">        secroots-file           <span class="string">&quot;/var/named/data/named.secroots&quot;</span>;</span><br><span class="line">        allow-query             &#123; any; &#125;;</span><br><span class="line">        recursion <span class="built_in">yes</span>;</span><br><span class="line"></span><br><span class="line">        bindkeys-file           <span class="string">&quot;/etc/named.iscdlv.key&quot;</span>;</span><br><span class="line">        managed-keys-directory  <span class="string">&quot;/var/named/dynamic&quot;</span>;</span><br><span class="line">        pid-file                <span class="string">&quot;/run/named/named.pid&quot;</span>;</span><br><span class="line">        session-keyfile         <span class="string">&quot;/run/named/session.key&quot;</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">logging &#123;</span><br><span class="line">        channel default_debug &#123;</span><br><span class="line">                file <span class="string">&quot;data/named.run&quot;</span>;</span><br><span class="line">                severity dynamic;</span><br><span class="line">        &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">zone <span class="string">&quot;.&quot;</span> IN &#123;</span><br><span class="line">        <span class="built_in">type</span> hint;</span><br><span class="line">        file <span class="string">&quot;named.ca&quot;</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">include <span class="string">&quot;/etc/named.rfc1912.zones&quot;</span>;</span><br><span class="line">include <span class="string">&quot;/etc/named.root.key&quot;</span>;</span><br><span class="line">include <span class="string">&quot;/etc/named.namedmanager.conf&quot;</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><figcaption><span>php连接配置</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cat /etc/namedmanager/config-bind.php</span></span><br><span class="line">...</span><br><span class="line"><span class="variable">$config</span>[<span class="string">&quot;api_url&quot;</span>]              = <span class="string">&quot;http://172.16.10.90/namedmanager&quot;</span>;</span><br><span class="line"><span class="variable">$config</span>[<span class="string">&quot;api_server_name&quot;</span>]      = <span class="string">&quot;dns.inadm.com&quot;</span>;				<span class="comment"># api_server_name字段必须与httpd主配置文件中的ServerName一致</span></span><br><span class="line"><span class="variable">$config</span>[<span class="string">&quot;api_auth_key&quot;</span>]         = <span class="string">&quot;cbdamxidn&quot;</span>;					<span class="comment"># 自定义密钥</span></span><br><span class="line"><span class="comment"># chroot环境还需配置如下2行</span></span><br><span class="line"><span class="variable">$config</span>[<span class="string">&quot;bind&quot;</span>][<span class="string">&quot;config&quot;</span>]               = <span class="string">&quot;/var/named/chroot/etc/named.namedmanager.conf&quot;</span>;</span><br><span class="line"><span class="variable">$config</span>[<span class="string">&quot;bind&quot;</span>][<span class="string">&quot;zonefiledir&quot;</span>]          = <span class="string">&quot;/var/named/chroot/var/named/&quot;</span>;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><figcaption><span>http配置文件修改并配置https证书</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cat /etc/httpd/conf/httpd.conf</span></span><br><span class="line">...</span><br><span class="line">95 ServerName dns.inadm.com:443							<span class="comment"># 修改此行</span></span><br><span class="line">104 <span class="comment">#   Require all denied							# 注释此行</span></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="comment"># mkdir -p /etc/httpd/conf/ssl/</span></span><br><span class="line"><span class="comment"># cat /etc/httpd/conf.d/ssl.conf</span></span><br><span class="line">...</span><br><span class="line">59 DocumentRoot <span class="string">&quot;/usr/share/namedmanager/htdocs/&quot;</span></span><br><span class="line">60 ServerName dns.inadm.com:443</span><br><span class="line">69 SSLEngine on</span><br><span class="line">74 SSLProtocol all -SSLv2 -SSLv3</span><br><span class="line">79 SSLCipherSuite HIGH:!RC4:!MD5:!aNULL:!eNULL:!NULL:!DH:!EDH:!EXP:+MEDIUM</span><br><span class="line">91 SSLHonorCipherOrder on</span><br><span class="line">99 SSLCertificateFile /etc/httpd/conf/ssl/dns.inadm.com_public.crt</span><br><span class="line">105 SSLCertificateKeyFile /etc/httpd/conf/ssl/dns.inadm.com.key</span><br><span class="line">114 SSLCertificateChainFile /etc/httpd/conf/ssl/dns.inadm.com_chain.crt</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="comment"># sed -i &#x27;119c DocumentRoot &quot;/usr/share/namedmanager/htdocs/&quot;&#x27; /etc/httpd/conf/httpd.conf</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="5-导入namedmanager到MySQL"><a href="#5-导入namedmanager到MySQL" class="headerlink" title="5. 导入namedmanager到MySQL"></a>5. <strong>导入namedmanager到MySQL</strong></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cd /usr/share/namedmanager/resources/</span></span><br><span class="line"><span class="comment"># ./autoinstall.pl</span></span><br><span class="line">Please enter MySQL root password (<span class="keyword">if</span> any): Zd6Uv8QJiLKj	</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/pasted-30.png" alt="upload successful"></p>
+<h4 id="6-重启服务"><a href="#6-重启服务" class="headerlink" title="6. 重启服务"></a>6. <strong>重启服务</strong></h4><figure class="highlight bash"><figcaption><span>重启服务</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">systemctl start httpd &amp;&amp; systemctl <span class="built_in">enable</span> httpd</span><br><span class="line">systemctl restart mysqld</span><br><span class="line">systemctl restart named-chroot</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="7-web-页面配置"><a href="#7-web-页面配置" class="headerlink" title="7. web 页面配置"></a>7. <strong>web 页面配置</strong></h4><figure class="highlight bash"><figcaption><span>登陆</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">https://172.16.10.90</span><br><span class="line">    user: setup</span><br><span class="line">    pass: setup123</span><br></pre></td></tr></table></figure>
+<p><img src="/images/pasted-31.png" alt="upload successful"></p>
+<p><img src="/images/pasted-32.png" alt="upload successful"></p>
+<ul>
+<li><strong>添加正向解析</strong></li>
+</ul>
+<p><img src="/images/pasted-33.png" alt="upload successful"></p>
+<ul>
+<li><strong>添加Name Server FQDN</strong><ul>
+<li>“Name Server FQDN”字段要与httpd的ServerName字段一致</li>
+<li>“API Authentication Key”字段要与php配置文件”api_auth_key”字段一致</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/pasted-34.png" alt="upload successful"></p>
+<figure class="highlight bash"><figcaption><span>重启使配置生效</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart mysqld &amp;&amp; systemctl restart named-chroot</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>添加A记录</strong></li>
+</ul>
+<p><img src="/images/pasted-35.png" alt="upload successful"></p>
+<p><img src="/images/pasted-36.png" alt="upload successful"></p>
+<ul>
+<li><strong>添加反向解析</strong></li>
+</ul>
+<p><img src="/images/pasted-37.png" alt="upload successful"></p>
+<ul>
+<li><strong>反向解析添加完成后,查看状态为绿色即表示NamedManager DNS搭建成功</strong></li>
+</ul>
+<p><img src="/images/pasted-38.png" alt="upload successful"></p>
+
+    
+
+    
+    <div class="page-reward">
+      <a href="javascript:void(0);" class="page-reward-btn tooltip-top" target="_self">
+        <div class="tooltip tooltip-east">
+          <span class="tooltip-item">
+            +V
+          </span>
+          <span class="tooltip-content">
+            <span class="tooltip-text">
+              <span class="tooltip-inner">
+                <p class="reward-p"><i class="icon icon-quo-left"></i>扫码添加博主微信,邀请你加入运维技术交流群<i
+                    class="icon icon-quo-right"></i></p>
+                <div class="reward-box">
+                  
+                  
+                  <div class="reward-box-item">
+                    <img class="reward-img" src="/img/wechat.jpg">
+                    <span class="reward-type">微信</span>
+                  </div>
+                  
+                </div>
+              </span>
+            </span>
+          </span>
+        </div>
+      </a>
+    </div>
+    
+
+    
+    <div class="declare"> 
+      <ul class="post-copyright">
+        <li>
+          <strong>本文作者：</strong>
+          weixj@inadm.com
+        </li>
+        <li>
+          <strong>本文链接：</strong>
+          <a href="https://www.ink8s.com/2023/01/06/namedmanager-dns-搭建/" title="namedmanager dns 搭建" target="_blank">https://www.ink8s.com/2023/01/06/namedmanager-dns-搭建/</a>
+        </li>
+        
+        <li>
+          <strong>版权声明： </strong>
           
+          本博客所有文章除特别声明外，均采用 <a href="https://github.com/JoeyBling/hexo-theme-yilia-plus/blob/master/LICENSE" rel="external nofollow" target="_blank">MIT</a> 许可协议。转载请注明出处！
+        </li>
+        
+      </ul>
+    </div>
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Server-tool</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Linux-svc</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+    
 
+    
+
+    
+    
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <!-- <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a> -->
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=https://www.ink8s.com/2023/01/06/namedmanager-dns-%E6%90%AD%E5%BB%BA/" alt="微信分享二维码"> -->
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+
+    
+    <div class="clearfix"></div>
+  </div>
   </div>
 </article>
+
+
+<nav id="article-nav">
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/01/05/iptables-%E9%98%B2%E7%81%AB%E5%A2%99/" class="archive-article-date">
-        <time datetime="2023-01-05T09:18:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-01-05</time>
-</a>
+  
+    <a href="/2023/01/06/dns-bind-9/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">dns bind 9</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
 
 
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/01/05/iptables-%E9%98%B2%E7%81%AB%E5%A2%99/">iptables 防火墙</a>
-	
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux-base</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8F%8A%E6%89%80%E9%9C%80%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85"><span class="toc-number">1.</span> <span class="toc-text">1. 数据库及所需软件安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%AE%89%E8%A3%85-httpd-php-msyql-php-namedmanager-www-namedmanager-bind"><span class="toc-number">2.</span> <span class="toc-text">2. 安装 httpd php-msyql php namedmanager-www namedmanager-bind</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E5%AE%89%E8%A3%85bind-bind-chroot"><span class="toc-number">3.</span> <span class="toc-text">3. 安装bind bind-chroot</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E4%B8%BB%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E8%AE%BE%E7%BD%AE"><span class="toc-number">4.</span> <span class="toc-text">4. 主配置文件设置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-%E5%AF%BC%E5%85%A5namedmanager%E5%88%B0MySQL"><span class="toc-number">5.</span> <span class="toc-text">5. 导入namedmanager到MySQL</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-%E9%87%8D%E5%90%AF%E6%9C%8D%E5%8A%A1"><span class="toc-number">6.</span> <span class="toc-text">6. 重启服务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-web-%E9%A1%B5%E9%9D%A2%E9%85%8D%E7%BD%AE"><span class="toc-number">7.</span> <span class="toc-text">7. web 页面配置</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+  <div id="giteement-ctn"></div>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/01/05/linux-%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4/" class="archive-article-date">
-        <time datetime="2023-01-05T05:55:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-01-05</time>
-</a>
-
-
-        </div>
-    	 
+    <link rel="stylesheet" href="/lib/default.css">
+    <script src="/lib/giteement.browser.js"></script>
   
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/01/05/linux-%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4/">linux 系统命令</a>
-	
-    </h1>
-  
+  <script>
+  <!-- id: "namedmanager dns 搭建" -->
+  var giteement = new Giteement({
+    id: '20230106183242',
+    owner: 'weixj90',
+    repo: 'ink8s-msg',
+    backcall_uri: 'https://www.ink8s.com',
+    oauth_uri: 'https://cors-anywhere.herokuapp.com/https://gitee.com/oauth/token',
+    oauth: {
+      client_id: '50776f958ea15d74ac6d512eeadb5d45fce926378764764cb8d6998f95617e18',
+      client_secret: '5b53bcab62e8a4c917eab413aa2dc40ec6b2b69344411c51bf11285bbe734d8c'
+    },
+  })
+  giteement.render('giteement-ctn')
+  </script>
 
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux-base</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/01/04/vim-%E5%BF%AB%E6%8D%B7%E9%94%AE%E4%BD%BF%E7%94%A8/" class="archive-article-date">
-        <time datetime="2023-01-04T08:58:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-01-04</time>
-</a>
 
 
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/01/04/vim-%E5%BF%AB%E6%8D%B7%E9%94%AE%E4%BD%BF%E7%94%A8/">vim 快捷键使用</a>
-	
-    </h1>
-  
 
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux-base</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/2023/">&amp;laquo; Prev</a><a class="page-number" href="/archives/2023/">1</a><span class="page-number current">2</span>
-    </nav>
-  
 
 
           </div>
@@ -442,8 +557,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

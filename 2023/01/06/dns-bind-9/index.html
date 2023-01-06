@@ -6,19 +6,37 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://www.ink8s.com">
-  <title>Archives: 2023 | INK8S</title>
+  <title>dns bind 9 | INK8S</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="in 运维">
-<meta property="og:type" content="website">
-<meta property="og:title" content="INK8S">
-<meta property="og:url" content="https://www.ink8s.com/archives/2023/page/2/index.html">
+  <meta name="description" content="Linux Bind DNS 搭建  bind 单机服务部署、配置 dns 客户端命令使用 dns 主从同步、子域授权、转发模式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="dns bind 9">
+<meta property="og:url" content="https://www.ink8s.com/2023/01/06/dns-bind-9/index.html">
 <meta property="og:site_name" content="INK8S">
-<meta property="og:description" content="in 运维">
+<meta property="og:description" content="Linux Bind DNS 搭建  bind 单机服务部署、配置 dns 客户端命令使用 dns 主从同步、子域授权、转发模式">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://www.ink8s.com/images/pasted-125.png">
+<meta property="og:image" content="https://www.ink8s.com/images/pasted-128.png">
+<meta property="og:image" content="https://www.ink8s.com/images/pasted-129.png">
+<meta property="og:image" content="https://www.ink8s.com/images/pasted-131.png">
+<meta property="og:image" content="https://www.ink8s.com/images/pasted-130.png">
+<meta property="og:image" content="https://www.ink8s.com/images/pasted-132.png">
+<meta property="og:image" content="https://www.ink8s.com/images/pasted-133.png">
+<meta property="og:image" content="https://www.ink8s.com/images/pasted-134.png">
+<meta property="og:image" content="https://www.ink8s.com/images/pasted-135.png">
+<meta property="og:image" content="https://www.ink8s.com/images/pasted-136.png">
+<meta property="og:image" content="https://www.ink8s.com/images/pasted-137.png">
+<meta property="og:image" content="https://www.ink8s.com/images/pasted-138.png">
+<meta property="og:image" content="https://www.ink8s.com/images/pasted-139.png">
+<meta property="og:image" content="https://www.ink8s.com/images/pasted-140.png">
+<meta property="article:published_time" content="2023-01-06T03:27:02.000Z">
+<meta property="article:modified_time" content="2023-01-06T10:29:35.411Z">
 <meta property="article:author" content="weixj@inadm.com">
+<meta property="article:tag" content="Linux-svc">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.ink8s.com/images/pasted-125.png">
   
     <link rel="alternative" href="/atom.xml" title="INK8S" type="application/atom+xml">
   
@@ -206,202 +224,450 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-dns-bind-9" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
   
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2023" class="archive-year">2023</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/01/05/perccli-%E6%88%B4%E5%B0%94%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/" class="archive-article-date">
-        <time datetime="2023-01-05T12:57:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-01-05</time>
-</a>
-
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/01/05/perccli-%E6%88%B4%E5%B0%94%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/">perccli 戴尔服务器管理工具</a>
-	
+    <h1 class="article-title" itemprop="name">
+      dns bind 9
     </h1>
   
 
 
-        <div class="article-info info-on-right">
+  
+  
+        
+
+
+<a href="/2023/01/06/dns-bind-9/" class="archive-article-date">
+        <time datetime="2023-01-06T03:27:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-01-06</time>
+</a>
+
+
+  
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p><strong>Linux Bind DNS 搭建</strong></p>
+<ul>
+<li>bind 单机服务部署、配置</li>
+<li>dns 客户端命令使用</li>
+<li>dns 主从同步、子域授权、转发模式</li>
+</ul>
+<span id="more"></span>
+
+
+<h4 id="1-0-BIND-DNS-理论"><a href="#1-0-BIND-DNS-理论" class="headerlink" title="1.0 BIND DNS 理论"></a>1.0 BIND DNS 理论</h4><h5 id="1-1-dns-域结构"><a href="#1-1-dns-域结构" class="headerlink" title="1.1 dns 域结构"></a>1.1 dns 域结构</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// 完整 FQDN: www.ink8s.com.</span><br><span class="line">    根		.</span><br><span class="line">    顶级域	com</span><br><span class="line">    二级域名	ink8s</span><br><span class="line">    三级域名	www</span><br></pre></td></tr></table></figure>
+
+<h5 id="1-2-dns-功能等"><a href="#1-2-dns-功能等" class="headerlink" title="1.2 dns 功能等"></a>1.2 dns 功能等</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// dns 功能</span><br><span class="line">    正向解析: 根据主机名称(域名)查找其对应的IP地址; 最常用的功能</span><br><span class="line">    反向解析: 根据IP地址查找对应的主机名称(域名); 反垃圾邮件/安全防护等领域使用</span><br><span class="line"></span><br><span class="line">// 常见的顶级/一级域名</span><br><span class="line">    国家/地区域：.cn .us .kr .hk .tw</span><br><span class="line">    组织域：.com .net .edu .org .gov .gov .mil</span><br><span class="line"></span><br><span class="line">// 中国区域名代理/注册/购买服务商</span><br><span class="line">    新网:    https://www.xinnet.com</span><br><span class="line">    万网:    https://wanwang.aliyun.com			// 阿里收购[原地址: http://www.net.cn]</span><br><span class="line">    中国互联: https://www.hulian.top</span><br></pre></td></tr></table></figure>
+
+<h5 id="1-3-bind-域名服务"><a href="#1-3-bind-域名服务" class="headerlink" title="1.3 bind 域名服务"></a>1.3 bind 域名服务</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// 官方网站: https://www.isc.org</span><br><span class="line">// BIND服务器端程序</span><br><span class="line">    /usr/sbin/named		<span class="comment"># 主要执行程序</span></span><br><span class="line">    named			<span class="comment"># 系统服务</span></span><br><span class="line">    TCP/UDP 53			<span class="comment"># 默认端口</span></span><br><span class="line">    /var/named/chroot/		<span class="comment"># 运行时的虚拟根环境</span></span><br><span class="line"></span><br><span class="line">    /etc/named.conf		<span class="comment"># 主配置文件</span></span><br><span class="line">    /var/named/			<span class="comment"># 地址库文件</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="2-0-单机部署环境"><a href="#2-0-单机部署环境" class="headerlink" title="2.0 单机部署环境"></a>2.0 单机部署环境</h4><table>
+<thead>
+<tr>
+<th>系统版本</th>
+<th>主机名</th>
+<th>IP地址</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>centos 7.9</td>
+<td>bind-dns01</td>
+<td>10.10.10.115</td>
+<td>域名: ink8s.com</td>
+</tr>
+</tbody></table>
+<h5 id="2-1-单机部署"><a href="#2-1-单机部署" class="headerlink" title="2.1 单机部署"></a>2.1 单机部署</h5><h6 id="2-1-1-安装"><a href="#2-1-1-安装" class="headerlink" title="2.1.1 安装"></a>2.1.1 安装</h6><figure class="highlight bash"><figcaption><span>安装</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># yum -y install bind bind-chroot bind-utils</span></span><br><span class="line">    <span class="built_in">bind</span>            					<span class="comment"># 域名服务包</span></span><br><span class="line">    bind-chroot     					<span class="comment"># 提供虚拟根支持</span></span><br><span class="line">    bind-utils      					<span class="comment"># 客户端软件包</span></span><br><span class="line"><span class="comment"># cp /etc/named.conf&#123;,.bak&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h6 id="2-1-2-主配置文件"><a href="#2-1-2-主配置文件" class="headerlink" title="2.1.2 主配置文件"></a>2.1.2 主配置文件</h6><figure class="highlight bash"><figcaption><span>主配置文件注意事项</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 语法格式非常严格</span><br><span class="line">// 文件权限 属主root, 属组named, 文件权限640</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><figcaption><span>主配置示例文件</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cat /etc/named.conf</span></span><br><span class="line">options &#123;</span><br><span class="line">        // 监听地址及端口</span><br><span class="line">	listen-on port 53 &#123; any; &#125;;</span><br><span class="line">	listen-on-v6 port 53 &#123; ::1; &#125;;</span><br><span class="line">        // 区域配置存储目录</span><br><span class="line">	directory <span class="string">&quot;/var/named&quot;</span>;</span><br><span class="line">        // dns 解析过内容的缓存文件</span><br><span class="line">	dump-file <span class="string">&quot;/var/named/data/cache_dump.db&quot;</span>;</span><br><span class="line">        // 静态解析文件 (几乎不用)</span><br><span class="line">	statistics-file <span class="string">&quot;/var/named/data/named_stats.txt&quot;</span>;</span><br><span class="line">        // 内存的统计信息</span><br><span class="line">	memstatistics-file <span class="string">&quot;/var/named/data/named_mem_stats.txt&quot;</span>;</span><br><span class="line">	recursing-file  <span class="string">&quot;/var/named/data/named.recursing&quot;</span>;</span><br><span class="line">	secroots-file   <span class="string">&quot;/var/named/data/named.secroots&quot;</span>;</span><br><span class="line">        // 允许谁可以查询 (localhost | ip | any)</span><br><span class="line">	allow-query     &#123; any; &#125;;</span><br><span class="line"></span><br><span class="line">        // 递归查询</span><br><span class="line">	recursion <span class="built_in">yes</span>;</span><br><span class="line">	dnssec-enable <span class="built_in">yes</span>;</span><br><span class="line">	dnssec-validation <span class="built_in">yes</span>;</span><br><span class="line"></span><br><span class="line">	/* Path to ISC DLV key */</span><br><span class="line">	bindkeys-file <span class="string">&quot;/etc/named.root.key&quot;</span>;</span><br><span class="line"></span><br><span class="line">	managed-keys-directory <span class="string">&quot;/var/named/dynamic&quot;</span>;</span><br><span class="line">	pid-file <span class="string">&quot;/run/named/named.pid&quot;</span>;</span><br><span class="line">	session-keyfile <span class="string">&quot;/run/named/session.key&quot;</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">// 控制日志输出的级别以及输出的位置</span><br><span class="line">logging &#123;</span><br><span class="line">        channel default_debug &#123;</span><br><span class="line">                file <span class="string">&quot;data/named.run&quot;</span>;</span><br><span class="line">                severity dynamic;</span><br><span class="line">        &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">// 默认可以对任何域名提供解析服务; 因为 named.ca 中存储的是全球根域服务器</span><br><span class="line">zone <span class="string">&quot;.&quot;</span> IN &#123;</span><br><span class="line">	<span class="built_in">type</span> hint;</span><br><span class="line">	file <span class="string">&quot;named.ca&quot;</span>;                    	<span class="comment"># 区域配置文件名称</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">zone <span class="string">&quot;ink8s.com&quot;</span> IN &#123;				<span class="comment"># 定义正向区域</span></span><br><span class="line">        <span class="built_in">type</span> master;				<span class="comment"># 区域类型[ hint(根,可选) | master(主) | slave(从) | forward(转发) ]</span></span><br><span class="line">        file <span class="string">&quot;ink8s.com.zone&quot;</span>;			<span class="comment"># 地址库文件; 默认位置 /var/named/</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">// 定义正反解析区域相关</span><br><span class="line">include <span class="string">&quot;/etc/named.rfc1912.zones&quot;</span>;</span><br><span class="line"><span class="comment"># named-checkconf /etc/named.conf		# 检查语法配置</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/pasted-125.png" alt="upload successful"></p>
+<h6 id="2-1-3-地址库文件"><a href="#2-1-3-地址库文件" class="headerlink" title="2.1.3 地址库文件"></a>2.1.3 地址库文件</h6><figure class="highlight bash"><figcaption><span>范例以及编写数据库文件</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// 严格注意语法书写,其格式非常严格</span><br><span class="line">// 记录不准许折行书写</span><br><span class="line">// 单行记录开头不准许空格活 tab 开头</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><figcaption><span>建立地址库文件</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cp -p /var/named/named.localhost /var/named/ink8s.com.zone</span></span><br><span class="line"><span class="comment"># cat /var/named/ink8s.com.zone</span></span><br><span class="line"><span class="variable">$TTL</span> 600</span><br><span class="line">; 区域名称 IN SOA dns.ink8s.com. 管理员邮箱</span><br><span class="line">@	IN SOA @ weixj.ink8s.com. (</span><br><span class="line">					2023010639	; serial	<span class="comment"># 更新序号（建议按年月日时间填写，主从同步会用到这里）</span></span><br><span class="line">					10800		; refresh	<span class="comment"># 刷新时间</span></span><br><span class="line">					900		; retry		<span class="comment"># 重试时间</span></span><br><span class="line">					604800		; expire	<span class="comment"># 过期时间</span></span><br><span class="line">					86400 )		; minimum</span><br><span class="line">@		NS	ns01.ink8s.com.			<span class="comment"># 声明维护 ink8s.com. 域名服务器叫什么名称</span></span><br><span class="line">ns01		A	10.10.10.115			<span class="comment"># A 记录,配置权威域名的真实 IP 地址</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># named-checkzone ink8s.com /var/named/ink8s.com.zone</span></span><br><span class="line"><span class="comment"># chmod 644 /var/named/ink8s.com.zone</span></span><br><span class="line"><span class="comment"># systemctl start named &amp;&amp; systemctl enable named</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/pasted-128.png" alt="upload successful"></p>
+<h5 id="2-2-bind-dns-解析场景"><a href="#2-2-bind-dns-解析场景" class="headerlink" title="2.2 bind dns 解析场景"></a>2.2 bind dns 解析场景</h5><h6 id="2-2-1-A-记录解析"><a href="#2-2-1-A-记录解析" class="headerlink" title="2.2.1 A 记录解析"></a>2.2.1 A 记录解析</h6><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cat /var/named/ink8s.com.zone </span></span><br><span class="line"><span class="variable">$TTL</span> 600</span><br><span class="line">@	IN SOA @ weixj.ink8s.com. (</span><br><span class="line">					2023010639	; serial</span><br><span class="line">					10800		; refresh</span><br><span class="line">					900		; retry</span><br><span class="line">					604800		; expire</span><br><span class="line">					86400 )		; minimum</span><br><span class="line">@		NS	ns01.ink8s.com.</span><br><span class="line">ns01		A	10.10.10.115</span><br><span class="line"></span><br><span class="line">; A 记录域名解析</span><br><span class="line">web		A	10.10.10.100</span><br><span class="line"></span><br><span class="line"><span class="comment"># named-checkzone ink8s.com /var/named/ink8s.com.zone            # 检查区域数据库文件配置</span></span><br><span class="line"><span class="comment"># rndc reload                                                    # 重载 DNS 服务</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><figcaption><span>客户端解析验证</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># nslookup web.ink8s.com</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/pasted-129.png" alt="upload successful"></p>
+<h6 id="2-2-2-CNAME-解析"><a href="#2-2-2-CNAME-解析" class="headerlink" title="2.2.2 CNAME 解析"></a>2.2.2 CNAME 解析</h6><figure class="highlight bash"><figcaption><span>主配置文件,新增区域配置</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cat /etc/named.conf</span></span><br><span class="line">...</span><br><span class="line">zone <span class="string">&quot;cname.com&quot;</span> IN &#123;</span><br><span class="line">        <span class="built_in">type</span> master;</span><br><span class="line">        file <span class="string">&quot;cname.com.zone&quot;</span>;</span><br><span class="line">&#125;;</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="comment"># named-checkconf                       # 检查配置文件语法</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/pasted-131.png" alt="upload successful"></p>
+<figure class="highlight bash"><figcaption><span>新增地址库文件</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cat /var/named/cname.com.zone </span></span><br><span class="line"><span class="variable">$TTL</span> 600</span><br><span class="line">@	IN SOA @ weixj.cname.com. (</span><br><span class="line">					2023010621	; serial</span><br><span class="line">					10800		; refresh</span><br><span class="line">					900		; retry</span><br><span class="line">					604800		; expire</span><br><span class="line">					86400 )		; minimum</span><br><span class="line">@	IN	NS	ns01.cname.com.</span><br><span class="line">ns01	IN	A	10.10.10.115</span><br><span class="line"></span><br><span class="line">; CNAME 解析</span><br><span class="line">web	IN	CNAME	web.ink8s.com.</span><br><span class="line"></span><br><span class="line"><span class="comment"># named-checkzone job.com /var/named/job.com.zone         # 检查区域数据库文件配置</span></span><br><span class="line"><span class="comment"># systemctl restart named</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><figcaption><span>客户端验证</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># nslookup web.cname.com</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/pasted-130.png" alt="upload successful"></p>
+<h6 id="2-2-3-PTR-反向解析"><a href="#2-2-3-PTR-反向解析" class="headerlink" title="2.2.3 PTR 反向解析"></a>2.2.3 PTR 反向解析</h6><figure class="highlight bash"><figcaption><span>主配置文件,新增区域配置</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">// 配置反向解析 PTR: IP ---&gt; FQDN</span><br><span class="line">// 反向区域数据库文件, 例如: 10.10.10.100 的 name 为 200, 完全格式为: 10.10.10.in-addr.arpa.</span><br><span class="line"></span><br><span class="line">// 新增区域配置</span><br><span class="line">// 在主配置文件 /etc/named.conf, 新增一个反向区域配置</span><br><span class="line"><span class="comment"># cat /etc/named.conf</span></span><br><span class="line">...</span><br><span class="line">// 配置反向解析</span><br><span class="line">zone <span class="string">&quot;10.10.10.in-addr.arpa&quot;</span> IN &#123;</span><br><span class="line"><span class="built_in">type</span> master;</span><br><span class="line">file <span class="string">&quot;10.10.10.zone&quot;</span>;</span><br><span class="line">&#125;;</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="comment"># named-checkconf</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><figcaption><span>新增反向解析地址库文件</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cat /var/named/10.10.10.zone </span></span><br><span class="line"><span class="variable">$TTL</span> 7200</span><br><span class="line">@	IN SOA 10.10.10.in-addr-arpa. weixj.ink8s.com. (</span><br><span class="line">					2023010650	; serial</span><br><span class="line">					10800		; refresh</span><br><span class="line">					900		; retry</span><br><span class="line">					604800		; expire</span><br><span class="line">					86400 )		; minimum</span><br><span class="line">@		IN	NS	ns01.ink8s.com.</span><br><span class="line">115		IN	PTR	ns01.ink8s.com.</span><br><span class="line"></span><br><span class="line">; 反向解析</span><br><span class="line">100		IN	PTR	web.ink8s.com</span><br><span class="line"></span><br><span class="line"><span class="comment"># systemctl restart named</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><figcaption><span>客户端验证</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># nslookup 10.10.10.100</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/pasted-132.png" alt="upload successful"></p>
+<h6 id="2-2-4-MX-解析"><a href="#2-2-4-MX-解析" class="headerlink" title="2.2.4 MX 解析"></a>2.2.4 MX 解析</h6><figure class="highlight bash"><figcaption><span>添加 mx 解析记录</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cat /var/named/ink8s.com.zone </span></span><br><span class="line"><span class="variable">$TTL</span> 600</span><br><span class="line">@	IN SOA @ weixj.ink8s.com. (</span><br><span class="line">					2023010639	; serial</span><br><span class="line">					10800		; refresh</span><br><span class="line">					900		; retry</span><br><span class="line">					604800		; expire</span><br><span class="line">					86400 )		; minimum</span><br><span class="line">@		IN	NS	ns01.ink8s.com.</span><br><span class="line">ns01		IN	A	10.10.10.115</span><br><span class="line"></span><br><span class="line">; A 记录域名解析</span><br><span class="line">web		IN	A	10.10.10.100</span><br><span class="line"></span><br><span class="line">; mx 解析记录</span><br><span class="line">@		IN	MX 10	mail.ink8s.com.</span><br><span class="line">mail		IN	A	10.10.10.20</span><br><span class="line"></span><br><span class="line"><span class="comment"># systemctl restart named</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><figcaption><span>客户端验证</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># dig ink8s.com MX +short</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/pasted-133.png" alt="upload successful"></p>
+<h4 id="3-0-DNS-客户端命令"><a href="#3-0-DNS-客户端命令" class="headerlink" title="3.0 DNS 客户端命令"></a>3.0 DNS 客户端命令</h4><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>通用性</th>
+<th>使用难易度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>nslookup</td>
+<td>支持多平台</td>
+<td>使用简单、易懂</td>
+</tr>
+<tr>
+<td>dig</td>
+<td>常用Linux系统</td>
+<td>比较专业</td>
+</tr>
+<tr>
+<td>host</td>
+<td>较多</td>
+<td>简单、明了</td>
+</tr>
+</tbody></table>
+<h5 id="3-1-nslookup-命令"><a href="#3-1-nslookup-命令" class="headerlink" title="3.1 nslookup 命令"></a>3.1 nslookup 命令</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># nslookup web.ink8s.com		   # 解析域名对应的 IP</span></span><br><span class="line"><span class="comment"># nslookup				   # 解析域名 SOA 记录</span></span><br><span class="line">&gt; <span class="built_in">set</span> q=soa				   <span class="comment"># 设定 q=soa | ns | a</span></span><br><span class="line">&gt; ink8s.com</span><br></pre></td></tr></table></figure>
+
+<h5 id="3-2-dig-命令"><a href="#3-2-dig-命令" class="headerlink" title="3.2 dig 命令"></a>3.2 dig 命令</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># dig @10.10.10.115 web.ink8s.com          # 通过哪个 DNS 来解析域名 - 正向解析</span></span><br><span class="line"><span class="comment"># dig -x 10.10.10.100 @10.10.10.115        # 通过 IP 解析对应的域名 - 反向解析</span></span><br><span class="line"><span class="comment"># dig -t a web.ink8s.com                   # 通过 dig 仅查询 A 记录</span></span><br><span class="line"><span class="comment"># dig -t AXFR ink8s.com @10.10.10.115      # 通过 dig 查看区域传送配置</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="3-2-host-命令"><a href="#3-2-host-命令" class="headerlink" title="3.2 host 命令"></a>3.2 host 命令</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># host -t soa ink8s.com			   # 查询 SOA 记录</span></span><br><span class="line"><span class="comment"># host -t NS ink8s.com			   # 查询 NS 记录</span></span><br><span class="line"><span class="comment"># host -t A web.ink8s.com		   # 查询 A 记录</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="4-0-递归查询"><a href="#4-0-递归查询" class="headerlink" title="4.0 递归查询"></a>4.0 递归查询</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// recurison 参数默认为启用</span><br><span class="line"><span class="comment"># cat /etc/named.conf</span></span><br><span class="line">...</span><br><span class="line">recursion <span class="built_in">yes</span>;                    <span class="comment"># 默认配置</span></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="comment"># dig www.jd.com @10.10.10.115 +short	# 查询不存在 BIND DNS  中的域名,能正确返回,原因是 BIND 进行了递归查询</span></span><br></pre></td></tr></table></figure>
+<p><img src="/images/pasted-134.png" alt="upload successful"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">// 如果 recursion no; 关闭,则会打印 WARNING</span><br></pre></td></tr></table></figure>
+<p><img src="/images/pasted-135.png" alt="upload successful"></p>
+<h5 id="4-1-递归查询访问控制范围"><a href="#4-1-递归查询访问控制范围" class="headerlink" title="4.1 递归查询访问控制范围"></a>4.1 递归查询访问控制范围</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cat /etc/named.conf</span></span><br><span class="line">...</span><br><span class="line">recursion <span class="built_in">yes</span>;</span><br><span class="line">allow-recursion &#123; 10.10.10.0/24;192.168.0.0/24; &#125;;        <span class="comment"># 限制客户端递归请求的范围</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<h4 id="5-0-DNS-主从同步"><a href="#5-0-DNS-主从同步" class="headerlink" title="5.0 DNS 主从同步"></a>5.0 DNS 主从同步</h4><table>
+<thead>
+<tr>
+<th>系统版本</th>
+<th>主机名</th>
+<th>IP地址</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>centos 7.9</td>
+<td>bind-dns01</td>
+<td>10.10.10.115</td>
+<td>域名(master): ink8s.com</td>
+</tr>
+<tr>
+<td>centos 7.9</td>
+<td>bind-dns02</td>
+<td>10.10.10.116</td>
+<td>域名(slave): ink8s.com</td>
+</tr>
+</tbody></table>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 当主 DNS 故障时,辅 DNS 可以继续提供域名解析服务</span><br><span class="line">// 当辅助 DNS 与主 DNS 同时对外提供解析服务时,可以达到流量负载均衡效果</span><br></pre></td></tr></table></figure>
+
+<h5 id="5-1-master-服务器配置"><a href="#5-1-master-服务器配置" class="headerlink" title="5.1 master 服务器配置"></a>5.1 master 服务器配置</h5><figure class="highlight bash"><figcaption><span>主配置文件</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">// named.conf 配置文件添加:</span><br><span class="line">    allow-transfer 允许哪些 IP 地址能同步 Master 配置信息</span><br><span class="line">    also-notify Master 主动通知 Slave 域名发生了变更</span><br><span class="line"></span><br><span class="line"><span class="comment"># cat /etc/named.conf</span></span><br><span class="line">options &#123;</span><br><span class="line">	listen-on port 53 &#123; any; &#125;;</span><br><span class="line">	listen-on-v6 port 53 &#123; ::1; &#125;;</span><br><span class="line">	directory <span class="string">&quot;/var/named&quot;</span>;</span><br><span class="line">	dump-file <span class="string">&quot;/var/named/data/cache_dump.db&quot;</span>;</span><br><span class="line">	statistics-file <span class="string">&quot;/var/named/data/named_stats.txt&quot;</span>;</span><br><span class="line">	memstatistics-file <span class="string">&quot;/var/named/data/named_mem_stats.txt&quot;</span>;</span><br><span class="line">	recursing-file  <span class="string">&quot;/var/named/data/named.recursing&quot;</span>;</span><br><span class="line">	secroots-file   <span class="string">&quot;/var/named/data/named.secroots&quot;</span>;</span><br><span class="line">	allow-query     &#123; any; &#125;;</span><br><span class="line">        allow-transfer  &#123; 10.10.10.116; &#125;;</span><br><span class="line">        also-notify     &#123; 10.10.10.116; &#125;;</span><br><span class="line"></span><br><span class="line">	recursion <span class="built_in">yes</span>;</span><br><span class="line">        allow-recursion   &#123; any; &#125;;</span><br><span class="line"></span><br><span class="line">	dnssec-enable <span class="built_in">yes</span>;</span><br><span class="line">	dnssec-validation <span class="built_in">yes</span>;</span><br><span class="line"></span><br><span class="line">	bindkeys-file <span class="string">&quot;/etc/named.root.key&quot;</span>;</span><br><span class="line"></span><br><span class="line">	managed-keys-directory <span class="string">&quot;/var/named/dynamic&quot;</span>;</span><br><span class="line">	pid-file <span class="string">&quot;/run/named/named.pid&quot;</span>;</span><br><span class="line">	session-keyfile <span class="string">&quot;/run/named/session.key&quot;</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">logging &#123;</span><br><span class="line">        channel default_debug &#123;</span><br><span class="line">                file <span class="string">&quot;data/named.run&quot;</span>;</span><br><span class="line">                severity dynamic;</span><br><span class="line">        &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">zone <span class="string">&quot;.&quot;</span> IN &#123;</span><br><span class="line">	<span class="built_in">type</span> hint;</span><br><span class="line">	file <span class="string">&quot;named.ca&quot;</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">zone <span class="string">&quot;ink8s.com&quot;</span> IN &#123;</span><br><span class="line">        <span class="built_in">type</span> master;</span><br><span class="line">        file <span class="string">&quot;ink8s.com.zone&quot;</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">zone <span class="string">&quot;cname.com&quot;</span> IN &#123;</span><br><span class="line">        <span class="built_in">type</span> master;</span><br><span class="line">        file <span class="string">&quot;cname.com.zone&quot;</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">zone <span class="string">&quot;10.10.10.in-addr.arpa&quot;</span> IN &#123;</span><br><span class="line">        <span class="built_in">type</span> master;</span><br><span class="line">        file <span class="string">&quot;10.10.10.zone&quot;</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">include <span class="string">&quot;/etc/named.rfc1912.zones&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><figcaption><span>ink8s.com 地址库文件</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cat /var/named/ink8s.com.zone </span></span><br><span class="line"><span class="variable">$TTL</span> 600</span><br><span class="line">@	IN SOA @ weixj.ink8s.com. (</span><br><span class="line">					2023010639	; serial</span><br><span class="line">					10800		; refresh</span><br><span class="line">					900		; retry</span><br><span class="line">					604800		; expire</span><br><span class="line">					86400 )		; minimum</span><br><span class="line">@		IN	NS	ns01.ink8s.com.</span><br><span class="line">@		IN	NS	ns02.ink8s.com.</span><br><span class="line">ns01		IN	A	10.10.10.115</span><br><span class="line">ns02		IN	A	10.10.10.116</span><br><span class="line"></span><br><span class="line">; A 记录域名解析</span><br><span class="line">web		IN	A	10.10.10.100</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><figcaption><span>cname.com 地址库文件</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cat /var/named/cname.com.zone </span></span><br><span class="line"><span class="variable">$TTL</span> 600</span><br><span class="line">@	IN SOA @ weixj.cname.com. (</span><br><span class="line">					2023010621	; serial</span><br><span class="line">					10800		; refresh</span><br><span class="line">					900		; retry</span><br><span class="line">					604800		; expire</span><br><span class="line">					86400 )		; minimum</span><br><span class="line">@	IN	NS	ns01.cname.com.</span><br><span class="line">@	IN	NS	ns02.cname.com.</span><br><span class="line">ns01	IN	A	10.10.10.115</span><br><span class="line">ns02	IN	A	10.10.10.116</span><br><span class="line"></span><br><span class="line">web	IN	CNAME	web.ink8s.com.</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><figcaption><span>反向解析地址库文件</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cat /var/named/10.10.10.zone </span></span><br><span class="line"><span class="variable">$TTL</span> 7200</span><br><span class="line">@	IN SOA 10.10.10.in-addr-arpa. weixj.ink8s.com. (</span><br><span class="line">					2023010650	; serial</span><br><span class="line">					10800		; refresh</span><br><span class="line">					900		; retry</span><br><span class="line">					604800		; expire</span><br><span class="line">					86400 )		; minimum</span><br><span class="line">@		IN	NS	ns01.ink8s.com.</span><br><span class="line">@		IN	NS	ns02.ink8s.com.</span><br><span class="line">115		IN	PTR	ns01.ink8s.com.</span><br><span class="line">116		IN	PTR	ns02.ink8s.com.</span><br><span class="line"></span><br><span class="line">; 反向解析</span><br><span class="line">100		IN	PTR	web.ink8s.com</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><figcaption><span>配置验证</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># echo -e &quot;nameserver 10.10.10.115\nnameserver 10.10.10.116&quot; &gt; /etc/resolv.conf </span></span><br><span class="line"><span class="comment"># named-checkconf </span></span><br><span class="line"><span class="comment"># named-checkzone job.com /var/named/ink8s.com.zone </span></span><br><span class="line"><span class="comment"># named-checkzone job.com /var/named/cname.com.zone </span></span><br><span class="line"><span class="comment"># named-checkzone job.com /var/named/10.10.10.zone </span></span><br><span class="line"><span class="comment"># rndc reload			# 重启配置</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="5-2-slave-服务器配置"><a href="#5-2-slave-服务器配置" class="headerlink" title="5.2 slave 服务器配置"></a>5.2 slave 服务器配置</h5><figure class="highlight bash"><figcaption><span>主配置文件</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cat /etc/named.conf </span></span><br><span class="line">options &#123;</span><br><span class="line">	listen-on port 53 &#123; any; &#125;;</span><br><span class="line">	listen-on-v6 port 53 &#123; ::1; &#125;;</span><br><span class="line">	directory <span class="string">&quot;/var/named&quot;</span>;</span><br><span class="line">	dump-file <span class="string">&quot;/var/named/data/cache_dump.db&quot;</span>;</span><br><span class="line">	statistics-file <span class="string">&quot;/var/named/data/named_stats.txt&quot;</span>;</span><br><span class="line">	memstatistics-file <span class="string">&quot;/var/named/data/named_mem_stats.txt&quot;</span>;</span><br><span class="line">	recursing-file  <span class="string">&quot;/var/named/data/named.recursing&quot;</span>;</span><br><span class="line">	secroots-file   <span class="string">&quot;/var/named/data/named.secroots&quot;</span>;</span><br><span class="line">	allow-query     &#123; any; &#125;;</span><br><span class="line">        masterfile-format text;</span><br><span class="line"></span><br><span class="line">	recursion <span class="built_in">yes</span>;</span><br><span class="line"></span><br><span class="line">	dnssec-enable <span class="built_in">yes</span>;</span><br><span class="line">	dnssec-validation <span class="built_in">yes</span>;</span><br><span class="line"></span><br><span class="line">	bindkeys-file <span class="string">&quot;/etc/named.root.key&quot;</span>;</span><br><span class="line"></span><br><span class="line">	managed-keys-directory <span class="string">&quot;/var/named/dynamic&quot;</span>;</span><br><span class="line">	pid-file <span class="string">&quot;/run/named/named.pid&quot;</span>;</span><br><span class="line">	session-keyfile <span class="string">&quot;/run/named/session.key&quot;</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">logging &#123;</span><br><span class="line">        channel default_debug &#123;</span><br><span class="line">                file <span class="string">&quot;data/named.run&quot;</span>;</span><br><span class="line">                severity dynamic;</span><br><span class="line">        &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">zone <span class="string">&quot;.&quot;</span> IN &#123;</span><br><span class="line">	<span class="built_in">type</span> hint;</span><br><span class="line">	file <span class="string">&quot;named.ca&quot;</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">zone <span class="string">&quot;ink8s.com&quot;</span> IN &#123;</span><br><span class="line">        <span class="built_in">type</span> slave;</span><br><span class="line">        file <span class="string">&quot;slaves/ink8s.com.zone&quot;</span>;</span><br><span class="line">        masters &#123; 10.10.10.115; &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">zone <span class="string">&quot;cname.com&quot;</span> IN &#123;</span><br><span class="line">        <span class="built_in">type</span> slave;</span><br><span class="line">        file <span class="string">&quot;slaves/cname.com.zone&quot;</span>;</span><br><span class="line">        masters &#123; 10.10.10.115; &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">zone <span class="string">&quot;10.10.10.in-addr.arpa&quot;</span> IN &#123;</span><br><span class="line">        <span class="built_in">type</span> slave;</span><br><span class="line">        file <span class="string">&quot;slaves/10.10.10.zone&quot;</span>;</span><br><span class="line">        masters &#123; 10.10.10.115; &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">include <span class="string">&quot;/etc/named.rfc1912.zones&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment"># named-checkconf</span></span><br><span class="line"><span class="comment"># systemctl enable named &amp;&amp; systemctl start named</span></span><br><span class="line"><span class="comment"># echo -e &quot;nameserver 10.10.10.115\nnameserver 10.10.10.116&quot; &gt; /etc/resolv.conf </span></span><br></pre></td></tr></table></figure>
+
+<h5 id="5-3-验证主从解析"><a href="#5-3-验证主从解析" class="headerlink" title="5.3 验证主从解析"></a>5.3 验证主从解析</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># dig web.ink8s.com @10.10.10.115</span></span><br><span class="line"><span class="comment"># dig web.ink8s.com @10.10.10.116</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/pasted-136.png" alt="upload successful"></p>
+<p><img src="/images/pasted-137.png" alt="upload successful"></p>
+<h5 id="5-4-添加-A-记录"><a href="#5-4-添加-A-记录" class="headerlink" title="5.4 添加 A 记录"></a>5.4 添加 A 记录</h5><figure class="highlight bash"><figcaption><span>master 增加一条 A 记录</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">// master 地址库文件有变更时,更新<span class="string">&quot;serial&quot;</span>后。从 dns 立刻同步 master 的配置</span><br><span class="line"></span><br><span class="line">[root@bind-dns01 ~]<span class="comment"># cat /var/named/ink8s.com.zone</span></span><br><span class="line"><span class="variable">$TTL</span> 600</span><br><span class="line">@	IN SOA @ weixj.ink8s.com. (</span><br><span class="line">					2023010640	; serial</span><br><span class="line">					10800		; refresh</span><br><span class="line">					900		; retry</span><br><span class="line">					604800		; expire</span><br><span class="line">					86400 )		; minimum</span><br><span class="line">@		IN	NS	ns01.ink8s.com.</span><br><span class="line">@		IN	NS	ns02.ink8s.com.</span><br><span class="line">ns01		IN	A	10.10.10.115</span><br><span class="line">ns02		IN	A	10.10.10.116</span><br><span class="line"></span><br><span class="line">; A 记录域名解析</span><br><span class="line">web		IN	A	10.10.10.100</span><br><span class="line">dev		IN	A	1.1.1.1</span><br><span class="line"></span><br><span class="line">[root@bind-dns01 ~]<span class="comment"># rndc reload</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><figcaption><span>验证解析</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@bind-dns01 ~]<span class="comment"># dig dev.ink8s.com @10.10.10.115 +short</span></span><br><span class="line">[root@bind-dns01 ~]<span class="comment"># dig dev.ink8s.com @10.10.10.116 +short</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="6-0-DNS-子域授权"><a href="#6-0-DNS-子域授权" class="headerlink" title="6.0 DNS 子域授权"></a>6.0 DNS 子域授权</h4><table>
+<thead>
+<tr>
+<th>系统版本</th>
+<th>主机名</th>
+<th>IP地址</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>centos 7.9</td>
+<td>bind-dns01</td>
+<td>10.10.10.115</td>
+<td>父域(master): ink8s.com</td>
+</tr>
+<tr>
+<td>centos 7.9</td>
+<td>bind-dns02</td>
+<td>10.10.10.116</td>
+<td>父域(slave): ink8s.com</td>
+</tr>
+<tr>
+<td>centos 7.9</td>
+<td>bind-son01</td>
+<td>10.10.10.117</td>
+<td>子域: ops.ink8s.com</td>
+</tr>
+</tbody></table>
+<h5 id="6-1-父域配置"><a href="#6-1-父域配置" class="headerlink" title="6.1 父域配置"></a>6.1 父域配置</h5><figure class="highlight bash"><figcaption><span>主配置文件</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">[root@bind-dns01 ~]<span class="comment"># cat /etc/named.conf</span></span><br><span class="line">options &#123;</span><br><span class="line">	listen-on port 53 &#123; any; &#125;;</span><br><span class="line">	listen-on-v6 port 53 &#123; ::1; &#125;;</span><br><span class="line">	directory <span class="string">&quot;/var/named&quot;</span>;</span><br><span class="line">	dump-file <span class="string">&quot;/var/named/data/cache_dump.db&quot;</span>;</span><br><span class="line">	statistics-file <span class="string">&quot;/var/named/data/named_stats.txt&quot;</span>;</span><br><span class="line">	memstatistics-file <span class="string">&quot;/var/named/data/named_mem_stats.txt&quot;</span>;</span><br><span class="line">	recursing-file  <span class="string">&quot;/var/named/data/named.recursing&quot;</span>;</span><br><span class="line">	secroots-file   <span class="string">&quot;/var/named/data/named.secroots&quot;</span>;</span><br><span class="line">	allow-query     &#123; any; &#125;;</span><br><span class="line">        allow-transfer  &#123; 10.10.10.116; &#125;;</span><br><span class="line">        also-notify     &#123; 10.10.10.116; &#125;;</span><br><span class="line"></span><br><span class="line">	recursion <span class="built_in">yes</span>;</span><br><span class="line">        allow-recursion   &#123; any; &#125;;</span><br><span class="line"></span><br><span class="line">	dnssec-enable <span class="built_in">yes</span>;</span><br><span class="line">	dnssec-validation <span class="built_in">yes</span>;</span><br><span class="line"></span><br><span class="line">	bindkeys-file <span class="string">&quot;/etc/named.root.key&quot;</span>;</span><br><span class="line"></span><br><span class="line">	managed-keys-directory <span class="string">&quot;/var/named/dynamic&quot;</span>;</span><br><span class="line">	pid-file <span class="string">&quot;/run/named/named.pid&quot;</span>;</span><br><span class="line">	session-keyfile <span class="string">&quot;/run/named/session.key&quot;</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">logging &#123;</span><br><span class="line">        channel default_debug &#123;</span><br><span class="line">                file <span class="string">&quot;data/named.run&quot;</span>;</span><br><span class="line">                severity dynamic;</span><br><span class="line">        &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">zone <span class="string">&quot;.&quot;</span> IN &#123;</span><br><span class="line">	<span class="built_in">type</span> hint;</span><br><span class="line">	file <span class="string">&quot;named.ca&quot;</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">zone <span class="string">&quot;ink8s.com&quot;</span> IN &#123;</span><br><span class="line">        <span class="built_in">type</span> master;</span><br><span class="line">        file <span class="string">&quot;ink8s.com.zone&quot;</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">zone <span class="string">&quot;cname.com&quot;</span> IN &#123;</span><br><span class="line">        <span class="built_in">type</span> master;</span><br><span class="line">        file <span class="string">&quot;cname.com.zone&quot;</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">zone <span class="string">&quot;10.10.10.in-addr.arpa&quot;</span> IN &#123;</span><br><span class="line">        <span class="built_in">type</span> master;</span><br><span class="line">        file <span class="string">&quot;10.10.10.zone&quot;</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">include <span class="string">&quot;/etc/named.rfc1912.zones&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><figcaption><span>地址库文件,将 ops 三级子域授权给子域服务器</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">[root@bind-dns01 ~]<span class="comment"># cat /var/named/ink8s.com.zone </span></span><br><span class="line"><span class="variable">$TTL</span> 600</span><br><span class="line">@	IN SOA @ weixj.ink8s.com. (</span><br><span class="line">					2023010641	; serial		<span class="comment"># 更新序号同步</span></span><br><span class="line">					10800		; refresh</span><br><span class="line">					900		; retry</span><br><span class="line">					604800		; expire</span><br><span class="line">					86400 )		; minimum</span><br><span class="line">@		IN	NS	ns01.ink8s.com.</span><br><span class="line">@		IN	NS	ns02.ink8s.com.</span><br><span class="line">ns01		IN	A	10.10.10.115</span><br><span class="line">ns02		IN	A	10.10.10.116</span><br><span class="line"></span><br><span class="line">; 子域配置 (如子域也是主从模式,则应授权2台NS记录)</span><br><span class="line">@		IN	NS	ns1.ops.ink8s.com.</span><br><span class="line">ns1		IN	A	10.10.10.117</span><br><span class="line"></span><br><span class="line">; A 记录域名解析</span><br><span class="line">web		IN	A	10.10.10.100</span><br><span class="line">dev		IN	A	1.1.1.1</span><br></pre></td></tr></table></figure>
+
+<h5 id="6-2-子域配置"><a href="#6-2-子域配置" class="headerlink" title="6.2 子域配置"></a>6.2 子域配置</h5><figure class="highlight bash"><figcaption><span>主配置文件</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">[root@bind-son01 ~]<span class="comment"># cat /etc/named.conf </span></span><br><span class="line">options &#123;</span><br><span class="line">	listen-on port 53 &#123; any; &#125;;</span><br><span class="line">	listen-on-v6 port 53 &#123; ::1; &#125;;</span><br><span class="line">	directory <span class="string">&quot;/var/named&quot;</span>;</span><br><span class="line">	dump-file <span class="string">&quot;/var/named/data/cache_dump.db&quot;</span>;</span><br><span class="line">	statistics-file <span class="string">&quot;/var/named/data/named_stats.txt&quot;</span>;</span><br><span class="line">	memstatistics-file <span class="string">&quot;/var/named/data/named_mem_stats.txt&quot;</span>;</span><br><span class="line">	recursing-file  <span class="string">&quot;/var/named/data/named.recursing&quot;</span>;</span><br><span class="line">	secroots-file   <span class="string">&quot;/var/named/data/named.secroots&quot;</span>;</span><br><span class="line">	allow-query     &#123; any; &#125;;</span><br><span class="line"></span><br><span class="line">	recursion <span class="built_in">yes</span>;</span><br><span class="line"></span><br><span class="line">	dnssec-enable <span class="built_in">yes</span>;</span><br><span class="line">	dnssec-validation <span class="built_in">yes</span>;</span><br><span class="line"></span><br><span class="line">	bindkeys-file <span class="string">&quot;/etc/named.root.key&quot;</span>;</span><br><span class="line"></span><br><span class="line">	managed-keys-directory <span class="string">&quot;/var/named/dynamic&quot;</span>;</span><br><span class="line">	pid-file <span class="string">&quot;/run/named/named.pid&quot;</span>;</span><br><span class="line">	session-keyfile <span class="string">&quot;/run/named/session.key&quot;</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">logging &#123;</span><br><span class="line">        channel default_debug &#123;</span><br><span class="line">                file <span class="string">&quot;data/named.run&quot;</span>;</span><br><span class="line">                severity dynamic;</span><br><span class="line">        &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">zone <span class="string">&quot;.&quot;</span> IN &#123;</span><br><span class="line">	<span class="built_in">type</span> hint;</span><br><span class="line">	file <span class="string">&quot;named.ca&quot;</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">zone <span class="string">&quot;ops.ink8s.com&quot;</span> IN &#123;</span><br><span class="line">        <span class="built_in">type</span> master;</span><br><span class="line">        file <span class="string">&quot;ops.ink8s.com.zone&quot;</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">include <span class="string">&quot;/etc/named.rfc1912.zones&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><figcaption><span>子域地址库文件</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[root@bind-son01 ~]<span class="comment"># cat /var/named/ops.ink8s.com.zone </span></span><br><span class="line"><span class="variable">$TTL</span> 7200</span><br><span class="line">@	IN SOA @ weixj.ink8s.com. (</span><br><span class="line">					2023010640	; serial</span><br><span class="line">					10800		; refresh</span><br><span class="line">					900		; retry</span><br><span class="line">					604800		; expire</span><br><span class="line">					86400 )		; minimum</span><br><span class="line">@		IN	NS	ns1.ops.ink8s.com.</span><br><span class="line">ns1		IN	A	10.10.10.117</span><br><span class="line"></span><br><span class="line">; A 记录域名解析</span><br><span class="line">app		IN	A	1.1.2.2</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><figcaption><span>启动配置</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@bind-son01 ~]<span class="comment"># named-checkconf /etc/named.conf</span></span><br><span class="line">[root@bind-son01 ~]<span class="comment"># named-checkzone ops.ink8s.com /var/named/ops.ink8s.com.zone</span></span><br><span class="line">[root@bind-son01 ~]<span class="comment"># systemctl start named &amp;&amp; systemctl enable named</span></span><br><span class="line">[root@bind-son01 ~]<span class="comment"># echo -e &quot;nameserver 10.10.10.117&quot; &gt; /etc/resolv.conf</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="6-3-验证子域解析"><a href="#6-3-验证子域解析" class="headerlink" title="6.3 验证子域解析"></a>6.3 验证子域解析</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[root@bind-son01 ~]<span class="comment"># dig app.ops.ink8s.com @10.10.10.115 +short</span></span><br><span class="line">[root@bind-son01 ~]<span class="comment"># dig app.ops.ink8s.com @10.10.10.116 +short</span></span><br><span class="line">[root@bind-son01 ~]<span class="comment"># dig app.ops.ink8s.com @10.10.10.117 +short</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># dig dev.ink8s.com @10.10.10.117                # 解析父域域名异常; 图2</span></span><br><span class="line">// 父域与子域互相维护不同的区域配置,它们之间不存在任何联系，所以子域在解析父域的域名时,不会直接通过父域来获取权威的解析记录</span><br><span class="line">    // 第一步,它会先找<span class="string">&quot;.&quot;</span>根域</span><br><span class="line">    // 第二步,寻找<span class="string">&quot;com&quot;</span>域对应的 DNS 服务器</span><br><span class="line">    // 第三步,寻找<span class="string">&quot;ink8s&quot;</span>域的对应 DNS 服务器,而后获取 www 的对应的解析记录</span><br><span class="line">// 这种查找模式由 DNS 机制决定</span><br><span class="line"></span><br><span class="line">// 解决方法: 明确告诉子域, 让其能找到父域进行解析,而无需查找<span class="string">&quot;.&quot;</span>根域(需要配置 DNS 转发)</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/pasted-138.png" alt="upload successful"></p>
+<p><img src="/images/pasted-139.png" alt="upload successful"></p>
+<h4 id="7-0-DNS-转发模式"><a href="#7-0-DNS-转发模式" class="headerlink" title="7.0 DNS 转发模式"></a>7.0 DNS 转发模式</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 转发指的是将域名查询请求,转至某一台服务器解析 (被转发的服务器必须允许为当前服务器做递归)</span><br><span class="line">// 转发分为两类</span><br><span class="line">    // 区域转发: 仅转发对某特定的解析请求</span><br><span class="line">    // 全局转发: 针对本地没有通过 zone 定义的区域查询请求,统统转发</span><br><span class="line">// 转发参数:</span><br><span class="line">    forwarders:        转发给哪台服务器; 可以多台</span><br><span class="line">    forwarder only:    仅转发</span><br><span class="line">    forwarder first:   优先转发给对应的服务器查询,如转发器未响应,则自行迭代查询</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><figcaption><span>全局转发示例配置</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">options &#123;</span><br><span class="line">     ...</span><br><span class="line">     forward &#123; first | only &#125;;</span><br><span class="line">     forwarders &#123; SERVER_IP; &#125;;   </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><figcaption><span>区域转发示例配置</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">zone <span class="string">&quot;ZONE_NAME&quot;</span> IN &#123;</span><br><span class="line">    <span class="built_in">type</span> forward;</span><br><span class="line">    forward &#123; first | only &#125;;</span><br><span class="line">    forwarders &#123; SERVER_IP; &#125;; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="7-1-DNS-区域转发实践"><a href="#7-1-DNS-区域转发实践" class="headerlink" title="7.1 DNS 区域转发实践"></a>7.1 DNS 区域转发实践</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">[root@bind-son01 ~]<span class="comment"># cat /etc/named.conf </span></span><br><span class="line">options &#123;</span><br><span class="line">	listen-on port 53 &#123; any; &#125;;</span><br><span class="line">	listen-on-v6 port 53 &#123; ::1; &#125;;</span><br><span class="line">	directory <span class="string">&quot;/var/named&quot;</span>;</span><br><span class="line">	dump-file <span class="string">&quot;/var/named/data/cache_dump.db&quot;</span>;</span><br><span class="line">	statistics-file <span class="string">&quot;/var/named/data/named_stats.txt&quot;</span>;</span><br><span class="line">	memstatistics-file <span class="string">&quot;/var/named/data/named_mem_stats.txt&quot;</span>;</span><br><span class="line">	recursing-file  <span class="string">&quot;/var/named/data/named.recursing&quot;</span>;</span><br><span class="line">	secroots-file   <span class="string">&quot;/var/named/data/named.secroots&quot;</span>;</span><br><span class="line">	allow-query     &#123; any; &#125;;</span><br><span class="line"></span><br><span class="line">	recursion <span class="built_in">yes</span>;</span><br><span class="line"></span><br><span class="line">	dnssec-enable <span class="built_in">yes</span>;</span><br><span class="line">	dnssec-validation <span class="built_in">yes</span>;</span><br><span class="line"></span><br><span class="line">	bindkeys-file <span class="string">&quot;/etc/named.root.key&quot;</span>;</span><br><span class="line"></span><br><span class="line">	managed-keys-directory <span class="string">&quot;/var/named/dynamic&quot;</span>;</span><br><span class="line">	pid-file <span class="string">&quot;/run/named/named.pid&quot;</span>;</span><br><span class="line">	session-keyfile <span class="string">&quot;/run/named/session.key&quot;</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">logging &#123;</span><br><span class="line">        channel default_debug &#123;</span><br><span class="line">                file <span class="string">&quot;data/named.run&quot;</span>;</span><br><span class="line">                severity dynamic;</span><br><span class="line">        &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">zone <span class="string">&quot;.&quot;</span> IN &#123;</span><br><span class="line">	<span class="built_in">type</span> hint;</span><br><span class="line">	file <span class="string">&quot;named.ca&quot;</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">zone <span class="string">&quot;ops.ink8s.com&quot;</span> IN &#123;</span><br><span class="line">        <span class="built_in">type</span> master;</span><br><span class="line">        file <span class="string">&quot;ops.ink8s.com.zone&quot;</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">zone <span class="string">&quot;ink8s.com&quot;</span> IN &#123;</span><br><span class="line">        <span class="built_in">type</span> forward;</span><br><span class="line">        forward first;</span><br><span class="line">        forwarders &#123; 10.10.10.115; 10.10.10.116; &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">include <span class="string">&quot;/etc/named.rfc1912.zones&quot;</span>;</span><br><span class="line"></span><br><span class="line">[root@bind-son01 ~]<span class="comment"># named-checkconf /etc/named.conf</span></span><br><span class="line">[root@bind-son01 ~]<span class="comment"># rndc reload</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="7-1-验证转发解析"><a href="#7-1-验证转发解析" class="headerlink" title="7.1 验证转发解析"></a>7.1 验证转发解析</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@bind-son01 ~]<span class="comment"># dig dev.ink8s.com @10.10.10.117 +short</span></span><br><span class="line">[root@bind-son01 ~]<span class="comment"># dig web.ink8s.com @10.10.10.117 +short</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/pasted-140.png" alt="upload successful"></p>
+
+    
+
+    
+    <div class="page-reward">
+      <a href="javascript:void(0);" class="page-reward-btn tooltip-top" target="_self">
+        <div class="tooltip tooltip-east">
+          <span class="tooltip-item">
+            +V
+          </span>
+          <span class="tooltip-content">
+            <span class="tooltip-text">
+              <span class="tooltip-inner">
+                <p class="reward-p"><i class="icon icon-quo-left"></i>扫码添加博主微信,邀请你加入运维技术交流群<i
+                    class="icon icon-quo-right"></i></p>
+                <div class="reward-box">
+                  
+                  
+                  <div class="reward-box-item">
+                    <img class="reward-img" src="/img/wechat.jpg">
+                    <span class="reward-type">微信</span>
+                  </div>
+                  
+                </div>
+              </span>
+            </span>
+          </span>
+        </div>
+      </a>
+    </div>
+    
+
+    
+    <div class="declare"> 
+      <ul class="post-copyright">
+        <li>
+          <strong>本文作者：</strong>
+          weixj@inadm.com
+        </li>
+        <li>
+          <strong>本文链接：</strong>
+          <a href="https://www.ink8s.com/2023/01/06/dns-bind-9/" title="dns bind 9" target="_blank">https://www.ink8s.com/2023/01/06/dns-bind-9/</a>
+        </li>
+        
+        <li>
+          <strong>版权声明： </strong>
           
+          本博客所有文章除特别声明外，均采用 <a href="https://github.com/JoeyBling/hexo-theme-yilia-plus/blob/master/LICENSE" rel="external nofollow" target="_blank">MIT</a> 许可协议。转载请注明出处！
+        </li>
+        
+      </ul>
+    </div>
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Server-tool</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Linux-svc</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+    
 
+    
+
+    
+    
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <!-- <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a> -->
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=https://www.ink8s.com/2023/01/06/dns-bind-9/" alt="微信分享二维码"> -->
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+
+    
+    <div class="clearfix"></div>
+  </div>
   </div>
 </article>
+
+
+<nav id="article-nav">
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/01/05/iptables-%E9%98%B2%E7%81%AB%E5%A2%99/" class="archive-article-date">
-        <time datetime="2023-01-05T09:18:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-01-05</time>
-</a>
+    <a href="/2023/01/06/namedmanager-dns-%E6%90%AD%E5%BB%BA/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          namedmanager dns 搭建
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/01/05/shadowsocks-%E4%BB%A3%E7%90%86/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">shadowsocks 代理</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
 
 
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/01/05/iptables-%E9%98%B2%E7%81%AB%E5%A2%99/">iptables 防火墙</a>
-	
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux-base</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-0-BIND-DNS-%E7%90%86%E8%AE%BA"><span class="toc-number">1.</span> <span class="toc-text">1.0 BIND DNS 理论</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-1-dns-%E5%9F%9F%E7%BB%93%E6%9E%84"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 dns 域结构</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-2-dns-%E5%8A%9F%E8%83%BD%E7%AD%89"><span class="toc-number">1.2.</span> <span class="toc-text">1.2 dns 功能等</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-3-bind-%E5%9F%9F%E5%90%8D%E6%9C%8D%E5%8A%A1"><span class="toc-number">1.3.</span> <span class="toc-text">1.3 bind 域名服务</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-0-%E5%8D%95%E6%9C%BA%E9%83%A8%E7%BD%B2%E7%8E%AF%E5%A2%83"><span class="toc-number">2.</span> <span class="toc-text">2.0 单机部署环境</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-1-%E5%8D%95%E6%9C%BA%E9%83%A8%E7%BD%B2"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 单机部署</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#2-1-1-%E5%AE%89%E8%A3%85"><span class="toc-number">2.1.1.</span> <span class="toc-text">2.1.1 安装</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#2-1-2-%E4%B8%BB%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">2.1.2.</span> <span class="toc-text">2.1.2 主配置文件</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#2-1-3-%E5%9C%B0%E5%9D%80%E5%BA%93%E6%96%87%E4%BB%B6"><span class="toc-number">2.1.3.</span> <span class="toc-text">2.1.3 地址库文件</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-2-bind-dns-%E8%A7%A3%E6%9E%90%E5%9C%BA%E6%99%AF"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 bind dns 解析场景</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#2-2-1-A-%E8%AE%B0%E5%BD%95%E8%A7%A3%E6%9E%90"><span class="toc-number">2.2.1.</span> <span class="toc-text">2.2.1 A 记录解析</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#2-2-2-CNAME-%E8%A7%A3%E6%9E%90"><span class="toc-number">2.2.2.</span> <span class="toc-text">2.2.2 CNAME 解析</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#2-2-3-PTR-%E5%8F%8D%E5%90%91%E8%A7%A3%E6%9E%90"><span class="toc-number">2.2.3.</span> <span class="toc-text">2.2.3 PTR 反向解析</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#2-2-4-MX-%E8%A7%A3%E6%9E%90"><span class="toc-number">2.2.4.</span> <span class="toc-text">2.2.4 MX 解析</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-0-DNS-%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%91%BD%E4%BB%A4"><span class="toc-number">3.</span> <span class="toc-text">3.0 DNS 客户端命令</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#3-1-nslookup-%E5%91%BD%E4%BB%A4"><span class="toc-number">3.1.</span> <span class="toc-text">3.1 nslookup 命令</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-2-dig-%E5%91%BD%E4%BB%A4"><span class="toc-number">3.2.</span> <span class="toc-text">3.2 dig 命令</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-2-host-%E5%91%BD%E4%BB%A4"><span class="toc-number">3.3.</span> <span class="toc-text">3.2 host 命令</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-0-%E9%80%92%E5%BD%92%E6%9F%A5%E8%AF%A2"><span class="toc-number">4.</span> <span class="toc-text">4.0 递归查询</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#4-1-%E9%80%92%E5%BD%92%E6%9F%A5%E8%AF%A2%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6%E8%8C%83%E5%9B%B4"><span class="toc-number">4.1.</span> <span class="toc-text">4.1 递归查询访问控制范围</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-0-DNS-%E4%B8%BB%E4%BB%8E%E5%90%8C%E6%AD%A5"><span class="toc-number">5.</span> <span class="toc-text">5.0 DNS 主从同步</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#5-1-master-%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE"><span class="toc-number">5.1.</span> <span class="toc-text">5.1 master 服务器配置</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-2-slave-%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE"><span class="toc-number">5.2.</span> <span class="toc-text">5.2 slave 服务器配置</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-3-%E9%AA%8C%E8%AF%81%E4%B8%BB%E4%BB%8E%E8%A7%A3%E6%9E%90"><span class="toc-number">5.3.</span> <span class="toc-text">5.3 验证主从解析</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-4-%E6%B7%BB%E5%8A%A0-A-%E8%AE%B0%E5%BD%95"><span class="toc-number">5.4.</span> <span class="toc-text">5.4 添加 A 记录</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-0-DNS-%E5%AD%90%E5%9F%9F%E6%8E%88%E6%9D%83"><span class="toc-number">6.</span> <span class="toc-text">6.0 DNS 子域授权</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#6-1-%E7%88%B6%E5%9F%9F%E9%85%8D%E7%BD%AE"><span class="toc-number">6.1.</span> <span class="toc-text">6.1 父域配置</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#6-2-%E5%AD%90%E5%9F%9F%E9%85%8D%E7%BD%AE"><span class="toc-number">6.2.</span> <span class="toc-text">6.2 子域配置</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#6-3-%E9%AA%8C%E8%AF%81%E5%AD%90%E5%9F%9F%E8%A7%A3%E6%9E%90"><span class="toc-number">6.3.</span> <span class="toc-text">6.3 验证子域解析</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-0-DNS-%E8%BD%AC%E5%8F%91%E6%A8%A1%E5%BC%8F"><span class="toc-number">7.</span> <span class="toc-text">7.0 DNS 转发模式</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#7-1-DNS-%E5%8C%BA%E5%9F%9F%E8%BD%AC%E5%8F%91%E5%AE%9E%E8%B7%B5"><span class="toc-number">7.1.</span> <span class="toc-text">7.1 DNS 区域转发实践</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#7-1-%E9%AA%8C%E8%AF%81%E8%BD%AC%E5%8F%91%E8%A7%A3%E6%9E%90"><span class="toc-number">7.2.</span> <span class="toc-text">7.1 验证转发解析</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+  <div id="giteement-ctn"></div>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/01/05/linux-%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4/" class="archive-article-date">
-        <time datetime="2023-01-05T05:55:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-01-05</time>
-</a>
-
-
-        </div>
-    	 
+    <link rel="stylesheet" href="/lib/default.css">
+    <script src="/lib/giteement.browser.js"></script>
   
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/01/05/linux-%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4/">linux 系统命令</a>
-	
-    </h1>
-  
+  <script>
+  <!-- id: "dns bind 9" -->
+  var giteement = new Giteement({
+    id: '20230106112702',
+    owner: 'weixj90',
+    repo: 'ink8s-msg',
+    backcall_uri: 'https://www.ink8s.com',
+    oauth_uri: 'https://cors-anywhere.herokuapp.com/https://gitee.com/oauth/token',
+    oauth: {
+      client_id: '50776f958ea15d74ac6d512eeadb5d45fce926378764764cb8d6998f95617e18',
+      client_secret: '5b53bcab62e8a4c917eab413aa2dc40ec6b2b69344411c51bf11285bbe734d8c'
+    },
+  })
+  giteement.render('giteement-ctn')
+  </script>
 
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux-base</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/01/04/vim-%E5%BF%AB%E6%8D%B7%E9%94%AE%E4%BD%BF%E7%94%A8/" class="archive-article-date">
-        <time datetime="2023-01-04T08:58:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-01-04</time>
-</a>
 
 
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/01/04/vim-%E5%BF%AB%E6%8D%B7%E9%94%AE%E4%BD%BF%E7%94%A8/">vim 快捷键使用</a>
-	
-    </h1>
-  
 
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux-base</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/2023/">&amp;laquo; Prev</a><a class="page-number" href="/archives/2023/">1</a><span class="page-number current">2</span>
-    </nav>
-  
 
 
           </div>
@@ -442,8 +708,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
