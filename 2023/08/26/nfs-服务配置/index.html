@@ -6,22 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://www.ink8s.com">
-  <title>INK8S</title>
+  <title>nfs 服务配置 | INK8S</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-    
-    <!-- <meta name="keywords" content="">
-    <meta name="description" content="in 运维"> -->
-  
-  <meta name="description" content="in 运维">
-<meta property="og:type" content="website">
-<meta property="og:title" content="INK8S">
-<meta property="og:url" content="https://www.ink8s.com/page/2/index.html">
+  <meta name="description" content="NFS 服务配置 NFS 安装及规则 NFS 服务端配置 NFS 客户端安装和挂载 NFS 查询命令">
+<meta property="og:type" content="article">
+<meta property="og:title" content="nfs 服务配置">
+<meta property="og:url" content="https://www.ink8s.com/2023/08/26/nfs-%E6%9C%8D%E5%8A%A1%E9%85%8D%E7%BD%AE/index.html">
 <meta property="og:site_name" content="INK8S">
-<meta property="og:description" content="in 运维">
+<meta property="og:description" content="NFS 服务配置 NFS 安装及规则 NFS 服务端配置 NFS 客户端安装和挂载 NFS 查询命令">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-08-26T12:48:43.000Z">
+<meta property="article:modified_time" content="2023-08-26T13:25:15.149Z">
 <meta property="article:author" content="weixj@inadm.com">
+<meta property="article:tag" content="Server-tool">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="INK8S" type="application/atom+xml">
@@ -216,768 +215,276 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-nfs-服务配置" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
   
-    <script src="/lib/oauthcallback.browser.js"></script>
+  
+    <h1 class="article-title" itemprop="name">
+      nfs 服务配置
+    </h1>
+  
+
+
+  
+  
+        
+
+
+<a href="/2023/08/26/nfs-%E6%9C%8D%E5%8A%A1%E9%85%8D%E7%BD%AE/" class="archive-article-date">
+        <time datetime="2023-08-26T12:48:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-08-26</time>
+</a>
+
+
+  
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <ul>
+<li><strong>NFS 服务配置</strong><ul>
+<li>NFS 安装及规则</li>
+<li>NFS 服务端配置</li>
+<li>NFS 客户端安装和挂载</li>
+<li>NFS 查询命令</li>
+</ul>
+</li>
+</ul>
+<span id="more"></span>
+
+<h3 id="1-0-环境"><a href="#1-0-环境" class="headerlink" title="1.0 环境"></a>1.0 <strong>环境</strong></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// host</span><br><span class="line">    10.10.10.200	服务端</span><br><span class="line">    10.10.10.210	客户端</span><br><span class="line">// centos 7.9</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-0-NFS-安装及规则"><a href="#2-0-NFS-安装及规则" class="headerlink" title="2.0 NFS 安装及规则"></a>2.0 <strong>NFS 安装及规则</strong></h3><h4 id="2-1-NFS-服务端安装"><a href="#2-1-NFS-服务端安装" class="headerlink" title="2.1 NFS 服务端安装"></a>2.1 <strong>NFS 服务端安装</strong></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># yum -y install nfs-utils rpcbind                # 所需软件包</span></span><br><span class="line"><span class="comment"># systemctl restart rpcbind nfs-server            # 启服务(先启rpc)</span></span><br><span class="line"><span class="comment"># systemctl enable rpcbind nfs-server             # 开机自启</span></span><br><span class="line"><span class="comment"># rpcinfo -p localhost                            # rpc 端口</span></span><br></pre></td></tr></table></figure>
+<h4 id="2-2-服务端配置规则"><a href="#2-2-服务端配置规则" class="headerlink" title="2.2 服务端配置规则"></a>2.2 <strong>服务端配置规则</strong></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># man exports                                     # 可查看man帮助</span></span><br><span class="line">EXAMPLE</span><br><span class="line">       <span class="comment"># sample /etc/exports file</span></span><br><span class="line">       /               master(rw) trusty(rw,no_root_squash)</span><br><span class="line">       /projects       proj*.local.domain(rw)</span><br><span class="line">       /usr            *.local.domain(ro) @trusted(rw)</span><br><span class="line">       /home/joe       pc001(rw,all_squash,anonuid=150,anongid=100)</span><br><span class="line">       /pub            *(ro,insecure,all_squash)</span><br><span class="line">       /srv/www        -<span class="built_in">sync</span>,rw server @trusted @external(ro)</span><br><span class="line">       /foo            2001:db8:9:e54::/64(rw) 192.0.2.0/24(rw)</span><br><span class="line">       /build          buildhost[0-9].local.domain(rw)</span><br><span class="line">       </span><br><span class="line">// 读写、只读</span><br><span class="line">    rw                 <span class="comment"># 读写</span></span><br><span class="line">    ro                 <span class="comment"># 只读</span></span><br><span class="line">    @trusted           <span class="comment"># 表示组</span></span><br><span class="line">    <span class="built_in">sync</span>               <span class="comment"># 同步模式,内存中数据时时写入磁盘</span></span><br><span class="line">    async              <span class="comment"># 不同步,把内存中数据定期写入磁盘中</span></span><br><span class="line">    no_root_squash     <span class="comment"># 加上这个选项后，root 用户就会对共享的目录拥有至高的权限控制，就像是对本机的目录操作一样。不安全，不建议使用</span></span><br><span class="line">    root_squash        <span class="comment"># 和上面的选项对应，root 用户对共享目录的权限不高，只有普通用户的权限，即限制了 root</span></span><br><span class="line">    all_squash         <span class="comment"># 不管使用 NFS 的用户是谁，他的身份都会被限定成为一个指定的普通用户身份</span></span><br><span class="line">    anonuid/anongid    <span class="comment"># 要和 root_squash 以及 all_squash 一同使用，用于指定使用NFS的用户限定后的 uid 和 gid，前提是本机的 /etc/passwd 中存在这个 uid 和 gid</span></span><br><span class="line">    </span><br><span class="line">// 限制的配置方法</span><br><span class="line">    10.10.10.210       <span class="comment"># [1]限制单个 IP 可以访问</span></span><br><span class="line">    10.10.10.0/24      <span class="comment"># [2]限制网段可以访问</span></span><br><span class="line">    nfs.ink8s.com      <span class="comment"># [3]限制单个域名可以访问</span></span><br><span class="line">    *.ink8s.com        <span class="comment"># [4]整个泛域名范围可以访问</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-0-服务端配置"><a href="#3-0-服务端配置" class="headerlink" title="3.0 服务端配置"></a>3.0 <strong>服务端配置</strong></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># mkdir -p /data/nfs/test01</span></span><br><span class="line"><span class="comment"># chown -R nfsnobody:nfsnobody /data/nfs/test01</span></span><br><span class="line"><span class="comment"># cat /etc/exports</span></span><br><span class="line">// 注解: 共享实际文件夹路径      客户机地址(权限)                                      客户机地址(权限)</span><br><span class="line">/data/nfs/test01	10.10.10.0/24(rw,async,no_root_squash,no_all_squash)     ...</span><br><span class="line"><span class="comment"># systemctl reload nfs-server.service            # 平滑重启</span></span><br><span class="line"></span><br><span class="line">// 硬重启</span><br><span class="line"><span class="comment"># exportfs -arv</span></span><br><span class="line">    -a        <span class="comment"># 全部挂载或者卸载；</span></span><br><span class="line">    -r        <span class="comment"># 重新挂载；</span></span><br><span class="line">    -u        <span class="comment"># 卸载某一个目录；</span></span><br><span class="line">    -v        <span class="comment"># 显示共享的目录</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="4-0-客户端安装和挂载"><a href="#4-0-客户端安装和挂载" class="headerlink" title="4.0 客户端安装和挂载"></a>4.0 <strong>客户端安装和挂载</strong></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># yum install rpcbind nfs-utils                                # 安装客户端包,同服务端包一样</span></span><br><span class="line"><span class="comment"># systemctl restart rpcbind &amp;&amp; systemctl enable rpcbind</span></span><br><span class="line"><span class="comment"># showmount -e 10.10.10.200                                    # 查询是否可以获取 NFS 服务端共享信息; IP 地址为 NFS 服务端 IP 地址</span></span><br><span class="line"><span class="comment"># mkdir -p /data/nfs/test01                                    # 创建本地挂载点,用于将服务端共享目录挂载到本地</span></span><br><span class="line"><span class="comment"># mount -t nfs 10.10.10.200:/data/nfs/test01 /data/nfs/test01  # 临时挂载方式,重启即失效</span></span><br><span class="line"></span><br><span class="line">// 永久挂载方式[1]</span><br><span class="line"><span class="comment"># cat /etc/fstab      </span></span><br><span class="line">10.10.10.200:/data/nfs/test01	/data/nfs/test01	nfs	  _netdev	  0 0</span><br><span class="line"><span class="comment"># mount -a</span></span><br><span class="line"></span><br><span class="line">// 永久挂载方式[2]; 不推荐</span><br><span class="line"><span class="comment"># cat /etc/rc.local</span></span><br><span class="line">mount -t nfs 10.10.10.200:/data/nfs/test01 /data/nfs/test01</span><br><span class="line"><span class="comment"># chmod + /etc/rc.local</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="5-0-查询"><a href="#5-0-查询" class="headerlink" title="5.0 查询"></a>5.0 <strong>查询</strong></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// 客户端查询</span><br><span class="line"><span class="comment"># cat /proc/mounts                                		# 查看挂载的另外一种方式</span></span><br><span class="line"></span><br><span class="line">// 服务端查询</span><br><span class="line"><span class="comment"># showmount -a                                    		# 列出所有客户端</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+    
+
+    
+    <div class="page-reward">
+      <a href="javascript:void(0);" class="page-reward-btn tooltip-top" target="_self">
+        <div class="tooltip tooltip-east">
+          <span class="tooltip-item">
+            +V
+          </span>
+          <span class="tooltip-content">
+            <span class="tooltip-text">
+              <span class="tooltip-inner">
+                <p class="reward-p"><i class="icon icon-quo-left"></i>扫码添加博主微信,邀请你加入运维技术交流群<i
+                    class="icon icon-quo-right"></i></p>
+                <div class="reward-box">
+                  
+                  
+                  <div class="reward-box-item">
+                    <img class="reward-img" src="/img/wechat.jpg">
+                    <span class="reward-type">微信</span>
+                  </div>
+                  
+                </div>
+              </span>
+            </span>
+          </span>
+        </div>
+      </a>
+    </div>
+    
+
+    
+    <div class="declare"> 
+      <ul class="post-copyright">
+        <li>
+          <strong>本文作者：</strong>
+          weixj@inadm.com
+        </li>
+        <li>
+          <strong>本文链接：</strong>
+          <a href="https://www.ink8s.com/2023/08/26/nfs-服务配置/" title="nfs 服务配置" target="_blank">https://www.ink8s.com/2023/08/26/nfs-服务配置/</a>
+        </li>
+        
+        <li>
+          <strong>版权声明： </strong>
+          
+          本博客所有文章除特别声明外，均采用 <a href="https://github.com/JoeyBling/hexo-theme-yilia-plus/blob/master/LICENSE" rel="external nofollow" target="_blank">MIT</a> 许可协议。转载请注明出处！
+        </li>
+        
+      </ul>
+    </div>
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Server-tool</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+
+    
+
+    
+    
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <!-- <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a> -->
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=https://www.ink8s.com/2023/08/26/nfs-%E6%9C%8D%E5%8A%A1%E9%85%8D%E7%BD%AE/" alt="微信分享二维码"> -->
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+
+<nav id="article-nav">
+  
+    <a href="/2023/08/26/chfs-%E6%96%87%E4%BB%B6%E5%85%B1%E4%BA%AB/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          chfs 文件共享
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/03/28/mysql-%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">mysql 主从复制</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-0-%E7%8E%AF%E5%A2%83"><span class="toc-number">1.</span> <span class="toc-text">1.0 环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-0-NFS-%E5%AE%89%E8%A3%85%E5%8F%8A%E8%A7%84%E5%88%99"><span class="toc-number">2.</span> <span class="toc-text">2.0 NFS 安装及规则</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-NFS-%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%AE%89%E8%A3%85"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 NFS 服务端安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-%E6%9C%8D%E5%8A%A1%E7%AB%AF%E9%85%8D%E7%BD%AE%E8%A7%84%E5%88%99"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 服务端配置规则</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-0-%E6%9C%8D%E5%8A%A1%E7%AB%AF%E9%85%8D%E7%BD%AE"><span class="toc-number">3.</span> <span class="toc-text">3.0 服务端配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-0-%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%AE%89%E8%A3%85%E5%92%8C%E6%8C%82%E8%BD%BD"><span class="toc-number">4.</span> <span class="toc-text">4.0 客户端安装和挂载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-0-%E6%9F%A5%E8%AF%A2"><span class="toc-number">5.</span> <span class="toc-text">5.0 查询</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+  <div id="giteement-ctn"></div>
+  
+    <link rel="stylesheet" href="/lib/default.css">
+    <script src="/lib/giteement.browser.js"></script>
   
   <script>
-    Oauthcallback();
+  <!-- id: "nfs 服务配置" -->
+  var giteement = new Giteement({
+    id: '20230826204843',
+    owner: 'weixj90',
+    repo: 'ink8s-msg',
+    backcall_uri: 'https://www.ink8s.com',
+    oauth_uri: 'https://cors-anywhere.herokuapp.com/https://gitee.com/oauth/token',
+    oauth: {
+      client_id: '50776f958ea15d74ac6d512eeadb5d45fce926378764764cb8d6998f95617e18',
+      client_secret: '5b53bcab62e8a4c917eab413aa2dc40ec6b2b69344411c51bf11285bbe734d8c'
+    },
+  })
+  giteement.render('giteement-ctn')
   </script>
 
 
-  
-    <article id="post-yum-源服务" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/01/12/yum-%E6%BA%90%E6%9C%8D%E5%8A%A1/">yum 源服务</a>
-	
-    </h1>
-  
 
 
-  
-  
-<a href="/2023/01/12/yum-%E6%BA%90%E6%9C%8D%E5%8A%A1/" class="archive-article-date">
-        <time datetime="2023-01-12T03:38:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-01-12</time>
-</a>
 
 
-  
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <ul>
-<li><strong>YUM 源服务部署</strong><ul>
-<li>YUM 源服务搭建</li>
-<li>YUM 客户端repo</li>
-</ul>
-</li>
-</ul>
-<p><font size=2>搭建IDC企业内网YUM源服务器。客户端无需在向外网获取安装包。服务端定时向外网同步</font></p>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Linux-svc</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/01/12/yum-%E6%BA%90%E6%9C%8D%E5%8A%A1/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-gitlab-搭建" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/01/11/gitlab-%E6%90%AD%E5%BB%BA/">gitlab 搭建</a>
-	
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/01/11/gitlab-%E6%90%AD%E5%BB%BA/" class="archive-article-date">
-        <time datetime="2023-01-11T11:30:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-01-11</time>
-</a>
-
-
-  
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <ul>
-<li><strong>Git 和 GitLab</strong><ul>
-<li>Git 安装和使用</li>
-<li>GitLab 搭建、维护</li>
-</ul>
-</li>
-</ul>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Linux-svc</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/01/11/gitlab-%E6%90%AD%E5%BB%BA/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-openvpn-搭建" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/01/10/openvpn-%E6%90%AD%E5%BB%BA/">openvpn 搭建</a>
-	
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/01/10/openvpn-%E6%90%AD%E5%BB%BA/" class="archive-article-date">
-        <time datetime="2023-01-10T02:35:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-01-10</time>
-</a>
-
-
-  
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <ul>
-<li><strong>企业级 OpenVPN 搭建</strong><ul>
-<li><strong>OpenVPN 单机搭建</strong><ul>
-<li>OpenVPN 安装</li>
-<li>证书文件生成</li>
-<li>OpenVPN 服务端配置</li>
-<li>客户端证书创建、客户端工具下载安装</li>
-</ul>
-</li>
-<li><strong>OpenVPN 跨机房部署</strong><ul>
-<li>办公网络访问 阿里云网络、IDC 网络</li>
-<li>在外人员访问阿里云网络、IDC 网络、办公网络</li>
-<li>实现 IDC 网络、阿里云网络、公司网络互通</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Linux-svc</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/01/10/openvpn-%E6%90%AD%E5%BB%BA/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-openldap-搭建" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/01/09/openldap-%E6%90%AD%E5%BB%BA/">openldap 搭建</a>
-	
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/01/09/openldap-%E6%90%AD%E5%BB%BA/" class="archive-article-date">
-        <time datetime="2023-01-09T05:41:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-01-09</time>
-</a>
-
-
-  
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <ul>
-<li><strong>企业级 OpenLDAP 账号统一管理应用</strong><ul>
-<li>LDAP 安装、配置、启动</li>
-<li>LDAP 日志配置</li>
-<li>LDAP ssl&#x2F;tls 配置</li>
-<li>访问控制</li>
-<li>域组织架构、创建 OU&#x2F;GROUP&#x2F;USER</li>
-<li>图形和命令工具使用</li>
-<li>LDAP 自助密码服务</li>
-<li>LDAP 认证其它应用服务</li>
-</ul>
-</li>
-</ul>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Linux-svc</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/01/09/openldap-%E6%90%AD%E5%BB%BA/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-namedmanager-dns-搭建" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/01/06/namedmanager-dns-%E6%90%AD%E5%BB%BA/">namedmanager dns 搭建</a>
-	
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/01/06/namedmanager-dns-%E6%90%AD%E5%BB%BA/" class="archive-article-date">
-        <time datetime="2023-01-06T10:32:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-01-06</time>
-</a>
-
-
-  
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <ul>
-<li><strong>NamedManager 基于web的dns服务</strong><ul>
-<li>nm-dns 软件部署及配置</li>
-<li>web 页面相关解析配置</li>
-<li>https 访问,正常配置解析使用</li>
-</ul>
-</li>
-</ul>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Linux-svc</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/01/06/namedmanager-dns-%E6%90%AD%E5%BB%BA/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-dns-bind-9" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/01/06/dns-bind-9/">dns bind 9</a>
-	
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/01/06/dns-bind-9/" class="archive-article-date">
-        <time datetime="2023-01-06T03:27:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-01-06</time>
-</a>
-
-
-  
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <p><strong>Linux Bind DNS 搭建</strong></p>
-<ul>
-<li>bind 单机服务部署、配置</li>
-<li>dns 客户端命令使用</li>
-<li>dns 主从同步、子域授权、转发模式</li>
-</ul>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Linux-svc</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/01/06/dns-bind-9/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-shadowsocks-代理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/01/05/shadowsocks-%E4%BB%A3%E7%90%86/">shadowsocks 代理</a>
-	
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/01/05/shadowsocks-%E4%BB%A3%E7%90%86/" class="archive-article-date">
-        <time datetime="2023-01-05T15:31:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-01-05</time>
-</a>
-
-
-  
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <ul>
-<li><strong>Centos 7 安装 shadowsocks 代理</strong><ul>
-<li>三种模式: <ul>
-<li>全局模式: 所有流量全走代理</li>
-<li>PAC自动模式: 自动根据PAC文件匹配则走代理,非自定义PAC文件的规则</li>
-<li>PAC模式: 根据自身需求根据特定格式自定义IP或域名,匹配则走代理</li>
-</ul>
-</li>
-<li>单用户与多用户</li>
-<li>客户端</li>
-</ul>
-</li>
-</ul>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Linux-svc</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/01/05/shadowsocks-%E4%BB%A3%E7%90%86/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-cobbler-批量安装-Linux-操作系统" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/01/05/cobbler-%E6%89%B9%E9%87%8F%E5%AE%89%E8%A3%85-Linux-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">cobbler 批量安装 Linux 操作系统</a>
-	
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/01/05/cobbler-%E6%89%B9%E9%87%8F%E5%AE%89%E8%A3%85-Linux-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" class="archive-article-date">
-        <time datetime="2023-01-05T15:04:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-01-05</time>
-</a>
-
-
-  
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <ul>
-<li><p><strong>Cobbler 快速批量网络安装Centos 7 System</strong></p>
-<ul>
-<li>安装、配置、启服务</li>
-<li>导入ISO镜像系统文件</li>
-<li>定义kickstarts文件</li>
-<li>使用脚本实现系统批量一键安装</li>
-</ul>
-</li>
-</ul>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Linux-svc</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/01/05/cobbler-%E6%89%B9%E9%87%8F%E5%AE%89%E8%A3%85-Linux-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-  
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next &amp;raquo;</a>
-    </nav>
-  
 
 
           </div>
@@ -1017,8 +524,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
