@@ -6,18 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://www.ink8s.com">
-  <title>Tag: Linux-svc | INK8S</title>
+  <title>redis 哨兵集群 | INK8S</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="in 运维">
-<meta property="og:type" content="website">
-<meta property="og:title" content="INK8S">
-<meta property="og:url" content="https://www.ink8s.com/tags/Linux-svc/page/3/index.html">
+  <meta name="description" content="redis 哨兵集群部署  redis 环境、下载 redis 一主多从配置 redis 哨兵集群配置 redis 启动、验证   Redis哨兵是用于Redis主-从服务器的工具，可自动切换主服务器。当主出现故障时，哨兵可以自动将一个从服务器提升为新的主服务器，并更新其他从服务器的配置，使它们连接到新的主服务器。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="redis 哨兵集群">
+<meta property="og:url" content="https://www.ink8s.com/2023/08/27/redis-%E5%93%A8%E5%85%B5%E9%9B%86%E7%BE%A4/index.html">
 <meta property="og:site_name" content="INK8S">
-<meta property="og:description" content="in 运维">
+<meta property="og:description" content="redis 哨兵集群部署  redis 环境、下载 redis 一主多从配置 redis 哨兵集群配置 redis 启动、验证   Redis哨兵是用于Redis主-从服务器的工具，可自动切换主服务器。当主出现故障时，哨兵可以自动将一个从服务器提升为新的主服务器，并更新其他从服务器的配置，使它们连接到新的主服务器。">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-08-27T14:22:44.000Z">
+<meta property="article:modified_time" content="2023-08-28T15:43:24.739Z">
 <meta property="article:author" content="weixj@inadm.com">
+<meta property="article:tag" content="Linux-db">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="INK8S" type="application/atom+xml">
@@ -212,114 +215,296 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-redis-哨兵集群" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
   
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2023" class="archive-year">2023</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/01/05/shadowsocks-%E4%BB%A3%E7%90%86/" class="archive-article-date">
-        <time datetime="2023-01-05T15:31:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-01-05</time>
-</a>
-
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/01/05/shadowsocks-%E4%BB%A3%E7%90%86/">shadowsocks 代理</a>
-	
+    <h1 class="article-title" itemprop="name">
+      redis 哨兵集群
     </h1>
   
 
 
-        <div class="article-info info-on-right">
+  
+  
+        
+
+
+<a href="/2023/08/27/redis-%E5%93%A8%E5%85%B5%E9%9B%86%E7%BE%A4/" class="archive-article-date">
+        <time datetime="2023-08-27T14:22:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-08-27</time>
+</a>
+
+
+  
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <ul>
+<li><p><strong>redis 哨兵集群部署</strong></p>
+<ul>
+<li>redis 环境、下载</li>
+<li>redis 一主多从配置</li>
+<li>redis 哨兵集群配置</li>
+<li>redis 启动、验证</li>
+</ul>
+</li>
+<li><p><strong>Redis哨兵是用于Redis主-从服务器的工具，可自动切换主服务器。当主出现故障时，哨兵可以自动将一个从服务器提升为新的主服务器，并更新其他从服务器的配置，使它们连接到新的主服务器。</strong></p>
+</li>
+</ul>
+<span id="more"></span>
+
+
+
+<h3 id="1-0-环境、下载"><a href="#1-0-环境、下载" class="headerlink" title="1.0 环境、下载"></a>1.0 <strong>环境、下载</strong></h3><h4 id="1-1-Redis-哨兵集群环境"><a href="#1-1-Redis-哨兵集群环境" class="headerlink" title="1.1 Redis 哨兵集群环境"></a>1.1 <strong>Redis 哨兵集群环境</strong></h4><escape>
+<table>
+  <tr><th>OS</th><th>VERSION</th><th>IP</th><th>ROLE</th><th>PORT</th></tr>
+  <tr><td rowspan="3">CentOS 7.9</td><td rowspan="3">Redis 6.2.0</td><td>192.168.1.190</td><td>master、sentinel</td><td>2379、26379</td></tr>
+  <tr><td>192.168.1.191</td><td>slave、sentinel</td><td>2379、26379</td></tr>
+  <tr><td>192.168.1.192</td><td>slave、sentinel</td><td>2379、26379</td></tr>
+</table>   
+</escape>
+
+<h4 id="1-2-Redis-下载地址"><a href="#1-2-Redis-下载地址" class="headerlink" title="1.2 Redis 下载地址"></a>1.2 <a target="_blank" rel="noopener" href="https://download.redis.io/releases/">Redis 下载地址</a></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># wget https://download.redis.io/releases/redis-6.2.0.tar.gz</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-0-redis-一主多从安装和配置"><a href="#2-0-redis-一主多从安装和配置" class="headerlink" title="2.0 redis 一主多从安装和配置"></a>2.0 <strong>redis 一主多从安装和配置</strong></h3><h4 id="2-1-redis-编译安装"><a href="#2-1-redis-编译安装" class="headerlink" title="2.1 redis 编译安装"></a>2.1 <strong>redis 编译安装</strong></h4><figure class="highlight bash"><figcaption><span>编译安装</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 3 台 redis 主机操作一样</span><br><span class="line"><span class="comment"># yum -y install install gcc make</span></span><br><span class="line"><span class="comment"># mkdir -p /data/apps/</span></span><br><span class="line"><span class="comment"># tar -xf redis-6.2.0.tar.gz -C /data/apps/</span></span><br><span class="line"><span class="comment"># mv /data/apps/redis-6.2.0/ /data/apps/redis</span></span><br><span class="line"><span class="comment"># cd /data/apps/redis</span></span><br><span class="line"><span class="comment"># make</span></span><br><span class="line"><span class="comment"># make install</span></span><br></pre></td></tr></table></figure>
+
+
+<h4 id="2-2-主节点-master-和-sentinel-配置"><a href="#2-2-主节点-master-和-sentinel-配置" class="headerlink" title="2.2 主节点 master 和 sentinel 配置"></a>2.2 <strong>主节点 master 和 sentinel 配置</strong></h4><h5 id="2-2-1-master-配置"><a href="#2-2-1-master-配置" class="headerlink" title="2.2.1 master 配置"></a>2.2.1 <strong>master 配置</strong></h5><figure class="highlight bash"><figcaption><span>主配置文件修改</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@redis-190 redis]<span class="comment"># vim redis.conf		# 仅列出修改了的几个参数</span></span><br><span class="line">...</span><br><span class="line"><span class="built_in">bind</span> 192.168.1.190				<span class="comment"># 绑定本机IP地址</span></span><br><span class="line">daemonize <span class="built_in">yes</span>					<span class="comment"># 守护进程后台启动</span></span><br><span class="line">logfile <span class="string">&quot;redis.log&quot;</span>				<span class="comment"># 日志文件,默认为空,不记录</span></span><br><span class="line">requirepass ink8s.com				<span class="comment"># redis 密码</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-2-2-sentinel-配置"><a href="#2-2-2-sentinel-配置" class="headerlink" title="2.2.2 sentinel 配置"></a>2.2.2 <strong>sentinel 配置</strong></h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">// 哨兵配置一旦启动后,会动态改变</span><br><span class="line">[root@redis-190 redis]<span class="comment"># cat sentinel-26379.conf</span></span><br><span class="line"><span class="built_in">bind</span> 192.168.1.190				<span class="comment"># 绑定本机IP地址</span></span><br><span class="line">port 26379					<span class="comment"># 哨兵服务端口</span></span><br><span class="line">daemonize <span class="built_in">yes</span>					<span class="comment"># 守护进程后台启动</span></span><br><span class="line">pidfile /data/apps/redis/redis-sentinel.pid</span><br><span class="line">logfile <span class="string">&quot;/data/apps/redis/redis_26379.log&quot;</span></span><br><span class="line"><span class="built_in">dir</span> /data/apps/redis/6379			<span class="comment"># 工作目录; 手工修改好数据保存目录</span></span><br><span class="line">sentinel monitor mymaster 192.168.1.190 6379 2	<span class="comment"># mymaster 名称可以自定义,但后面需保持一致; &quot;2&quot;表示当有2个哨兵认为它挂了,就是真的挂了</span></span><br><span class="line">sentinel auth-pass mymaster ink8s.com		<span class="comment"># 哨兵加密通讯</span></span><br><span class="line">sentinel down-after-milliseconds mymaster 10000	<span class="comment"># mysaster 和上面名称保持一致; 10秒,当10s响应不到就认为挂了</span></span><br><span class="line">sentinel parallel-syncs mymaster 1		<span class="comment"># 1 表示多个从节点一次向新主节点发起复制操作; 如果是 2 则并行发起复制操作,但新主节点压力会陡增</span></span><br><span class="line">sentinel failover-timeout mymaster 180000	<span class="comment"># 3 分钟时间内同步完成算有效,否则算超时</span></span><br><span class="line">sentinel deny-scripts-reconfig <span class="built_in">yes</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[root@redis-190 redis]<span class="comment"># mkdir 6379		# 数据保存目录</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="2-3-从节点-slave-和-sentinel-配置"><a href="#2-3-从节点-slave-和-sentinel-配置" class="headerlink" title="2.3 从节点 slave 和 sentinel 配置"></a>2.3 <strong>从节点 slave 和 sentinel 配置</strong></h4><ul>
+<li>3 台哨兵配置完全一样,除 bind 配置各自IP地址外</li>
+</ul>
+<h5 id="2-3-1-slave-节点配置"><a href="#2-3-1-slave-节点配置" class="headerlink" title="2.3.1 slave 节点配置"></a>2.3.1 <strong>slave 节点配置</strong></h5><figure class="highlight bash"><figcaption><span>主配置文件修改</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@redis-191 redis]<span class="comment"># vim redis.conf</span></span><br><span class="line">...</span><br><span class="line"><span class="built_in">bind</span> 192.168.1.191</span><br><span class="line">daemonize <span class="built_in">yes</span></span><br><span class="line">logfile <span class="string">&quot;redis.log&quot;</span></span><br><span class="line">requirepass ink8s.com</span><br><span class="line">replicaof 192.168.1.190 6379		<span class="comment"># 当前服务器作为从,从服务器中添加此行配置; 6.0以上版本命名为replicaof,但依然兼容slaveof</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-3-2-slave-节点配置"><a href="#2-3-2-slave-节点配置" class="headerlink" title="2.3.2 slave 节点配置"></a>2.3.2 <strong>slave 节点配置</strong></h5><figure class="highlight bash"><figcaption><span>主配置文件修改</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@redis-192 redis]<span class="comment"># vim redis.conf</span></span><br><span class="line">...</span><br><span class="line"><span class="built_in">bind</span> 192.168.1.192</span><br><span class="line">daemonize <span class="built_in">yes</span></span><br><span class="line">logfile <span class="string">&quot;redis.log&quot;</span></span><br><span class="line">requirepass ink8s.com</span><br><span class="line">replicaof 192.168.1.190 6379		<span class="comment"># 当前服务器作为从,从服务器中添加此行配置; 6.0以上版本命名为replicaof,但依然兼容slaveof</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-3-3-从-sentinel-配置"><a href="#2-3-3-从-sentinel-配置" class="headerlink" title="2.3.3 从 sentinel 配置"></a>2.3.3 <strong>从 sentinel 配置</strong></h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[root@redis-191 redis]<span class="comment"># cat sentinel-26379.conf </span></span><br><span class="line"><span class="built_in">bind</span> 192.168.1.191</span><br><span class="line">port 26379</span><br><span class="line">daemonize <span class="built_in">yes</span></span><br><span class="line">pidfile /data/apps/redis/redis-sentinel.pid</span><br><span class="line">logfile <span class="string">&quot;/data/apps/redis/redis_26379.log&quot;</span></span><br><span class="line"><span class="built_in">dir</span> /data/apps/redis/6379</span><br><span class="line">sentinel monitor mymaster 192.168.1.190 6379 2</span><br><span class="line">sentinel auth-pass mymaster ink8s.com</span><br><span class="line">sentinel down-after-milliseconds mymaster 10000</span><br><span class="line">sentinel parallel-syncs mymaster 1</span><br><span class="line">sentinel failover-timeout mymaster 180000</span><br><span class="line">sentinel deny-scripts-reconfig <span class="built_in">yes</span></span><br><span class="line"></span><br><span class="line">[root@redis-191 redis]<span class="comment"># mkdir 6379</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="2-3-4-从-sentinel-配置"><a href="#2-3-4-从-sentinel-配置" class="headerlink" title="2.3.4 从 sentinel 配置"></a>2.3.4 <strong>从 sentinel 配置</strong></h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[root@redis-192 redis]<span class="comment"># cat sentinel-26379.conf </span></span><br><span class="line"><span class="built_in">bind</span> 192.168.1.192</span><br><span class="line">port 26379</span><br><span class="line">daemonize <span class="built_in">yes</span></span><br><span class="line">pidfile /data/apps/redis/redis-sentinel.pid</span><br><span class="line">logfile <span class="string">&quot;/data/apps/redis/redis_26379.log&quot;</span></span><br><span class="line"><span class="built_in">dir</span> /data/apps/redis/6379</span><br><span class="line">sentinel monitor mymaster 192.168.1.190 6379 2</span><br><span class="line">sentinel auth-pass mymaster ink8s.com</span><br><span class="line">sentinel down-after-milliseconds mymaster 10000</span><br><span class="line">sentinel parallel-syncs mymaster 1</span><br><span class="line">sentinel failover-timeout mymaster 180000</span><br><span class="line">sentinel deny-scripts-reconfig <span class="built_in">yes</span></span><br><span class="line"></span><br><span class="line">[root@redis-192 redis]<span class="comment"># mkdir 6379</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-0-服务启动"><a href="#3-0-服务启动" class="headerlink" title="3.0 服务启动"></a>3.0 <strong>服务启动</strong></h3><h4 id="3-1-systemd-启动服务"><a href="#3-1-systemd-启动服务" class="headerlink" title="3.1 systemd 启动服务"></a>3.1 <strong>systemd 启动服务</strong></h4><ul>
+<li>3 台 redis 做同样操作</li>
+</ul>
+<h5 id="3-1-1-redis-systemd-启动配置"><a href="#3-1-1-redis-systemd-启动配置" class="headerlink" title="3.1.1 redis systemd 启动配置"></a>3.1.1 <strong>redis systemd 启动配置</strong></h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cat /usr/lib/systemd/system/redis.service</span></span><br><span class="line">[Unit]</span><br><span class="line">Description=redis-server</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=forking</span><br><span class="line">ExecStart=/usr/local/bin/redis-server /data/apps/redis/redis.conf</span><br><span class="line">ExecStop=/usr/local/bin/redis-cli shutdown</span><br><span class="line">Restart=always</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br><span class="line"></span><br><span class="line"><span class="comment"># systemctl daemon-reload &amp;&amp; systemctl enable redis</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="3-1-2-sentinel-systemd-启动配置"><a href="#3-1-2-sentinel-systemd-启动配置" class="headerlink" title="3.1.2 sentinel systemd 启动配置"></a>3.1.2 <strong>sentinel systemd 启动配置</strong></h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cat /usr/lib/systemd/system/sentinel.service</span></span><br><span class="line">[Unit]</span><br><span class="line">Description=redis-server</span><br><span class="line">After=network.target</span><br><span class="line"> </span><br><span class="line">[Service]</span><br><span class="line">Type=forking</span><br><span class="line">ExecStart=/usr/local/bin/redis-sentinel /data/apps/redis/sentinel-26379.conf</span><br><span class="line">PrivateTmp=<span class="literal">true</span></span><br><span class="line"> </span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br><span class="line"></span><br><span class="line"><span class="comment"># systemctl daemon-reload &amp;&amp; systemctl enable sentinel</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="3-2-服务启动"><a href="#3-2-服务启动" class="headerlink" title="3.2 服务启动"></a>3.2 <strong>服务启动</strong></h4><ul>
+<li>redis 服务 和 sentinel 服务启动均有先后顺序<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+
+    
+
+    
+    <div class="page-reward">
+      <a href="javascript:void(0);" class="page-reward-btn tooltip-top" target="_self">
+        <div class="tooltip tooltip-east">
+          <span class="tooltip-item">
+            +V
+          </span>
+          <span class="tooltip-content">
+            <span class="tooltip-text">
+              <span class="tooltip-inner">
+                <p class="reward-p"><i class="icon icon-quo-left"></i>扫码添加博主微信,邀请你加入运维技术交流群<i
+                    class="icon icon-quo-right"></i></p>
+                <div class="reward-box">
+                  
+                  
+                  <div class="reward-box-item">
+                    <img class="reward-img" src="/img/wechat.jpg">
+                    <span class="reward-type">微信</span>
+                  </div>
+                  
+                </div>
+              </span>
+            </span>
+          </span>
+        </div>
+      </a>
+    </div>
+    
+
+    
+    <div class="declare"> 
+      <ul class="post-copyright">
+        <li>
+          <strong>本文作者：</strong>
+          weixj@inadm.com
+        </li>
+        <li>
+          <strong>本文链接：</strong>
+          <a href="https://www.ink8s.com/2023/08/27/redis-哨兵集群/" title="redis 哨兵集群" target="_blank">https://www.ink8s.com/2023/08/27/redis-哨兵集群/</a>
+        </li>
+        
+        <li>
+          <strong>版权声明： </strong>
           
+          本博客所有文章除特别声明外，均采用 <a href="https://github.com/JoeyBling/hexo-theme-yilia-plus/blob/master/LICENSE" rel="external nofollow" target="_blank">MIT</a> 许可协议。转载请注明出处！
+        </li>
+        
+      </ul>
+    </div>
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Linux-svc</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Linux-db</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+    
 
+    
+
+    
+    
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <!-- <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a> -->
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=https://www.ink8s.com/2023/08/27/redis-%E5%93%A8%E5%85%B5%E9%9B%86%E7%BE%A4/" alt="微信分享二维码"> -->
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+
+    
+    <div class="clearfix"></div>
+  </div>
   </div>
 </article>
+
+
+<nav id="article-nav">
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/01/05/cobbler-%E6%89%B9%E9%87%8F%E5%AE%89%E8%A3%85-Linux-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" class="archive-article-date">
-        <time datetime="2023-01-05T15:04:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-01-05</time>
-</a>
+  
+    <a href="/2023/08/26/zimbra-%E8%87%AA%E5%BB%BA%E9%82%AE%E7%AE%B1/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">zimbra 自建邮箱</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
 
 
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/01/05/cobbler-%E6%89%B9%E9%87%8F%E5%AE%89%E8%A3%85-Linux-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">cobbler 批量安装 Linux 操作系统</a>
-	
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Linux-svc</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-0-%E7%8E%AF%E5%A2%83%E3%80%81%E4%B8%8B%E8%BD%BD"><span class="toc-number">1.</span> <span class="toc-text">1.0 环境、下载</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-Redis-%E5%93%A8%E5%85%B5%E9%9B%86%E7%BE%A4%E7%8E%AF%E5%A2%83"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 Redis 哨兵集群环境</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-Redis-%E4%B8%8B%E8%BD%BD%E5%9C%B0%E5%9D%80"><span class="toc-number">1.2.</span> <span class="toc-text">1.2 Redis 下载地址</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-0-redis-%E4%B8%80%E4%B8%BB%E5%A4%9A%E4%BB%8E%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE"><span class="toc-number">2.</span> <span class="toc-text">2.0 redis 一主多从安装和配置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-redis-%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 redis 编译安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-%E4%B8%BB%E8%8A%82%E7%82%B9-master-%E5%92%8C-sentinel-%E9%85%8D%E7%BD%AE"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 主节点 master 和 sentinel 配置</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-2-1-master-%E9%85%8D%E7%BD%AE"><span class="toc-number">2.2.1.</span> <span class="toc-text">2.2.1 master 配置</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-2-2-sentinel-%E9%85%8D%E7%BD%AE"><span class="toc-number">2.2.2.</span> <span class="toc-text">2.2.2 sentinel 配置</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3-%E4%BB%8E%E8%8A%82%E7%82%B9-slave-%E5%92%8C-sentinel-%E9%85%8D%E7%BD%AE"><span class="toc-number">2.3.</span> <span class="toc-text">2.3 从节点 slave 和 sentinel 配置</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-3-1-slave-%E8%8A%82%E7%82%B9%E9%85%8D%E7%BD%AE"><span class="toc-number">2.3.1.</span> <span class="toc-text">2.3.1 slave 节点配置</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-3-2-slave-%E8%8A%82%E7%82%B9%E9%85%8D%E7%BD%AE"><span class="toc-number">2.3.2.</span> <span class="toc-text">2.3.2 slave 节点配置</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-3-3-%E4%BB%8E-sentinel-%E9%85%8D%E7%BD%AE"><span class="toc-number">2.3.3.</span> <span class="toc-text">2.3.3 从 sentinel 配置</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-3-4-%E4%BB%8E-sentinel-%E9%85%8D%E7%BD%AE"><span class="toc-number">2.3.4.</span> <span class="toc-text">2.3.4 从 sentinel 配置</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-0-%E6%9C%8D%E5%8A%A1%E5%90%AF%E5%8A%A8"><span class="toc-number">3.</span> <span class="toc-text">3.0 服务启动</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-systemd-%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1"><span class="toc-number">3.1.</span> <span class="toc-text">3.1 systemd 启动服务</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#3-1-1-redis-systemd-%E5%90%AF%E5%8A%A8%E9%85%8D%E7%BD%AE"><span class="toc-number">3.1.1.</span> <span class="toc-text">3.1.1 redis systemd 启动配置</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-1-2-sentinel-systemd-%E5%90%AF%E5%8A%A8%E9%85%8D%E7%BD%AE"><span class="toc-number">3.1.2.</span> <span class="toc-text">3.1.2 sentinel systemd 启动配置</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-%E6%9C%8D%E5%8A%A1%E5%90%AF%E5%8A%A8"><span class="toc-number">3.2.</span> <span class="toc-text">3.2 服务启动</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
+        
+    </div>
+</aside>
 
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/tags/Linux-svc/page/2/">&amp;laquo; Prev</a><a class="page-number" href="/tags/Linux-svc/">1</a><a class="page-number" href="/tags/Linux-svc/page/2/">2</a><span class="page-number current">3</span>
-    </nav>
+
+
+
+
+
+
+
+
+
+  <div id="giteement-ctn"></div>
   
+    <link rel="stylesheet" href="/lib/default.css">
+    <script src="/lib/giteement.browser.js"></script>
+  
+  <script>
+  <!-- id: "redis 哨兵集群" -->
+  var giteement = new Giteement({
+    id: '20230827222244',
+    owner: 'weixj90',
+    repo: 'ink8s-msg',
+    backcall_uri: 'https://www.ink8s.com',
+    oauth_uri: 'https://cors-anywhere.herokuapp.com/https://gitee.com/oauth/token',
+    oauth: {
+      client_id: '50776f958ea15d74ac6d512eeadb5d45fce926378764764cb8d6998f95617e18',
+      client_secret: '5b53bcab62e8a4c917eab413aa2dc40ec6b2b69344411c51bf11285bbe734d8c'
+    },
+  })
+  giteement.render('giteement-ctn')
+  </script>
+
+
+
+
+
+
 
 
           </div>
@@ -360,9 +545,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
