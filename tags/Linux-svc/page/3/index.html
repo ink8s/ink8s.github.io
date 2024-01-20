@@ -6,27 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://www.ink8s.com">
-  <title>ntp 时间同步服务 | INK8S</title>
+  <title>Tag: Linux-svc | INK8S</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="NTP IDC 企业机房内网时间服务器部署 NTP 服务端部署 NTP 客户端部署 NTP 时间相关查询命令    当企业服务器达到一定规模后又需要考虑安全问题时,隔离外网必不可少。但是隔离外网后,各服务器本地时间同步又会存在校准问题。  如果Linux各服务器之间时间不同步,通信必然存在故障。此时部署机房内部时间服务器必不可少。">
-<meta property="og:type" content="article">
-<meta property="og:title" content="ntp 时间同步服务">
-<meta property="og:url" content="https://www.ink8s.com/2023/01/12/ntp-%E6%97%B6%E9%97%B4%E5%90%8C%E6%AD%A5%E6%9C%8D%E5%8A%A1/index.html">
+  <meta name="description" content="in 运维">
+<meta property="og:type" content="website">
+<meta property="og:title" content="INK8S">
+<meta property="og:url" content="https://www.ink8s.com/tags/Linux-svc/page/3/index.html">
 <meta property="og:site_name" content="INK8S">
-<meta property="og:description" content="NTP IDC 企业机房内网时间服务器部署 NTP 服务端部署 NTP 客户端部署 NTP 时间相关查询命令    当企业服务器达到一定规模后又需要考虑安全问题时,隔离外网必不可少。但是隔离外网后,各服务器本地时间同步又会存在校准问题。  如果Linux各服务器之间时间不同步,通信必然存在故障。此时部署机房内部时间服务器必不可少。">
+<meta property="og:description" content="in 运维">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://www.ink8s.com/images/pasted-188.png">
-<meta property="og:image" content="https://www.ink8s.com/images/pasted-189.png">
-<meta property="og:image" content="https://www.ink8s.com/images/pasted-190.png">
-<meta property="og:image" content="https://www.ink8s.com/images/pasted-191.png">
-<meta property="article:published_time" content="2023-01-12T13:34:49.000Z">
-<meta property="article:modified_time" content="2023-01-12T14:07:59.378Z">
 <meta property="article:author" content="weixj@inadm.com">
-<meta property="article:tag" content="Linux-svc">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://www.ink8s.com/images/pasted-188.png">
   
     <link rel="alternative" href="/atom.xml" title="INK8S" type="application/atom+xml">
   
@@ -220,157 +212,42 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-ntp-时间同步服务" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
+            
+  
+  
     
-      <header class="article-header">
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2023" class="archive-year">2023</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	
+<a href="/2023/01/05/shadowsocks-%E4%BB%A3%E7%90%86/" class="archive-article-date">
+        <time datetime="2023-01-05T15:31:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-01-05</time>
+</a>
+
+
+        </div>
+    	 
   
-  
-    <h1 class="article-title" itemprop="name">
-      ntp 时间同步服务
+    <h1 itemprop="name">
+	
+	  <a class="archive-article-title" href="/2023/01/05/shadowsocks-%E4%BB%A3%E7%90%86/">shadowsocks 代理</a>
+	
     </h1>
   
 
 
-  
-  
-        
-
-
-<a href="/2023/01/12/ntp-%E6%97%B6%E9%97%B4%E5%90%8C%E6%AD%A5%E6%9C%8D%E5%8A%A1/" class="archive-article-date">
-        <time datetime="2023-01-12T13:34:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-01-12</time>
-</a>
-
-
-  
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <ul>
-<li><strong>NTP IDC 企业机房内网时间服务器部署</strong><ul>
-<li>NTP 服务端部署</li>
-<li>NTP 客户端部署</li>
-<li>NTP 时间相关查询命令</li>
-</ul>
-</li>
-</ul>
-<p><font size=2>当企业服务器达到一定规模后又需要考虑安全问题时,隔离外网必不可少。但是隔离外网后,各服务器本地时间同步又会存在校准问题。<br>  如果Linux各服务器之间时间不同步,通信必然存在故障。此时部署机房内部时间服务器必不可少。</font></p>
-<span id="more"></span>
-
-
-
-<h4 id="1-0-部署环境"><a href="#1-0-部署环境" class="headerlink" title="1.0 部署环境"></a>1.0 <strong>部署环境</strong></h4><table>
-<thead>
-<tr>
-<th>类型</th>
-<th>系统版本</th>
-<th>IP 地址</th>
-<th>域名</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>服务端</td>
-<td>centos 7.9</td>
-<td>10.10.10.100</td>
-<td>ntp.ink8s.com</td>
-</tr>
-<tr>
-<td>客户端</td>
-<td>centos 7.9</td>
-<td>10.10.10.180</td>
-<td>——</td>
-</tr>
-</tbody></table>
-<h4 id="2-0-NTP-服务端部署"><a href="#2-0-NTP-服务端部署" class="headerlink" title="2.0 NTP 服务端部署"></a>2.0 <strong>NTP 服务端部署</strong></h4><h5 id="2-1-NTP-安装"><a href="#2-1-NTP-安装" class="headerlink" title="2.1 NTP 安装"></a>2.1 NTP 安装</h5><figure class="highlight bash"><figcaption><span>NTP 安装</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// NTP 服务端和客户端只需安装ntp和ntpdate 2个包即可</span><br><span class="line"><span class="comment"># yum -y install ntp ntpdate</span></span><br><span class="line"></span><br><span class="line">// 时区每台服务器上均需设置</span><br><span class="line"><span class="comment"># timedatectl set-timezone Asia/Shanghai</span></span><br></pre></td></tr></table></figure>
-
-<h5 id="2-2-NTP-主配置文件配置"><a href="#2-2-NTP-主配置文件配置" class="headerlink" title="2.2 NTP 主配置文件配置"></a>2.2 NTP 主配置文件配置</h5><figure class="highlight bash"><figcaption><span>NTP服务端部署</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">// NTP服务端部署强烈推荐高可用,如有硬件做VIP更佳,没有则其它替代也行例如Keepalived</span><br><span class="line">// 如果做高可用,2台服务端配置文件做一模一样配置即可,无需互相同步时间。服务端会自动同步设定的外网时钟</span><br><span class="line"></span><br><span class="line"><span class="comment"># egrep -v &quot;^$|^#&quot; /etc/ntp.conf</span></span><br><span class="line">// 系统时间与BIOS时间的偏差记录。如果关机维护了,BIOS时间还在正常运行,但系统时间已未运行,drift则是记录到关机后的最后一刻记录,开机后会根据此文件核对效验</span><br><span class="line">driftfile /var/lib/ntp/drift</span><br><span class="line">// 日志目录定义,可有可无,不定义则默认在/var/log/messages中</span><br><span class="line">logfile	/var/log/ntp.log</span><br><span class="line">// 默认拒绝所有ipv4客户端的所有操作</span><br><span class="line">restrict default kod nomodify notrap nopeer noquery</span><br><span class="line">    restrict                                                <span class="comment"># 控制相关权限</span></span><br><span class="line">    default                                                 <span class="comment"># 默认所有地址</span></span><br><span class="line">    kod:                                                    <span class="comment"># 访问违规时发送KoD包 </span></span><br><span class="line">    nomodify                                                <span class="comment"># 用户端不能使用ntpq,ntpc修改时间服务器,但可以校验时间</span></span><br><span class="line">    notrap                                                  <span class="comment"># 不提供trap远端登陆: 拒绝为匹配的主机提供模式 6 控制消息陷阱服务。陷阱服务是 ntpdq 控制消息协议的子系统,用于远程事件日志记录程序</span></span><br><span class="line">    nopeer                                                  <span class="comment"># 用于阻止主机尝试与服务器对等,并允许欺诈性服务器控制时钟</span></span><br><span class="line">    noquery                                                 <span class="comment"># 不提供客户端的时间查询: 用户端不能使用ntpq,ntpc等命令来查询ntp服务器</span></span><br><span class="line">// 默认拒绝所有ipv6客户端的所有操作</span><br><span class="line">restrict -6 default kod nomodify notrap nopeer noquery</span><br><span class="line">// 允许本机ipv4所有操作</span><br><span class="line">restrict 127.0.0.1</span><br><span class="line">// 允许本机ipv6所有操作</span><br><span class="line">restrict -6 ::1</span><br><span class="line">// 以下2条配置表示,当外部时间不可用时,使用本机时间;stratum 层级</span><br><span class="line">server 127.127.1.0</span><br><span class="line">fudge 127.127.1.0 stratum 10</span><br><span class="line">// 允许内网哪些段内机器连接这台服务器同步时间。但是不允许修改服务器上的时间和不提供<span class="built_in">trap</span>这个远程事件登入</span><br><span class="line">restrict 10.10.10.0 mask 255.255.255.0 nomodify notrap</span><br><span class="line">// 服务端向外部哪些时钟进行同步时间,可写多个但建议只写同一厂商</span><br><span class="line">server ntp.aliyun.com [iburst] minpoll 4 maxpoll 10	     <span class="comment"># []表示可选项</span></span><br><span class="line">    prefer          					    <span class="comment"># 优先级最高</span></span><br><span class="line">    burst           					    <span class="comment"># NTP服务端自身可用时,发送相关并发包检测</span></span><br><span class="line">    iburst          					    <span class="comment"># NTP服务端自身对外不可用时,发送相关并发包检测,达到快速同步效果</span></span><br><span class="line">// 允许哪些时钟修改本机时间,如上条配置写多个,建议这里写一样多</span><br><span class="line">restrict ntp.aliyun.com nomodify notrap nopeer noquery</span><br><span class="line">// 最后2条配置保持默认,不做介绍</span><br><span class="line">includefile /etc/ntp/crypto/pw</span><br><span class="line">keys /etc/ntp/keys</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight bash"><figcaption><span>ntp server 端配置样例</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cat /etc/ntp.conf </span></span><br><span class="line">driftfile  /var/lib/ntp/drift</span><br><span class="line">pidfile    /var/run/ntpd.pid</span><br><span class="line">logfile    /data/logs/ntp/ntp.log</span><br><span class="line">restrict    default kod nomodify notrap nopeer noquery</span><br><span class="line">restrict -6 default kod nomodify notrap nopeer noquery</span><br><span class="line">restrict 127.0.0.1</span><br><span class="line">restrict -6 ::1</span><br><span class="line">server 127.127.1.0</span><br><span class="line">fudge 127.127.1.0 stratum 10</span><br><span class="line">restrict 10.10.10.0 mask 255.255.255.0 nomodify notrap</span><br><span class="line">server ntp.aliyun.com iburst minpoll 4 maxpoll 10</span><br><span class="line">restrict ntp.aliyun.com nomodify notrap nopeer noquery</span><br><span class="line">includefile /etc/ntp/crypto/pw</span><br><span class="line">keys /etc/ntp/keys</span><br></pre></td></tr></table></figure>
-<h5 id="2-3-NTP-硬件时间同步"><a href="#2-3-NTP-硬件时间同步" class="headerlink" title="2.3 NTP 硬件时间同步"></a>2.3 NTP 硬件时间同步</h5><figure class="highlight bash"><figcaption><span>硬件时钟配置</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// NTP服务会在同步完系统时间后根据此配置将系统时间同步到硬件时间</span><br><span class="line"><span class="comment"># grep -q &quot;SYNC_HWCLOCK&quot; /etc/sysconfig/ntpd &amp;&amp; sed -i &#x27;/SYNC_HWCLOCK/ s/.*/SYNC_HWCLOCK=yes/ /etc/sysconfig/ntpd&#x27; || echo &quot;SYNC_HWCLOCK=yes&quot; &gt;&gt; /etc/sysconfig/ntpd</span></span><br></pre></td></tr></table></figure>
-
-<h5 id="2-4-NTP-服务启动"><a href="#2-4-NTP-服务启动" class="headerlink" title="2.4 NTP 服务启动"></a>2.4 NTP 服务启动</h5><figure class="highlight bash"><figcaption><span>启动NTP服务</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// 配置文件更改完之前不要启动NTP服务</span><br><span class="line">// 启动NTP服务之前先ntpdate更新一次时间</span><br><span class="line">// 如果本地时间与获取更新时间相差较大,NTP服务会认为是人为手动更改了,则不在进行同步更新</span><br><span class="line"><span class="comment"># ntpdate ntp.aliyun.com</span></span><br><span class="line"><span class="comment"># systemctl start ntpd &amp;&amp; systemctl enable ntpd</span></span><br><span class="line">// 启动NTP服务之后,此服务和其它服务不同,不是立即生效。需等待1到5分钟</span><br></pre></td></tr></table></figure>
-
-
-<h4 id="3-0-NTP-客户端部署"><a href="#3-0-NTP-客户端部署" class="headerlink" title="3.0 NTP 客户端部署"></a>3.0 <strong>NTP 客户端部署</strong></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">// 软件安装同服务端安装一样</span><br><span class="line">// 客户端仅只需修改一行配置即可</span><br><span class="line"></span><br><span class="line"><span class="comment"># yum -y install ntp ntpdate</span></span><br><span class="line"><span class="comment"># timedatectl set-timezone Asia/Shanghai</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># egrep -v &quot;^$|^#&quot; /etc/ntp.conf</span></span><br><span class="line">driftfile /var/lib/ntp/drift</span><br><span class="line">restrict default nomodify notrap nopeer noquery</span><br><span class="line">restrict 127.0.0.1 </span><br><span class="line">restrict ::1</span><br><span class="line">// 将默认server行注释,配置服务端配置</span><br><span class="line">server ntp.ink8s.com iburst minpoll 4 maxpoll 10</span><br><span class="line">includefile /etc/ntp/crypto/pw</span><br><span class="line">keys /etc/ntp/keys</span><br><span class="line"><span class="built_in">disable</span> monitor</span><br></pre></td></tr></table></figure>
-
-<p><img src="/images/pasted-188.png" alt="upload successful"></p>
-<figure class="highlight bash"><figcaption><span>硬件时钟配置</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// NTP服务会在同步完系统时间后根据此配置将系统时间同步到硬件时间</span><br><span class="line"><span class="comment"># grep -q &quot;SYNC_HWCLOCK&quot; /etc/sysconfig/ntpd &amp;&amp; sed -i &#x27;/SYNC_HWCLOCK/ s/.*/SYNC_HWCLOCK=yes/ /etc/sysconfig/ntpd&#x27; || echo &quot;SYNC_HWCLOCK=yes&quot; &gt;&gt; /etc/sysconfig/ntpd</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// 服务端同步已生效后在进行客户端同步</span><br><span class="line"><span class="comment"># ntpdate ntp.ink8s.com</span></span><br><span class="line"><span class="comment"># systemctl start ntpd &amp;&amp; systemctl enable ntpd</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="4-0-NTP-时间相关查询命令"><a href="#4-0-NTP-时间相关查询命令" class="headerlink" title="4.0 NTP 时间相关查询命令"></a>4.0 <strong>NTP 时间相关查询命令</strong></h4><p><font size=2>以下4个命令可检查和验证NTP是否已生效,系统时间、硬件时间是否已同步并生效</font></p>
-<figure class="highlight bash"><figcaption><span>ntpq</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ntpq -p</span></span><br><span class="line">remote: 本机所连接的上层NTP服务器，最左边符号含义：</span><br><span class="line">    [*] 前正在使用的上层NTP服务器</span><br><span class="line">    [+] 连上了上层NTP服务器，但为使用,待使用状态</span><br><span class="line">    [-] 同步的该NTP服务器被认为不合格</span><br><span class="line">    [x] 同步的外网NTP服务器不可用</span><br><span class="line">refid: 指的是给上层NTP服务器提供时间校对的服务器</span><br><span class="line">St: 上层NTP服务器的级别。</span><br><span class="line">When: 上一次与上层NTP服务器进行时间校对的时间（单位：s)</span><br><span class="line">Poll: 本地主机与上层NTP服务器进行时间校对的周期（单位：s）</span><br><span class="line">reach: 已经向上层 NTP 服务器要求更新的次数 </span><br><span class="line">delay: 网络传输过程钟延迟的时间 单位为 10^(-6) 秒 </span><br><span class="line">offset: 时间补偿的结果 单位为10^(-6) 秒</span><br><span class="line">jitter: Linux 系统时间与BIOS硬件时间差 单位为 10^(-6) 秒</span><br></pre></td></tr></table></figure>
-
-
-<p><img src="/images/pasted-189.png" alt="upload successful"></p>
-<figure class="highlight bash"><figcaption><span>ntpstat</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ntpstat </span></span><br><span class="line">// 可以看到NTP已正常在进行时间同步,在第4层同步</span><br><span class="line">// 时间校正耗时及每多长时间轮询一次</span><br></pre></td></tr></table></figure>
-
-<p><img src="/images/pasted-190.png" alt="upload successful"></p>
-<figure class="highlight bash"><figcaption><span>hwclock</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 查看硬件时间。当系统时间更新完成后,硬件时间会稍慢些同步生效</span><br><span class="line"><span class="comment"># hwclock -r</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight bash"><figcaption><span>timedatectl</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># timedatectl</span></span><br><span class="line">// NTP enabled: <span class="built_in">yes</span>			<span class="comment"># 表示是否开机自启了</span></span><br><span class="line">// NTP synchronized: <span class="built_in">yes</span>		<span class="comment"># 系统时间同步完成,状态会变为yes</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="/images/pasted-191.png" alt="upload successful"></p>
-<h6 id=""><a href="#" class="headerlink" title=""></a></h6>
-    
-
-    
-    <div class="page-reward">
-      <a href="javascript:void(0);" class="page-reward-btn tooltip-top" target="_self">
-        <div class="tooltip tooltip-east">
-          <span class="tooltip-item">
-            +V
-          </span>
-          <span class="tooltip-content">
-            <span class="tooltip-text">
-              <span class="tooltip-inner">
-                <p class="reward-p"><i class="icon icon-quo-left"></i>扫码添加博主微信,邀请你加入运维技术交流群<i
-                    class="icon icon-quo-right"></i></p>
-                <div class="reward-box">
-                  
-                  
-                  <div class="reward-box-item">
-                    <img class="reward-img" src="/img/wechat.jpg">
-                    <span class="reward-type">微信</span>
-                  </div>
-                  
-                </div>
-              </span>
-            </span>
-          </span>
-        </div>
-      </a>
-    </div>
-    
-
-    
-    <div class="declare"> 
-      <ul class="post-copyright">
-        <li>
-          <strong>本文作者：</strong>
-          weixj@inadm.com
-        </li>
-        <li>
-          <strong>本文链接：</strong>
-          <a href="https://www.ink8s.com/2023/01/12/ntp-时间同步服务/" title="ntp 时间同步服务" target="_blank">https://www.ink8s.com/2023/01/12/ntp-时间同步服务/</a>
-        </li>
-        
-        <li>
-          <strong>版权声明： </strong>
+        <div class="article-info info-on-right">
           
-          本博客所有文章除特别声明外，均采用 <a href="https://github.com/JoeyBling/hexo-theme-yilia-plus/blob/master/LICENSE" rel="external nofollow" target="_blank">MIT</a> 许可协议。转载请注明出处！
-        </li>
-        
-      </ul>
-    </div>
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -382,153 +259,67 @@
 		</ul>
 	</div>
 
-    
+          
 
-    
-
-    
-    
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <!-- <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a> -->
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-     <!-- <img src="//pan.baidu.com/share/qrcode?url=https://www.ink8s.com/2023/01/12/ntp-%E6%97%B6%E9%97%B4%E5%90%8C%E6%AD%A5%E6%9C%8D%E5%8A%A1/" alt="微信分享二维码"> -->
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-
-    
-    <div class="clearfix"></div>
-  </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
+  
+    
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	
+<a href="/2023/01/05/cobbler-%E6%89%B9%E9%87%8F%E5%AE%89%E8%A3%85-Linux-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" class="archive-article-date">
+        <time datetime="2023-01-05T15:04:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-01-05</time>
+</a>
 
 
-<nav id="article-nav">
-  
-    <a href="/2023/01/12/nexus-%E6%90%AD%E5%BB%BA/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          nexus 搭建
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2023/01/12/yum-%E6%BA%90%E6%9C%8D%E5%8A%A1/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">yum 源服务</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
         </div>
-        
-        
-        <div class="toc-container tooltip-left">
-            <i class="icon-font icon-category"></i>
-            <div class="tooltip tooltip-east">
-                <span class="tooltip-item">
-                </span>
-                <span class="tooltip-content">
-                    <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-0-%E9%83%A8%E7%BD%B2%E7%8E%AF%E5%A2%83"><span class="toc-number">1.</span> <span class="toc-text">1.0 部署环境</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-0-NTP-%E6%9C%8D%E5%8A%A1%E7%AB%AF%E9%83%A8%E7%BD%B2"><span class="toc-number">2.</span> <span class="toc-text">2.0 NTP 服务端部署</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-1-NTP-%E5%AE%89%E8%A3%85"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 NTP 安装</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-2-NTP-%E4%B8%BB%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E9%85%8D%E7%BD%AE"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 NTP 主配置文件配置</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-3-NTP-%E7%A1%AC%E4%BB%B6%E6%97%B6%E9%97%B4%E5%90%8C%E6%AD%A5"><span class="toc-number">2.3.</span> <span class="toc-text">2.3 NTP 硬件时间同步</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-4-NTP-%E6%9C%8D%E5%8A%A1%E5%90%AF%E5%8A%A8"><span class="toc-number">2.4.</span> <span class="toc-text">2.4 NTP 服务启动</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-0-NTP-%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%83%A8%E7%BD%B2"><span class="toc-number">3.</span> <span class="toc-text">3.0 NTP 客户端部署</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-0-NTP-%E6%97%B6%E9%97%B4%E7%9B%B8%E5%85%B3%E6%9F%A5%E8%AF%A2%E5%91%BD%E4%BB%A4"><span class="toc-number">4.</span> <span class="toc-text">4.0 NTP 时间相关查询命令</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link"><span class="toc-number">4.0.1.</span> <span class="toc-text"></span></a></li></ol></li></ol></li></ol>
-                    </div>
-                </span>
-            </div>
+    	 
+  
+    <h1 itemprop="name">
+	
+	  <a class="archive-article-title" href="/2023/01/05/cobbler-%E6%89%B9%E9%87%8F%E5%AE%89%E8%A3%85-Linux-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">cobbler 批量安装 Linux 操作系统</a>
+	
+    </h1>
+  
+
+
+        <div class="article-info info-on-right">
+          
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Linux-svc</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+          
+
         </div>
-        
-    </div>
-</aside>
-
-
-
-
-
-
-
-
-
-
-  <div id="giteement-ctn"></div>
+        <div class="clearfix"></div>
+    </header>
+  </div>
+</article>
   
-    <link rel="stylesheet" href="/lib/default.css">
-    <script src="/lib/giteement.browser.js"></script>
   
-  <script>
-  <!-- id: "ntp 时间同步服务" -->
-  var giteement = new Giteement({
-    id: '20230112213449',
-    owner: 'weixj90',
-    repo: 'ink8s-msg',
-    backcall_uri: 'https://www.ink8s.com',
-    oauth_uri: 'https://cors-anywhere.herokuapp.com/https://gitee.com/oauth/token',
-    oauth: {
-      client_id: '50776f958ea15d74ac6d512eeadb5d45fce926378764764cb8d6998f95617e18',
-      client_secret: '5b53bcab62e8a4c917eab413aa2dc40ec6b2b69344411c51bf11285bbe734d8c'
-    },
-  })
-  giteement.render('giteement-ctn')
-  </script>
+    </div></section>
+  
 
-
-
-
-
-
+    
+    <nav id="page-nav">
+      <a class="extend prev" rel="prev" href="/tags/Linux-svc/page/2/">&amp;laquo; Prev</a><a class="page-number" href="/tags/Linux-svc/">1</a><a class="page-number" href="/tags/Linux-svc/page/2/">2</a><span class="page-number current">3</span>
+    </nav>
+  
 
 
           </div>
@@ -569,9 +360,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
