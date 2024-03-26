@@ -6,27 +6,25 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://www.ink8s.com">
-  <title>shadowsocks 代理 | INK8S</title>
+  <title>haproxy 负载均衡 | INK8S</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="Centos 7 安装 shadowsocks 代理 三种模式:  全局模式: 所有流量全走代理 PAC自动模式: 自动根据PAC文件匹配则走代理,非自定义PAC文件的规则 PAC模式: 根据自身需求根据特定格式自定义IP或域名,匹配则走代理   单用户与多用户 客户端">
+  <meta name="description" content="haproxy 高可用负载均衡 haproxy 源码安装 haproxy 配置参数 haproxy 配置场景 haproxy 调度算法 haproxy ACL">
 <meta property="og:type" content="article">
-<meta property="og:title" content="shadowsocks 代理">
-<meta property="og:url" content="https://www.ink8s.com/2023/01/05/shadowsocks-%E4%BB%A3%E7%90%86/index.html">
+<meta property="og:title" content="haproxy 负载均衡">
+<meta property="og:url" content="https://www.ink8s.com/2024/01/21/haproxy-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/index.html">
 <meta property="og:site_name" content="INK8S">
-<meta property="og:description" content="Centos 7 安装 shadowsocks 代理 三种模式:  全局模式: 所有流量全走代理 PAC自动模式: 自动根据PAC文件匹配则走代理,非自定义PAC文件的规则 PAC模式: 根据自身需求根据特定格式自定义IP或域名,匹配则走代理   单用户与多用户 客户端">
+<meta property="og:description" content="haproxy 高可用负载均衡 haproxy 源码安装 haproxy 配置参数 haproxy 配置场景 haproxy 调度算法 haproxy ACL">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://www.ink8s.com/images/pasted-74.png">
-<meta property="og:image" content="https://www.ink8s.com/images/pasted-77.png">
-<meta property="og:image" content="https://www.ink8s.com/images/pasted-75.png">
-<meta property="og:image" content="https://www.ink8s.com/images/pasted-76.png">
-<meta property="article:published_time" content="2023-01-05T15:31:52.000Z">
-<meta property="article:modified_time" content="2023-01-06T06:09:18.697Z">
+<meta property="og:image" content="https://www.ink8s.com/images/pasted-260.png">
+<meta property="og:image" content="https://www.ink8s.com/images/pasted-261.png">
+<meta property="og:image" content="https://www.ink8s.com/images/pasted-262.png">
+<meta property="article:published_time" content="2024-01-21T05:55:53.000Z">
+<meta property="article:modified_time" content="2024-02-25T11:55:34.676Z">
 <meta property="article:author" content="weixj@inadm.com">
-<meta property="article:tag" content="Linux-svc">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://www.ink8s.com/images/pasted-74.png">
+<meta name="twitter:image" content="https://www.ink8s.com/images/pasted-260.png">
   
     <link rel="alternative" href="/atom.xml" title="INK8S" type="application/atom+xml">
   
@@ -223,14 +221,14 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-shadowsocks-代理" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-haproxy-负载均衡" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
   
   
     <h1 class="article-title" itemprop="name">
-      shadowsocks 代理
+      haproxy 负载均衡
     </h1>
   
 
@@ -240,8 +238,8 @@
         
 
 
-<a href="/2023/01/05/shadowsocks-%E4%BB%A3%E7%90%86/" class="archive-article-date">
-        <time datetime="2023-01-05T15:31:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-01-05</time>
+<a href="/2024/01/21/haproxy-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/" class="archive-article-date">
+        <time datetime="2024-01-21T05:55:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2024-01-21</time>
 </a>
 
 
@@ -252,54 +250,260 @@
   <div class="article-entry" itemprop="articleBody">
     
     <ul>
-<li><strong>Centos 7 安装 shadowsocks 代理</strong><ul>
-<li>三种模式: <ul>
-<li>全局模式: 所有流量全走代理</li>
-<li>PAC自动模式: 自动根据PAC文件匹配则走代理,非自定义PAC文件的规则</li>
-<li>PAC模式: 根据自身需求根据特定格式自定义IP或域名,匹配则走代理</li>
-</ul>
-</li>
-<li>单用户与多用户</li>
-<li>客户端</li>
+<li><strong>haproxy 高可用负载均衡</strong><ul>
+<li>haproxy 源码安装</li>
+<li>haproxy 配置参数</li>
+<li>haproxy 配置场景</li>
+<li>haproxy 调度算法</li>
+<li>haproxy ACL</li>
 </ul>
 </li>
 </ul>
 <span id="more"></span>
 
-<h4 id="1-0-shadowsocks-客户端设置三种模式-流量请求图"><a href="#1-0-shadowsocks-客户端设置三种模式-流量请求图" class="headerlink" title="1.0 shadowsocks 客户端设置三种模式,流量请求图"></a>1.0 <strong>shadowsocks 客户端设置三种模式,流量请求图</strong></h4><p><img src="/images/pasted-74.png" alt="upload successful"></p>
-<figure class="highlight bash"><figcaption><span>PAC 文件规则模板</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">||       2个竖杠表示匹配规则</span><br><span class="line"></span><br><span class="line">@@||     竖杠后面2个at表示绕过规则</span><br></pre></td></tr></table></figure>
+<h3 id="1-0-源码安装"><a href="#1-0-源码安装" class="headerlink" title="1.0 源码安装"></a>1.0 <strong>源码安装</strong></h3><ul>
+<li>2台 haproxy 同样安装操作</li>
+</ul>
+<h4 id="1-1-部署环境"><a href="#1-1-部署环境" class="headerlink" title="1.1 部署环境"></a>1.1 <strong>部署环境</strong></h4><escape>
+<table>
+  <tr><th>OS</th><th>VERSION</th><th>IP</th><th>ROLE</th></tr>
+  <tr><td rowspan="4">CentOS 7.9</td><td rowspan="4">Haproxy 2.4.0</td>
+  <td>192.168.1.171</td><td>haproxy</td></tr>
+  <tr><td>192.168.1.172</td><td>haproxy</td></tr>
+</table>
+</escape>
 
-<figure class="highlight bash"><figcaption><span>Windows</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">// Windows<span class="string">&quot;编辑GFWList的用户规则&quot;</span>(user-rule)保存后默认会直接将编辑规则保存到pac文件</span><br></pre></td></tr></table></figure>
-<p><img src="/images/pasted-77.png" alt="upload successful"></p>
-<figure class="highlight bash"><figcaption><span>Mac OS</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">// Mac OS配置好PAC自定义规则后还需单击<span class="string">&quot;从GFW List更新PAC&quot;</span>并关闭再开启shadowsocks则生效</span><br></pre></td></tr></table></figure>
-<p><img src="/images/pasted-75.png" alt="upload successful"><br><img src="/images/pasted-76.png" alt="upload successful"></p>
-<h4 id="2-0-安装-pip"><a href="#2-0-安装-pip" class="headerlink" title="2.0 安装 pip"></a>2.0 安装 pip</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">curl <span class="string">&quot;https://bootstrap.pypa.io/get-pip.py&quot;</span> -o <span class="string">&quot;get-pip.py&quot;</span></span><br><span class="line">python get-pip.py</span><br><span class="line"><span class="comment"># 云主机安装如下错误请根据报错内容下载对应&quot;get-pip.py脚本即可&quot;: </span></span><br><span class="line">    ERROR: This script does not work on Python 2.7 The minimum supported Python version is 3.6. Please use https://bootstrap.pypa.io/pip/2.7/get-pip.py instead.</span><br></pre></td></tr></table></figure>
+<h4 id="1-2-haproxy-依赖安装"><a href="#1-2-haproxy-依赖安装" class="headerlink" title="1.2 haproxy 依赖安装"></a>1.2 <strong>haproxy 依赖安装</strong></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># yum -y install gcc readline-devel openssl-devel systemd-devel socat psmisc            # 依赖安装</span></span><br><span class="line"></span><br><span class="line">// 安装 lua 脚本[需要lua来支持更多复杂的功能]</span><br><span class="line"><span class="comment"># wget https://www.lua.org/ftp/lua-5.4.3.tar.gz --no-check-certificate</span></span><br><span class="line"><span class="comment"># mkdir -p /data/apps</span></span><br><span class="line"><span class="comment"># tar -xf lua-5.4.3.tar.gz </span></span><br><span class="line"><span class="comment"># mv lua-5.4.3 /data/apps/lua</span></span><br><span class="line"><span class="comment"># cd /data/apps/lua</span></span><br><span class="line"><span class="comment"># make linux</span></span><br><span class="line"><span class="comment"># lua -v</span></span><br></pre></td></tr></table></figure>
 
-<h4 id="3-0-安装-shadowsocks"><a href="#3-0-安装-shadowsocks" class="headerlink" title="3.0 安装 shadowsocks"></a>3.0 安装 shadowsocks</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip install --upgrade pip</span><br><span class="line">pip install shadowsocks</span><br></pre></td></tr></table></figure>
 
-<ol start="3">
-<li>单用户和多用户配置方式[1|2]</li>
-</ol>
+<h4 id="1-3-haproxy-下载"><a href="#1-3-haproxy-下载" class="headerlink" title="1.3 haproxy 下载"></a>1.3 <strong>haproxy 下载</strong></h4><ul>
+<li><a href="haproxy.org">haproxy 官方网站</a></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cd /data/apps/</span></span><br><span class="line"><span class="comment"># wget https://www.haproxy.org/download/2.4/src/haproxy-2.4.0.tar.gz</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/pasted-260.png" alt="upload successful"></p>
+<h4 id="1-4-haproxy-编译"><a href="#1-4-haproxy-编译" class="headerlink" title="1.4 haproxy 编译"></a>1.4 <strong>haproxy 编译</strong></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># tar -xf haproxy-2.4.0.tar.gz</span></span><br><span class="line"><span class="comment"># cd haproxy-2.4.0/</span></span><br><span class="line"><span class="comment"># make ARCH=X86_64 TARGET=linux-glibc USE_PCRE=1 USE_OPENSSL=1 USE_ZLIB=1 USE_SYSTEMD=1 USE_LUA=1 LUA_INC=/data/apps/lua/src LUA_LIB=/data/apps/lua/src</span></span><br><span class="line">    <span class="comment"># 不同版本的编译安装请详见 README、INSTALL 文档</span></span><br><span class="line"><span class="comment"># make install PREFIX=/data/apps/haproxy</span></span><br><span class="line"><span class="comment"># /data/apps/haproxy/sbin/haproxy</span></span><br><span class="line">    -v		验证安装是否成功</span><br><span class="line">    -h		查看帮助</span><br><span class="line">    -f		指定 haproxy 配置文件</span><br><span class="line">    -c		以非启动方式检查 haproxy 配置文件</span><br><span class="line">    -q		静默方式,不打印输出信息</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="1-5-haproxy-配置"><a href="#1-5-haproxy-配置" class="headerlink" title="1.5 haproxy 配置"></a>1.5 <strong>haproxy 配置</strong></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># mkdir /data/apps/haproxy/conf</span></span><br><span class="line"><span class="comment"># useradd -r -s /sbin/nologin -d /data/apps/haproxy haproxy</span></span><br><span class="line"><span class="comment"># vim /data/apps/haproxy/conf/haproxy.cfg</span></span><br><span class="line">global</span><br><span class="line">    maxconn 100000</span><br><span class="line">    user haproxy</span><br><span class="line">    group haproxy</span><br><span class="line">    daemon</span><br><span class="line">    <span class="built_in">log</span> 127.0.0.1 local2 info</span><br><span class="line">    pidfile /data/apps/haproxy/haproxy.pid</span><br><span class="line">    stats socket /data/apps/haproxy/haproxy.sock mode 600 level admin</span><br><span class="line"></span><br><span class="line">defaults</span><br><span class="line">    option http-keep-alive</span><br><span class="line">    option forwardfor</span><br><span class="line">    maxconn 100000</span><br><span class="line">    mode http</span><br><span class="line">    <span class="built_in">timeout</span> connect 300000ms</span><br><span class="line">    <span class="built_in">timeout</span> client 300000ms</span><br><span class="line">    <span class="built_in">timeout</span> server 300000ms</span><br><span class="line"></span><br><span class="line">listen web</span><br><span class="line">    <span class="built_in">bind</span> *:80</span><br><span class="line">    mode http</span><br><span class="line">    server web01 127.0.0.1:8080 check inter 3000 fall 2 rise 5</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-6-haproxy-启动项"><a href="#1-6-haproxy-启动项" class="headerlink" title="1.6 haproxy 启动项"></a>1.6 <strong>haproxy 启动项</strong></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cat /usr/lib/systemd/system/haproxy.service</span></span><br><span class="line">[Unit]</span><br><span class="line">Description=HAProxy Load Balancer</span><br><span class="line">After=syslog.target network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">ExecStartPre=/data/apps/haproxy/sbin/haproxy -f /data/apps/haproxy/conf/haproxy.cfg -c -q</span><br><span class="line">ExecStart=/data/apps/haproxy/sbin/haproxy -Ws -f /data/apps/haproxy/conf/haproxy.cfg -p /data/apps/haproxy/haproxy.pid</span><br><span class="line">ExecReload=/bin/kill -USR2 <span class="variable">$MAINPID</span></span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br><span class="line"></span><br><span class="line"><span class="comment"># systemctl daemon-reload</span></span><br><span class="line"><span class="comment"># systemctl enable haproxy.service --now</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="1-7-haproxy-日志配置"><a href="#1-7-haproxy-日志配置" class="headerlink" title="1.7 haproxy 日志配置"></a>1.7 <strong>haproxy 日志配置</strong></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># mkdir /data/apps/haproxy/logs</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># vim /etc/rsyslog.conf</span></span><br><span class="line"><span class="variable">$ModLoad</span> imtcp</span><br><span class="line"><span class="variable">$InputTCPServerRun</span> 514 </span><br><span class="line">...</span><br><span class="line">local2.*                                                /data/apps/haproxy/logs/haproxy.log</span><br><span class="line"></span><br><span class="line"><span class="comment"># systemctl restart rsyslog.service</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="2-0-配置参数"><a href="#2-0-配置参数" class="headerlink" title="2.0 配置参数"></a>2.0 <strong>配置参数</strong></h3><ul>
+<li>2台 haproxy 同样安装操作</li>
+</ul>
+<h4 id="2-1-haproxy-配置示例"><a href="#2-1-haproxy-配置示例" class="headerlink" title="2.1 haproxy 配置示例"></a>2.1 <strong>haproxy 配置示例</strong></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cat /data/apps/haproxy/conf/haproxy.cfg</span></span><br><span class="line">global</span><br><span class="line">    maxconn 100000</span><br><span class="line">    user haproxy</span><br><span class="line">    group haproxy</span><br><span class="line">    daemon</span><br><span class="line">    log127.0.0.1 local2 info</span><br><span class="line">    pidfile /data/apps/haproxy/haproxy.pid</span><br><span class="line">    stats socket /data/apps/haproxy/haproxy.sock mode 600 level admin</span><br><span class="line">    <span class="built_in">chroot</span>  /data/apps/haproxy</span><br><span class="line"></span><br><span class="line">defaults</span><br><span class="line">    option http-keep-alive</span><br><span class="line">    option forwardfor</span><br><span class="line">    maxconn 100000</span><br><span class="line">    mode http</span><br><span class="line">    <span class="built_in">timeout</span> connect 300000ms</span><br><span class="line">    <span class="built_in">timeout</span> client 300000ms</span><br><span class="line">    <span class="built_in">timeout</span> server 300000ms</span><br><span class="line"></span><br><span class="line">frontend web</span><br><span class="line">    <span class="built_in">bind</span>    *:80</span><br><span class="line">    <span class="built_in">log</span>     global</span><br><span class="line">    mode    http</span><br><span class="line">    default_backend webservers</span><br><span class="line"></span><br><span class="line">backend webservers</span><br><span class="line">    balance roundrobin</span><br><span class="line">    server web01 192.168.1.171:80 check port 80 inter 3s rise 2 fall 3 maxconn 2000 weight 1</span><br><span class="line">    server web02 192.168.1.172:80 check port 80 inter 3s rise 2 fall 3 maxconn 2000 weight 1</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">haproxy:</span><br><span class="line">    frontend:			<span class="comment"># 定义前端   对外提供什么端口</span></span><br><span class="line">    backend:			<span class="comment"># 定义后端   集群资源池中具体有多少节点</span></span><br><span class="line">    use_backend:		<span class="comment"># 关联前端和后端的  类似于nginx中的proxy_pass (基于条件的方式来进行调度)</span></span><br><span class="line">    default_backend:		<span class="comment"># 关联前端和后端的，默认所有的请求都调度</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="2-2-haproxy-配置参数"><a href="#2-2-haproxy-配置参数" class="headerlink" title="2.2 haproxy 配置参数"></a>2.2 <strong>haproxy 配置参数</strong></h4><h5 id="2-2-1-global-配置参数"><a href="#2-2-1-global-配置参数" class="headerlink" title="2.2.1 global 配置参数"></a>2.2.1 <strong>global 配置参数</strong></h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// Global settings 全局配置,用于设定全局配置参数</span><br><span class="line">    daemon                                <span class="comment"># 以守护进程模式运行目录</span></span><br><span class="line">    <span class="built_in">chroot</span> /var/lib/haproxy               <span class="comment"># 锁定 haproxy 进程用户身份(如果有入侵行为,也只能入侵它的根目录,无法对系统造成损坏)</span></span><br><span class="line">    user haproxy                          <span class="comment"># 运行 haproxy 进程用户身份</span></span><br><span class="line">    group haproxy                         <span class="comment"># 运行 haproxy 进程用户组身份</span></span><br><span class="line">    maxconn 4000                          <span class="comment"># 设定每个 haproxy 进程所接受的最大并发连接数(官方给的是4000,理论上这个值太小)</span></span><br><span class="line">    nbthread &lt;number&gt;                     <span class="comment"># 指定启动haproxy线程数量,默认启动一个线程,不允许和nbproc同时使用</span></span><br><span class="line">    <span class="built_in">log</span> 127.0.0.1 local2                  <span class="comment"># 日志记录通过本地rsyslog的local2设备写入</span></span><br><span class="line">    stats socket /var/lib/haproxy/stats   <span class="comment"># 基于socket通信,可实现动态变更配置(非常有用)</span></span><br><span class="line">    spread-checks &lt;0..50, <span class="keyword">in</span> percent&gt;     <span class="comment"># 在haproxy后端有众多节点时,如同时进行健康检查,则会对haproxy造成较大性能影响;此选项将其检查时间间隔长度上增加或减少一定随机时间</span></span><br><span class="line">                                            官方建议2-5(20%-50%)之间;如后端主机较多(比如1000台甚至更多)能够避免同时并发对后端主机check时,减少对haproxy的性能影响</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-2-2-default-段参数"><a href="#2-2-2-default-段参数" class="headerlink" title="2.2.2 default 段参数"></a>2.2.2 <strong>default 段参数</strong></h5><ul>
+<li>defaults 段用于为所有其它配置段提供默认参数</li>
+</ul>
+<h6 id="2-2-2-1-option-参数"><a href="#2-2-2-1-option-参数" class="headerlink" title="2.2.2.1 option 参数"></a>2.2.2.1 <strong>option 参数</strong></h6><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// option httplog: 用来记录日志,其通常包含但不限于HTTP请求、连接计时器、会话状态、连接数、铺货的首部及cookie、<span class="string">&quot;frontend&quot;</span>、<span class="string">&quot;backend&quot;</span>等信息</span><br><span class="line">// option dontlognull: 不记录健康检查的日志信息</span><br><span class="line">// option redispatch: 当找不到cookie对应的服务器时,重新分配新的节点给客户端</span><br><span class="line">// option forwardfor: 传递客户端真实IP</span><br></pre></td></tr></table></figure>
+
+<h6 id="2-2-2-2-timeout-参数"><a href="#2-2-2-2-timeout-参数" class="headerlink" title="2.2.2.2 timeout 参数"></a>2.2.2.2 <strong>timeout 参数</strong></h6><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// <span class="built_in">timeout</span> queue 1m: 当请求超过最大并发连接数,多余请求会进入队列,那该请求在等待多长时间则超时</span><br><span class="line">// <span class="built_in">timeout</span> connect 10s: haproxy 与后端服务器连接超时时间(内网环境建议1-3s)</span><br><span class="line">// <span class="built_in">timeout</span> client 1m: 定义客户端与haproxy连接后,数据传输完毕,不在有数据传输,即非活动连接的超时时间</span><br><span class="line">// <span class="built_in">timeout</span> server 1m: 定义haproxy与后端应用服务器的非活动连接超时时间</span><br><span class="line">// <span class="built_in">timeout</span> check 10s: 健康检测的时间的最大超时时间</span><br><span class="line">// <span class="built_in">timeout</span> http-request 30s: 客户端发送http请求的超时时间</span><br><span class="line">// <span class="built_in">timeout</span> http-keep-alive 60s: http请求连接建立的最大超时时间</span><br><span class="line">// <span class="built_in">timeout</span> maxconn 3000: 最大并发连接数(不可超过global)</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-2-3-haproxy-proxies-配置"><a href="#2-2-3-haproxy-proxies-配置" class="headerlink" title="2.2.3 haproxy proxies 配置"></a>2.2.3 <strong>haproxy proxies 配置</strong></h5><h6 id="2-2-3-1-mode-参数"><a href="#2-2-3-1-mode-参数" class="headerlink" title="2.2.3.1 mode 参数"></a>2.2.3.1 <strong>mode 参数</strong></h6><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// mode 概念: 设置 haproxy 实例运行的协议</span><br><span class="line">// mode 语法: mode &#123; tcp|http &#125;</span><br><span class="line">    tcp: 实例运行于TCP模式,不对7层报文做任何检查;通常用于ssl、ssh、mysql等应用</span><br><span class="line">    http: 实例运行于http模式,客户端请求服务端,服务端重新封装请求报文,请求后端真实节点</span><br></pre></td></tr></table></figure>
+
+<h6 id="2-2-3-2-bind-参数"><a href="#2-2-3-2-bind-参数" class="headerlink" title="2.2.3.2 bind 参数"></a>2.2.3.2 <strong>bind 参数</strong></h6><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// <span class="built_in">bind</span> 概念: 设置haproxy实例运行的端口</span><br><span class="line">// <span class="built_in">bind</span>语法: <span class="built_in">bind</span> [&lt;address&gt;]:&lt;port_range&gt; [,...] interface &lt;interface&gt;</span><br><span class="line">    &lt;address&gt;: 可选选项,其可以为主机名、IPv4地址、IPv6地址或*; 将其指定为 * 或 0.0.0.0 时,将监听当前系统的所有IPv4地址</span><br><span class="line">    &lt;port_range&gt;: 可以是一个特定的TCP端口,也可是一个端口范围,如 8080-9090</span><br><span class="line">    &lt;interface&gt;: 指定物理接口名称,仅能在Linux系统上使用; 其不能使用接口别名,只有管理有权限指定绑定的物理接口</span><br></pre></td></tr></table></figure>
+
+<h6 id="2-2-3-3-maxconn-参数"><a href="#2-2-3-3-maxconn-参数" class="headerlink" title="2.2.3.3 maxconn 参数"></a>2.2.3.3 <strong>maxconn 参数</strong></h6><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// maxconn 概念: 设定一个前端的最大并发连接数,对于大型站点来说,应该尽可能提高此值,从而避免haproxy无法应答用户请求。当然,此值最大值不能超出global段中的定义。</span><br><span class="line">// maxconn 注意: haproxy会为每个连接维持2个缓冲,每个缓冲的大小为8KB,再加上其它的数据,每个连接将大约占用17KB的RAM空间。这意味着经过适当优化后,1GB的可用RAM空间将能维护40000-50000并发连接</span><br><span class="line">// maxconn 语法: maxconn &lt;conns&gt;</span><br><span class="line">    &lt;conns&gt;: 如果为&lt;conns&gt;指定了一个过大值,极端场景下,其最终占据的空间可能会超出当前主机的可用内存,这可能会带来意想不到的结果；因此,将其设定了一个系统可接受值</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-2-4-haproxy-server-参数"><a href="#2-2-4-haproxy-server-参数" class="headerlink" title="2.2.4 haproxy server 参数"></a>2.2.4 <strong>haproxy server 参数</strong></h5><ul>
+<li>为后端声明一个server节点信息。因此,不能用于defaults和frontend区段</li>
+<li>server 语法: server &lt;name&gt; &lt;address&gt;[:port] [param*]<ul>
+<li>&lt;name&gt;: 为此服务器指定标识名称,会出现在日志文件中</li>
+<li>&lt;address&gt;: 填写节点的IPv4地址，也支持使用可解析的主机名称</li>
+<li>[:port]: 指定将连接所发往节点的目标端口,如未设定，则使用客户端请求的端口</li>
+<li>[param*]: 为此服务器设定的一系列参数；其可用的参数非常多，下面仅说明几个常用的参数<ul>
+<li>backup: 在负载均衡场景中,所有的正常server均不可用时,此backup节点则会顶替提供服务</li>
+<li>check: 对此server进行TCP的健康状态检查</li>
+<li>inter DELAY: 设定健康状态检查的时间间隔,单位为毫秒,默认为2000毫秒</li>
+<li>rise COUNT: 设置离线状态转换至正常状态需要成功检查的次数</li>
+<li>fall COUNT: 设置正常状态节点转换为不可用状态，需要检查的次数</li>
+<li>maxconn MAXCONN: 指定此服务器接受的最大并发连接数</li>
+<li>maxqueue MAXQUEUE: 设定请求队列的最大长度</li>
+<li>weight WEIGHT: 服务器节点权重,默认为1,最大值为256。0表示不参与负载均衡</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-0-配置场景"><a href="#3-0-配置场景" class="headerlink" title="3.0 配置场景"></a>3.0 <strong>配置场景</strong></h3><h4 id="3-1-haproxy-子配置管理"><a href="#3-1-haproxy-子配置管理" class="headerlink" title="3.1 haproxy 子配置管理"></a>3.1 <strong>haproxy 子配置管理</strong></h4><ul>
+<li>当业务众多时，所有配置将在”haproxy.cfg”一个配置文件中，维护起来非常麻烦。可将其拆分成不同的业务的子配置文件，从而方便维护。</li>
+</ul>
+<figure class="highlight bash"><figcaption><span>主配置文件</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cat /data/apps/haproxy/conf/haproxy.cfg</span></span><br><span class="line">global</span><br><span class="line">    maxconn 100000</span><br><span class="line">    user haproxy</span><br><span class="line">    group haproxy</span><br><span class="line">    daemon</span><br><span class="line">    <span class="built_in">log</span>	127.0.0.1 local2 info</span><br><span class="line">    pidfile /data/apps/haproxy/haproxy.pid</span><br><span class="line">    stats socket /data/apps/haproxy/haproxy.sock mode 600 level admin</span><br><span class="line">    <span class="built_in">chroot</span>  /data/apps/haproxy</span><br><span class="line"></span><br><span class="line">defaults</span><br><span class="line">    mode    http</span><br><span class="line">    <span class="built_in">log</span>     global</span><br><span class="line">    option  httplog</span><br><span class="line">    option  dontlognull</span><br><span class="line">    option  http-server-close</span><br><span class="line">    option  forwardfor</span><br><span class="line">    option  redispatch</span><br><span class="line">    option  http-keep-alive</span><br><span class="line">    retries 3</span><br><span class="line">    <span class="built_in">timeout</span> http-request 10s</span><br><span class="line">    <span class="built_in">timeout</span> queue 1m</span><br><span class="line">    <span class="built_in">timeout</span> connect 10s</span><br><span class="line">    <span class="built_in">timeout</span> client 1m</span><br><span class="line">    <span class="built_in">timeout</span> server 1m</span><br><span class="line">    <span class="built_in">timeout</span> http-keep-alive 10s</span><br><span class="line">    <span class="built_in">timeout</span> check 10s</span><br><span class="line">    maxconn 100000</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><figcaption><span>子配置文件</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// 众多子配置文件可以以单独的的配置文件形式存在</span><br><span class="line"><span class="comment"># mkdir /data/apps/haproxy/conf/conf.d                # 目录名称自定义即可</span></span><br><span class="line"><span class="comment"># cat /data/apps/haproxy/conf/conf.d/web.ink8s.com.cfg</span></span><br><span class="line">frontend web</span><br><span class="line">    <span class="built_in">bind</span>    *:8080</span><br><span class="line">    mode    http</span><br><span class="line">    use_backend app_servers</span><br><span class="line"></span><br><span class="line">backend app_servers</span><br><span class="line">    balance roundrobin</span><br><span class="line">    server web01 192.168.1.171:80 check port 80 inter 3s rise 2 fall 3 maxconn 2000 weight 1</span><br><span class="line">    server web02 192.168.1.172:80 check port 80 inter 3s rise 2 fall 3 maxconn 2000 weight 1</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><figcaption><span>启动项修改</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cat /usr/lib/systemd/system/haproxy.service</span></span><br><span class="line">[Unit]</span><br><span class="line">Description=HAProxy Load Balancer</span><br><span class="line">After=syslog.target network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=notify</span><br><span class="line">Environment=<span class="string">&quot;CONFIG=/data/apps/haproxy/conf/haproxy.cfg&quot;</span> <span class="string">&quot;PIDFILE=/data/apps/haproxy/haproxy.pid&quot;</span></span><br><span class="line">Environment=<span class="string">&quot;CONFIG_D=/data/apps/haproxy/conf/conf.d/&quot;</span></span><br><span class="line">ExecStartPre=/data/apps/haproxy/sbin/haproxy -f <span class="variable">$CONFIG</span> -f <span class="variable">$CONFIG_D</span> -c -q <span class="variable">$OPTIONS</span></span><br><span class="line">ExecStart=/data/apps/haproxy/sbin/haproxy -Ws -f <span class="variable">$CONFIG</span> -f <span class="variable">$CONFIG_D</span> -p <span class="variable">$PIDFILE</span> <span class="variable">$OPTIONS</span></span><br><span class="line">ExecReload=/bin/kill -USR2 <span class="variable">$MAINPID</span></span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br><span class="line"></span><br><span class="line"><span class="comment"># systemctl daemon-reload</span></span><br><span class="line"><span class="comment"># systemctl restart haproxy.service</span></span><br><span class="line"><span class="comment"># netstat -nlput</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="3-2-haproxy-状态检测配置"><a href="#3-2-haproxy-状态检测配置" class="headerlink" title="3.2 haproxy 状态检测配置"></a>3.2 <strong>haproxy 状态检测配置</strong></h4><ul>
+<li>haproxy 有统计报告功能，可以让使用者通过 web 页面概览后端服务器的概况，甚至更改它们的状态</li>
+</ul>
+<figure class="highlight bash"><figcaption><span>状态页配置</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cat /data/apps/haproxy/conf/conf.d/stats.ink8s.com.cfg </span></span><br><span class="line">listen  stats.ink8s.com.cfg</span><br><span class="line">    mode        http</span><br><span class="line">    <span class="built_in">bind</span>        *:9999</span><br><span class="line">    stats       <span class="built_in">enable</span></span><br><span class="line">    stats       refresh 30s</span><br><span class="line">    stats       hide-version</span><br><span class="line">    stats       uri /haproxy?stats</span><br><span class="line">    stats       realm <span class="string">&quot;HAProxy stats&quot;</span></span><br><span class="line">    stats       auth admin:ink8s.com</span><br><span class="line">    stats       admin <span class="keyword">if</span> TRUE</span><br><span class="line">    <span class="built_in">log</span>         global</span><br><span class="line"></span><br><span class="line">// 登录状态页面,可以给IP加解析访问</span><br><span class="line">http://stats.ink8s.com:9999/haproxy?stats</span><br><span class="line">    USER: admin</span><br><span class="line">    PASS: ink8s.com</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/pasted-261.png" alt="upload successful"></p>
+<h4 id="3-3-haproxy-动态上线与下线"><a href="#3-3-haproxy-动态上线与下线" class="headerlink" title="3.3 haproxy 动态上线与下线"></a>3.3 <strong>haproxy 动态上线与下线</strong></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cat /data/apps/haproxy/conf/haproxy.cfg</span></span><br><span class="line">global</span><br><span class="line">    maxconn 100000</span><br><span class="line">    user haproxy</span><br><span class="line">    group haproxy</span><br><span class="line">    daemon</span><br><span class="line">    <span class="built_in">log</span>	127.0.0.1 local2 info</span><br><span class="line">    pidfile /data/apps/haproxy/haproxy.pid</span><br><span class="line">    stats socket /data/apps/haproxy/stats level admin		<span class="comment"># 修改此行配置</span></span><br><span class="line">    <span class="built_in">chroot</span>  /data/apps/haproxy</span><br><span class="line"></span><br><span class="line">defaults</span><br><span class="line">    mode    http</span><br><span class="line">    <span class="built_in">log</span>     global</span><br><span class="line">    option  httplog</span><br><span class="line">    option  dontlognull</span><br><span class="line">    option  http-server-close</span><br><span class="line">    option  forwardfor</span><br><span class="line">    option  redispatch</span><br><span class="line">    option  http-keep-alive</span><br><span class="line">    retries 3</span><br><span class="line">    <span class="built_in">timeout</span> http-request 10s</span><br><span class="line">    <span class="built_in">timeout</span> queue 1m</span><br><span class="line">    <span class="built_in">timeout</span> connect 10s</span><br><span class="line">    <span class="built_in">timeout</span> client 1m</span><br><span class="line">    <span class="built_in">timeout</span> server 1m</span><br><span class="line">    <span class="built_in">timeout</span> http-keep-alive 10s</span><br><span class="line">    <span class="built_in">timeout</span> check 10s</span><br><span class="line">    maxconn 100000</span><br><span class="line"></span><br><span class="line"><span class="comment"># systemctl restart haproxy</span></span><br><span class="line"><span class="comment"># echo &quot;show info&quot; | socat stdio &quot;/data/apps/haproxy/stats&quot;            		      # web 页面看到的全部在这里能看到</span></span><br><span class="line"><span class="comment"># echo &quot;disable server app_servers/web01&quot; | socat stdio &quot;/data/apps/haproxy/stats&quot;    # 下线节点</span></span><br><span class="line"><span class="comment"># echo &quot;enable server app_servers/web01&quot; | socat stdio &quot;/data/apps/haproxy/stats&quot;     # 上线节点</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="4-0-调度算法"><a href="#4-0-调度算法" class="headerlink" title="4.0 调度算法"></a>4.0 <strong>调度算法</strong></h3><ul>
+<li>haproxy 根据后端服务器的负载，或其它的计算的标准，判断挑选哪台RS进行请求处理</li>
+<li>haproxy 调度算法语法，可用于 defaults、listen、backend</li>
+</ul>
+<h4 id="4-1-roundrobin"><a href="#4-1-roundrobin" class="headerlink" title="4.1 roundrobin"></a>4.1 <strong>roundrobin</strong></h4><ul>
+<li>roundrobin 基于权重进行轮询，保持均匀分布，这是最平衡、最公平的算法</li>
+<li>此算法是动态的，这表示其权重可以在运行时进行调整，不过在设计上，每个后端服务器仅能最多接受4128个连接</li>
+</ul>
+<figure class="highlight bash"><figcaption><span>示例</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cat app.ink8s.com.cfg </span></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">backend app_servers</span><br><span class="line">    balance roundrobin</span><br><span class="line">    server web01 192.168.1.171:80 check</span><br><span class="line">    server web02 192.168.1.172:80 check</span><br></pre></td></tr></table></figure>
+
+<h5 id="4-1-1-动态调整"><a href="#4-1-1-动态调整" class="headerlink" title="4.1.1 动态调整"></a>4.1.1 <strong>动态调整</strong></h5><ul>
+<li>通过 socat 命令动态调整权重，将web01节点的权重调整为3</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># echo &quot;get weight app_servers/web01&quot; | socat stdio /data/apps/haproxy/stats        # 查看</span></span><br><span class="line"><span class="comment"># echo &quot;set weight app_servers/web01 3&quot; | socat stdio /data/apps/haproxy/stats      # 设置</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/pasted-262.png" alt="upload successful"></p>
+<h5 id="4-1-2-静态-static-rr"><a href="#4-1-2-静态-static-rr" class="headerlink" title="4.1.2 静态 static-rr"></a>4.1.2 <strong>静态 static-rr</strong></h5><ul>
+<li>static-rr 加权轮询调度算法，根据服务器的硬件情况、以及处理能力，为每台服务器分配不同的权值，使其能够接受相应权值的服务器请求</li>
+<li>此算法是静态的，这表示其权重不可用在运行时进行调整</li>
+</ul>
+<figure class="highlight bash"><figcaption><span>示例</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cat app.ink8s.com.cfg </span></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">backend app_servers</span><br><span class="line">    balance static-rr</span><br><span class="line">    server web01 192.168.1.171:80 check</span><br><span class="line">    server web02 192.168.1.172:80 check</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-2-leastconn"><a href="#4-2-leastconn" class="headerlink" title="4.2 leastconn"></a>4.2 <strong>leastconn</strong></h4><ul>
+<li>leastconn 新的连接请求被派发至具有最少连接数目的后端服务器</li>
+<li>此算法是动态的，可以在运行时调整其权重</li>
+</ul>
+<figure class="highlight bash"><figcaption><span>示例</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cat app.ink8s.com.cfg </span></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">backend app_servers</span><br><span class="line">    balance leastconn</span><br><span class="line">    server web01 192.168.1.171:80 check</span><br><span class="line">    server web02 192.168.1.172:80 check</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-3-source"><a href="#4-3-source" class="headerlink" title="4.3 source"></a>4.3 <strong>source</strong></h4><ul>
+<li>source 源地址hash调度算法，将请求的源地址进行 hash 运算，得到一个具体的数值，同时对后端服务器进行编号，按照运算结果将请求分发到对应编号的服务器上</li>
+<li>这可对不同源 IP 的访问进行负载分发，对同一客户端 IP 的请求始终被派发至某特定的服务器</li>
+<li>注意: 如果服务器宕机或新添加了服务器，许多客户端的请求可能会被派发至于此前请求不同的服务器；不过也可以使用 hash-type 修改此特性</li>
+</ul>
+<figure class="highlight bash"><figcaption><span>示例</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cat app.ink8s.com.cfg </span></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">backend app_servers</span><br><span class="line">    balance <span class="built_in">source</span></span><br><span class="line">    server web01 192.168.1.171:80 check</span><br><span class="line">    server web02 192.168.1.172:80 check</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><figcaption><span>示例</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cat app.ink8s.com.cfg </span></span><br><span class="line">// 一致性 <span class="built_in">hash</span> 方式: 相同的IP，保持相同的会话</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">backend app_servers</span><br><span class="line">    balance <span class="built_in">source</span></span><br><span class="line">    hash-type consistent</span><br><span class="line">    server web01 192.168.1.171:80 check</span><br><span class="line">    server web02 192.168.1.172:80 check</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-4-rui"><a href="#4-4-rui" class="headerlink" title="4.4 rui"></a>4.4 <strong>rui</strong></h4><ul>
+<li>rui 基于对用户请求的 rui 做 hash 并将请求转发到后端指定服务器</li>
+<li>理解: 同一个节点访问不同的 rui 可能会被调度到不同的后端服务器处理，但是不同的节点访问相同的 rui 则会被调度到同一台服务器处理，因为基于 rui 调度是在服务端完成的而非客户端，这种调度算法多用在缓存场景，能有效提高命中率</li>
+<li>注意: 此算法仅应用于 HTTP 后端服务器场景；其默认为静态算法，不过也可以使用 hash-type 修改此特性</li>
+</ul>
+<figure class="highlight bash"><figcaption><span>示例</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cat app.ink8s.com.cfg </span></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">backend app_servers</span><br><span class="line">    balance uri</span><br><span class="line">    hash-type consistent</span><br><span class="line">    server web01 192.168.1.171:80 check</span><br><span class="line">    server web02 192.168.1.172:80 check</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-0-ACL"><a href="#5-0-ACL" class="headerlink" title="5.0 ACL"></a>5.0 <strong>ACL</strong></h3><ul>
+<li>ACL 主要对请求报文和响应报文进行匹配和过滤。其配置法则通常分为两步:<ul>
+<li>首先定义 ACL 规则，即定义一个测试条件，条件可以是请求报文中的源地址、源端口、目标地址、目标端口、请求方法、RUL、文件后缀等</li>
+<li>然后再条件得到满足时执行相应的动作；比如阻止请求、又或者转发请求至某特定的后端</li>
+</ul>
+</li>
+</ul>
+<h4 id="5-1-ACL-定义方法"><a href="#5-1-ACL-定义方法" class="headerlink" title="5.1 ACL 定义方法"></a>5.1 <strong>ACL 定义方法</strong></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// ACL 语法</span><br><span class="line">acl &lt;aclname&gt; &lt;criterion&gt; [flags] [operator] [&lt;value&gt;] ...</span><br><span class="line"><span class="comment"># acl 名称     条件        条件标记位 具体操作符   操作对象类型</span></span><br><span class="line"></span><br><span class="line">// ACL 示例: 如果请求的User-Agent中包含Chrome且忽略大小写，规则则成立</span><br><span class="line">acl my_chrome hdr(User-Agent) -m sub -i Chrom </span><br></pre></td></tr></table></figure>
+
 <ul>
-<li>method加密方式: 服务端指定什么加密方式,客户端选择同样加密方式<figure class="highlight bash"><figcaption><span>单用户[1]</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># vim /etc/shadowsocks.json</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;server&quot;</span>: <span class="string">&quot;0.0.0.0&quot;</span>,</span><br><span class="line">  <span class="string">&quot;server_port&quot;</span>: 8443,</span><br><span class="line">  <span class="string">&quot;password&quot;</span>: <span class="string">&quot;you_password&quot;</span>,</span><br><span class="line">  <span class="string">&quot;method&quot;</span>: <span class="string">&quot;aes-256-cfb&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><figcaption><span>多用户[2]</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># vim /etc/shadowsocks.json</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;server&quot;</span>: <span class="string">&quot;0.0.0.0&quot;</span>,</span><br><span class="line">  <span class="string">&quot;local_address&quot;</span>: <span class="string">&quot;127.0.0.1&quot;</span>,</span><br><span class="line">  <span class="string">&quot;local_port&quot;</span>: 8443,</span><br><span class="line">  <span class="string">&quot;port_password&quot;</span>:&#123;</span><br><span class="line">    <span class="string">&quot;port_1&quot;</span>:<span class="string">&quot;you_password_1&quot;</span>,</span><br><span class="line">    <span class="string">&quot;port_2&quot;</span>:<span class="string">&quot;you_password_2&quot;</span>,</span><br><span class="line">    <span class="string">&quot;port_3&quot;</span>:<span class="string">&quot;you_password_3&quot;</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">&quot;timeout&quot;</span>:600,</span><br><span class="line">  <span class="string">&quot;method&quot;</span>:<span class="string">&quot;aes-256-cfb&quot;</span>,</span><br><span class="line">  <span class="string">&quot;fast_open&quot;</span>: <span class="literal">false</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><aclname> ACL 名称，可使用字母 数字 : . - _ 区分字符大小写</li>
+<li>&lt;criterion&gt; 比较的标准和条件<ul>
+<li>[:port]: 指定将连接所发往节点的目标端口,如未设定，则使用客户端请求的端口</li>
+<li>[param*]: 为此服务器设定的一系列参数；其可用的参数非常多，下面仅说明几个常用的参数</li>
 </ul>
-<h4 id="3-0-启动设置"><a href="#3-0-启动设置" class="headerlink" title="3.0 启动设置"></a>3.0 启动设置</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cat /etc/systemd/system/shadowsocks.service</span></span><br><span class="line">[Unit]</span><br><span class="line">Description=Shadowsocks</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">TimeoutStartSec=0</span><br><span class="line">ExecStart=/usr/bin/ssserver -c /etc/shadowsocks.json</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br><span class="line"></span><br><span class="line"><span class="comment"># systemctl enable shadowsocks</span></span><br><span class="line"><span class="comment"># systemctl start shadowsocks</span></span><br><span class="line"><span class="comment"># systemctl status shadowsocks -l</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>&lt;flags&gt; 条件标记<ul>
+<li>-i 不区分大小写</li>
+<li>-m 使用 pattern 匹配方法</li>
+<li>-n 不做 DNS 解析</li>
+<li>-u 禁止 acl 重名，否则多个同名的 ACL 为或的关系</li>
+</ul>
+</li>
+<li>[operator] 条件筛选<ul>
+<li>-eq、-ne、-ge、le、gt、lt</li>
+<li>(-m str) 字符串必须完全匹配模式</li>
+<li>(-m sub) 在提取的字符串中查找，如果其中任何一个被发现，ACL将匹配</li>
+<li>(-m beg) 在提取的字符串首部中查找，如果其中任何一个被发现，ACL 将匹配</li>
+<li>(-m end) 在提取的字符串尾部中查找，如果其中任何一个匹配，则 ACL 进行匹配</li>
+<li>(-m dir) 提取用斜线 &#x2F; 分隔的字符串，如果其中任何一个匹配，则 ACL 进行匹配</li>
+<li>(-m dom) 提取用点 . 分隔字符串，如果其中任何一个匹配，则 ACL 进行匹配</li>
+</ul>
+</li>
+<li>&lt;value&gt; 条件目标<ul>
+<li>布尔值: 比如 false，true</li>
+<li>整数或整数范围，比如用于匹配端口范围: 1024 ~ 32768</li>
+<li>IP 地址或 IP 范围: 192.168.0.1 ~ 192.168.0.1&#x2F;24</li>
+<li>字符串: 比如匹配 URL 路径，&#x2F;static 、&#x2F;images</li>
+</ul>
+</li>
+</ul>
+<h5 id="5-1-1-src"><a href="#5-1-1-src" class="headerlink" title="5.1.1 src"></a>5.1.1 <strong>src</strong></h5><ul>
+<li>src &lt;string&gt; 用于测试请求的源地址是否与 &lt;string&gt; 中定义的源地址一致</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 示例: 匹配请求源地址是 10.0.0.1、或 192.168.0.0/24 网段</span></span><br><span class="line">acl deny_src_ip src 10.0.0.1 192.168.0.0/24</span><br></pre></td></tr></table></figure>
+
+<h5 id="5-1-2-path-beg"><a href="#5-1-2-path-beg" class="headerlink" title="5.1.2 path_beg"></a>5.1.2 <strong>path_beg</strong></h5><ul>
+<li>path_beg &lt;string&gt; 用于测试请求的 URL 是否以 &lt;string&gt; 指定的模式开头</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 示例: 测试 URL 是否以 /static 、 /images 、 /javascript 开头</span></span><br><span class="line">acl url_static path beg -i /static /images /javascript</span><br></pre></td></tr></table></figure>
+
+<h5 id="5-1-3-hdr-beg"><a href="#5-1-3-hdr-beg" class="headerlink" title="5.1.3 hdr_beg"></a>5.1.3 <strong>hdr_beg</strong></h5><ul>
+<li>hdr_beg &lt;string&gt; 用于测试请求报文的指定首部的开头部分是否符合&lt;string&gt;指定的模式</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 示例: 测试请求的host开头是否为，img、video、static</span></span><br><span class="line">acl host_static hdr_beg(host) -i img. video. static.</span><br></pre></td></tr></table></figure>
+
+<h5 id="5-1-4-hdr-end"><a href="#5-1-4-hdr-end" class="headerlink" title="5.1.4 hdr_end"></a>5.1.4 <strong>hdr_end</strong></h5><ul>
+<li>hdr_end <string> 用于测试请求报文的指定首部的结尾部分是否符合<string>指定的模式</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 示例: 测试请求的host的结尾是否为 .com .net .cn</span></span><br><span class="line">acl host_static hdr_beg(host) -i .com .net .cn</span><br></pre></td></tr></table></figure>
+
+<h5 id="5-1-5-hdr-dom"><a href="#5-1-5-hdr-dom" class="headerlink" title="5.1.5 hdr_dom"></a>5.1.5 <strong>hdr_dom</strong></h5><ul>
+<li>hdr_dom(host) 用于测试请求的 host 名称</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 示例: 测试请求的 host 是否为 web.ink8s.com</span></span><br><span class="line">acl my_www_host hdr_dom(host) -i web.ink8s.com</span><br><span class="line">acl my_blog_host hdr_dom(host) -i blog.ink8s.com</span><br><span class="line">use_backend www_cluster <span class="keyword">if</span> my_www_host</span><br><span class="line">use_backend blog_cluster <span class="keyword">if</span> my_blog_host</span><br></pre></td></tr></table></figure>
+
+<h5 id="5-1-6-hdr"><a href="#5-1-6-hdr" class="headerlink" title="5.1.6 hdr"></a>5.1.6 <strong>hdr</strong></h5><ul>
+<li>hdr &lt;string&gt; 用于测试请求头部首部指定内容</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 示例: 测试请求的 User-Agent 是否为 Chrome</span></span><br><span class="line">acl my_chrome hdr(User_Agent) -m sub -i Chrome</span><br><span class="line">    -m sub -i Chrome            <span class="comment"># -m sub 去搜索 -i 中是否有 Chrome，有则匹配生效</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="5-2-ACL-逻辑关系"><a href="#5-2-ACL-逻辑关系" class="headerlink" title="5.2 ACL 逻辑关系"></a>5.2 <strong>ACL 逻辑关系</strong></h4><ul>
+<li>多个 acl 作为条件的逻辑关系<ul>
+<li>与: 默认，如 if acl1 acl2 表示满足第一个 acl 的同时要满足第二 acl 此条件才为真</li>
+<li>或: 使用 or 或 || 表示，如 if acl1 || acl2 表示满足 acl1 或  acl2 中的任意一个此条件就为真</li>
+<li>非: 使用 ! 表示，如 if ! acl1 表示对该 ACL 取相反的操作，意思就是非该 ACL 此条件为真</li>
+</ul>
+</li>
+</ul>
+<h4 id="5-3-ACL-访问控制"><a href="#5-3-ACL-访问控制" class="headerlink" title="5.3 ACL 访问控制"></a>5.3 <strong>ACL 访问控制</strong></h4><h5 id="5-3-1-基于-HTTP-访问控制"><a href="#5-3-1-基于-HTTP-访问控制" class="headerlink" title="5.3.1 基于 HTTP 访问控制"></a>5.3.1 <strong>基于 HTTP 访问控制</strong></h5><ul>
+<li>配置7层的请求访问控制；只能用在 mode http 中</li>
+<li>http-request { allow | deny } [ { if | unless } &lt;condition&gt; ]</li>
+<li>示例: 仅允许 10.10.10.100 访问 haproxy 的 stats</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cat /data/apps/haproxy/conf/conf.d/stats.ink8s.com.cfg</span></span><br><span class="line">listen  stats.ink8s.com.cfg</span><br><span class="line">    mode        http</span><br><span class="line">    <span class="built_in">bind</span>        *:9999</span><br><span class="line">    stats       <span class="built_in">enable</span></span><br><span class="line">    stats       refresh 30s</span><br><span class="line">    stats       hide-version</span><br><span class="line">    stats       uri /haproxy?stats</span><br><span class="line">    stats       realm <span class="string">&quot;HAProxy stats&quot;</span></span><br><span class="line">    stats       auth admin:ink8s.com</span><br><span class="line">    stats       admin <span class="keyword">if</span> TRUE</span><br><span class="line">    <span class="built_in">log</span>         global</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 基于 http 访问控制 来源用户非 172.16.1.100 或 使用 curl 则拒绝</span></span><br><span class="line">    acl source_ip src 172.16.1.100</span><br><span class="line">    acl deny_curl hdr(User-Agent) -m sub -i curl</span><br><span class="line">    http-request deny <span class="keyword">if</span> !source_ip || deny_curl</span><br></pre></td></tr></table></figure>
 
 
 
-<h4 id="4-0-客户端各平台软件"><a href="#4-0-客户端各平台软件" class="headerlink" title="4.0  客户端各平台软件"></a>4.0  <a target="_blank" rel="noopener" href="https://shadowsockshelp.github.io/Shadowsocks/download.html"><strong>客户端各平台软件</strong></a></h4><ul>
-<li>Windows <a target="_blank" rel="noopener" href="https://shadowsockshelp.github.io/Shadowsocks/windows.html">教程</a></li>
-<li>Mac OS <a target="_blank" rel="noopener" href="https://shadowsockshelp.github.io/Shadowsocks/mac.html">教程</a></li>
-<li>Linux <a target="_blank" rel="noopener" href="https://shadowsockshelp.github.io/Shadowsocks/linux.html">教程</a></li>
-<li>Android <a target="_blank" rel="noopener" href="https://shadowsockshelp.github.io/Shadowsocks/Android.html">教程</a></li>
-<li>iPhone、iPad <a target="_blank" rel="noopener" href="https://shadowsockshelp.github.io/Shadowsocks/ios.html">教程</a></li>
-<li><a target="_blank" rel="noopener" href="https://shadowsockshelp.github.io/Shadowsocks/Chrome.html">Chrome 浏览器教程</a></li>
-<li><a target="_blank" rel="noopener" href="https://shadowsockshelp.github.io/Shadowsocks/Firefox.html">Firefox 浏览器教程</a></li>
-</ul>
-<ul>
-<li>iPhone、iPad需要非大陆ID账号并且出口IP在非大陆区域才可搜索并下载 <a target="_blank" rel="noopener" href="https://shadowsockshelp.github.io/ios/">Shadowrocket</a></li>
-</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     
 
@@ -341,7 +545,7 @@
         </li>
         <li>
           <strong>本文链接：</strong>
-          <a href="https://www.ink8s.com/2023/01/05/shadowsocks-代理/" title="shadowsocks 代理" target="_blank">https://www.ink8s.com/2023/01/05/shadowsocks-代理/</a>
+          <a href="https://www.ink8s.com/2024/01/21/haproxy-负载均衡/" title="haproxy 负载均衡" target="_blank">https://www.ink8s.com/2024/01/21/haproxy-负载均衡/</a>
         </li>
         
         <li>
@@ -358,17 +562,6 @@
   <div class="article-info article-info-index">
     
     
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Linux-svc</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
     
 
     
@@ -419,7 +612,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-     <!-- <img src="//pan.baidu.com/share/qrcode?url=https://www.ink8s.com/2023/01/05/shadowsocks-%E4%BB%A3%E7%90%86/" alt="微信分享二维码"> -->
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=https://www.ink8s.com/2024/01/21/haproxy-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/" alt="微信分享二维码"> -->
     </div>
 </div>
 
@@ -434,18 +627,9 @@
 
 <nav id="article-nav">
   
-    <a href="/2023/01/06/dns-bind-9/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          dns bind 9
-        
-      </div>
-    </a>
   
-  
-    <a href="/2023/01/05/cobbler-%E6%89%B9%E9%87%8F%E5%AE%89%E8%A3%85-Linux-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">cobbler 批量安装 Linux 操作系统</div>
+    <a href="/2023/08/27/redis-%E5%93%A8%E5%85%B5%E9%9B%86%E7%BE%A4/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">redis 哨兵集群</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -472,7 +656,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-0-shadowsocks-%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%AE%BE%E7%BD%AE%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F-%E6%B5%81%E9%87%8F%E8%AF%B7%E6%B1%82%E5%9B%BE"><span class="toc-number">1.</span> <span class="toc-text">1.0 shadowsocks 客户端设置三种模式,流量请求图</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-0-%E5%AE%89%E8%A3%85-pip"><span class="toc-number">2.</span> <span class="toc-text">2.0 安装 pip</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-0-%E5%AE%89%E8%A3%85-shadowsocks"><span class="toc-number">3.</span> <span class="toc-text">3.0 安装 shadowsocks</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-0-%E5%90%AF%E5%8A%A8%E8%AE%BE%E7%BD%AE"><span class="toc-number">4.</span> <span class="toc-text">3.0 启动设置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-0-%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%90%84%E5%B9%B3%E5%8F%B0%E8%BD%AF%E4%BB%B6"><span class="toc-number">5.</span> <span class="toc-text">4.0  客户端各平台软件</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-0-%E6%BA%90%E7%A0%81%E5%AE%89%E8%A3%85"><span class="toc-number">1.</span> <span class="toc-text">1.0 源码安装</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-%E9%83%A8%E7%BD%B2%E7%8E%AF%E5%A2%83"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 部署环境</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-haproxy-%E4%BE%9D%E8%B5%96%E5%AE%89%E8%A3%85"><span class="toc-number">1.2.</span> <span class="toc-text">1.2 haproxy 依赖安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-haproxy-%E4%B8%8B%E8%BD%BD"><span class="toc-number">1.3.</span> <span class="toc-text">1.3 haproxy 下载</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-4-haproxy-%E7%BC%96%E8%AF%91"><span class="toc-number">1.4.</span> <span class="toc-text">1.4 haproxy 编译</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-5-haproxy-%E9%85%8D%E7%BD%AE"><span class="toc-number">1.5.</span> <span class="toc-text">1.5 haproxy 配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-6-haproxy-%E5%90%AF%E5%8A%A8%E9%A1%B9"><span class="toc-number">1.6.</span> <span class="toc-text">1.6 haproxy 启动项</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-7-haproxy-%E6%97%A5%E5%BF%97%E9%85%8D%E7%BD%AE"><span class="toc-number">1.7.</span> <span class="toc-text">1.7 haproxy 日志配置</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-0-%E9%85%8D%E7%BD%AE%E5%8F%82%E6%95%B0"><span class="toc-number">2.</span> <span class="toc-text">2.0 配置参数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-haproxy-%E9%85%8D%E7%BD%AE%E7%A4%BA%E4%BE%8B"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 haproxy 配置示例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-haproxy-%E9%85%8D%E7%BD%AE%E5%8F%82%E6%95%B0"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 haproxy 配置参数</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-2-1-global-%E9%85%8D%E7%BD%AE%E5%8F%82%E6%95%B0"><span class="toc-number">2.2.1.</span> <span class="toc-text">2.2.1 global 配置参数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-2-2-default-%E6%AE%B5%E5%8F%82%E6%95%B0"><span class="toc-number">2.2.2.</span> <span class="toc-text">2.2.2 default 段参数</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#2-2-2-1-option-%E5%8F%82%E6%95%B0"><span class="toc-number">2.2.2.1.</span> <span class="toc-text">2.2.2.1 option 参数</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#2-2-2-2-timeout-%E5%8F%82%E6%95%B0"><span class="toc-number">2.2.2.2.</span> <span class="toc-text">2.2.2.2 timeout 参数</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-2-3-haproxy-proxies-%E9%85%8D%E7%BD%AE"><span class="toc-number">2.2.3.</span> <span class="toc-text">2.2.3 haproxy proxies 配置</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#2-2-3-1-mode-%E5%8F%82%E6%95%B0"><span class="toc-number">2.2.3.1.</span> <span class="toc-text">2.2.3.1 mode 参数</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#2-2-3-2-bind-%E5%8F%82%E6%95%B0"><span class="toc-number">2.2.3.2.</span> <span class="toc-text">2.2.3.2 bind 参数</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#2-2-3-3-maxconn-%E5%8F%82%E6%95%B0"><span class="toc-number">2.2.3.3.</span> <span class="toc-text">2.2.3.3 maxconn 参数</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-2-4-haproxy-server-%E5%8F%82%E6%95%B0"><span class="toc-number">2.2.4.</span> <span class="toc-text">2.2.4 haproxy server 参数</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-0-%E9%85%8D%E7%BD%AE%E5%9C%BA%E6%99%AF"><span class="toc-number">3.</span> <span class="toc-text">3.0 配置场景</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-haproxy-%E5%AD%90%E9%85%8D%E7%BD%AE%E7%AE%A1%E7%90%86"><span class="toc-number">3.1.</span> <span class="toc-text">3.1 haproxy 子配置管理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-haproxy-%E7%8A%B6%E6%80%81%E6%A3%80%E6%B5%8B%E9%85%8D%E7%BD%AE"><span class="toc-number">3.2.</span> <span class="toc-text">3.2 haproxy 状态检测配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-3-haproxy-%E5%8A%A8%E6%80%81%E4%B8%8A%E7%BA%BF%E4%B8%8E%E4%B8%8B%E7%BA%BF"><span class="toc-number">3.3.</span> <span class="toc-text">3.3 haproxy 动态上线与下线</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-0-%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95"><span class="toc-number">4.</span> <span class="toc-text">4.0 调度算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-roundrobin"><span class="toc-number">4.1.</span> <span class="toc-text">4.1 roundrobin</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#4-1-1-%E5%8A%A8%E6%80%81%E8%B0%83%E6%95%B4"><span class="toc-number">4.1.1.</span> <span class="toc-text">4.1.1 动态调整</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-1-2-%E9%9D%99%E6%80%81-static-rr"><span class="toc-number">4.1.2.</span> <span class="toc-text">4.1.2 静态 static-rr</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-leastconn"><span class="toc-number">4.2.</span> <span class="toc-text">4.2 leastconn</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-3-source"><span class="toc-number">4.3.</span> <span class="toc-text">4.3 source</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-4-rui"><span class="toc-number">4.4.</span> <span class="toc-text">4.4 rui</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-0-ACL"><span class="toc-number">5.</span> <span class="toc-text">5.0 ACL</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5-1-ACL-%E5%AE%9A%E4%B9%89%E6%96%B9%E6%B3%95"><span class="toc-number">5.1.</span> <span class="toc-text">5.1 ACL 定义方法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#5-1-1-src"><span class="toc-number">5.1.1.</span> <span class="toc-text">5.1.1 src</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-1-2-path-beg"><span class="toc-number">5.1.2.</span> <span class="toc-text">5.1.2 path_beg</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-1-3-hdr-beg"><span class="toc-number">5.1.3.</span> <span class="toc-text">5.1.3 hdr_beg</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-1-4-hdr-end"><span class="toc-number">5.1.4.</span> <span class="toc-text">5.1.4 hdr_end</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-1-5-hdr-dom"><span class="toc-number">5.1.5.</span> <span class="toc-text">5.1.5 hdr_dom</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-1-6-hdr"><span class="toc-number">5.1.6.</span> <span class="toc-text">5.1.6 hdr</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-2-ACL-%E9%80%BB%E8%BE%91%E5%85%B3%E7%B3%BB"><span class="toc-number">5.2.</span> <span class="toc-text">5.2 ACL 逻辑关系</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-3-ACL-%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6"><span class="toc-number">5.3.</span> <span class="toc-text">5.3 ACL 访问控制</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#5-3-1-%E5%9F%BA%E4%BA%8E-HTTP-%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6"><span class="toc-number">5.3.1.</span> <span class="toc-text">5.3.1 基于 HTTP 访问控制</span></a></li></ol></li></ol></li></ol>
                     </div>
                 </span>
             </div>
@@ -496,9 +680,9 @@
     <script src="/lib/giteement.browser.js"></script>
   
   <script>
-  <!-- id: "shadowsocks 代理" -->
+  <!-- id: "haproxy 负载均衡" -->
   var giteement = new Giteement({
-    id: '20230105233152',
+    id: '20240121135553',
     owner: 'weixj90',
     repo: 'ink8s-msg',
     backcall_uri: 'https://www.ink8s.com',
