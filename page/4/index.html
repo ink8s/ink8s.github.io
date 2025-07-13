@@ -90,6 +90,8 @@
 			
 				<li><a href="/" >主页</a></li>
 			
+				<li><a href="/tags/Linux-storage" >Linux_存储类</a></li>
+			
 				<li><a href="/tags/Linux-base" >Linux_系统类</a></li>
 			
 				<li><a href="/tags/Server-tool" >Linux_工具类</a></li>
@@ -97,6 +99,8 @@
 				<li><a href="/tags/Linux-svc" >Linux_服务部署</a></li>
 			
 				<li><a href="/tags/Linux-db" >Linux_数据库类</a></li>
+			
+				<li><a href="/tags/Linux-k8s" >Linux_Kubernetes</a></li>
 			
 				<li><a href="/tags/Windows-svc" >Windows_服务配置</a></li>
 			
@@ -114,7 +118,7 @@
 			
 		</nav>
                 <nav>
-                   <a>总文章数 31</a>
+                   <a>总文章数 34</a>
                 </nav>
 		<nav class="header-nav">
 			<div class="social">
@@ -173,6 +177,10 @@
 			
 				
 			
+				
+			
+				
+			
 			
 			
 			<nav class="header-nav">
@@ -193,17 +201,21 @@
 				<ul style="width: 70%">
 				
 				
-					<li style="width: 16.666666666666668%"><a href="/">主页</a></li>
+					<li style="width: 12.5%"><a href="/">主页</a></li>
 		        
-					<li style="width: 16.666666666666668%"><a href="/tags/Linux-base">Linux_系统类</a></li>
+					<li style="width: 12.5%"><a href="/tags/Linux-storage">Linux_存储类</a></li>
 		        
-					<li style="width: 16.666666666666668%"><a href="/tags/Server-tool">Linux_工具类</a></li>
+					<li style="width: 12.5%"><a href="/tags/Linux-base">Linux_系统类</a></li>
 		        
-					<li style="width: 16.666666666666668%"><a href="/tags/Linux-svc">Linux_服务部署</a></li>
+					<li style="width: 12.5%"><a href="/tags/Server-tool">Linux_工具类</a></li>
 		        
-					<li style="width: 16.666666666666668%"><a href="/tags/Linux-db">Linux_数据库类</a></li>
+					<li style="width: 12.5%"><a href="/tags/Linux-svc">Linux_服务部署</a></li>
 		        
-					<li style="width: 16.666666666666668%"><a href="/tags/Windows-svc">Windows_服务配置</a></li>
+					<li style="width: 12.5%"><a href="/tags/Linux-db">Linux_数据库类</a></li>
+		        
+					<li style="width: 12.5%"><a href="/tags/Linux-k8s">Linux_Kubernetes</a></li>
+		        
+					<li style="width: 12.5%"><a href="/tags/Windows-svc">Windows_服务配置</a></li>
 		        
 				</ul>
 			</nav>
@@ -226,6 +238,285 @@
   <script>
     Oauthcallback();
   </script>
+
+
+  
+    <article id="post-shadowsocks-代理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/01/05/shadowsocks-%E4%BB%A3%E7%90%86/">shadowsocks 代理</a>
+	
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/01/05/shadowsocks-%E4%BB%A3%E7%90%86/" class="archive-article-date">
+        <time datetime="2023-01-05T15:31:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-01-05</time>
+</a>
+
+
+  
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <ul>
+<li><strong>Centos 7 安装 shadowsocks 代理</strong><ul>
+<li>三种模式: <ul>
+<li>全局模式: 所有流量全走代理</li>
+<li>PAC自动模式: 自动根据PAC文件匹配则走代理,非自定义PAC文件的规则</li>
+<li>PAC模式: 根据自身需求根据特定格式自定义IP或域名,匹配则走代理</li>
+</ul>
+</li>
+<li>单用户与多用户</li>
+<li>客户端</li>
+</ul>
+</li>
+</ul>
+    
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Linux-svc</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/01/05/shadowsocks-%E4%BB%A3%E7%90%86/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-cobbler-批量安装-Linux-操作系统" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/01/05/cobbler-%E6%89%B9%E9%87%8F%E5%AE%89%E8%A3%85-Linux-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">cobbler 批量安装 Linux 操作系统</a>
+	
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/01/05/cobbler-%E6%89%B9%E9%87%8F%E5%AE%89%E8%A3%85-Linux-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" class="archive-article-date">
+        <time datetime="2023-01-05T15:04:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-01-05</time>
+</a>
+
+
+  
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <ul>
+<li><p><strong>Cobbler 快速批量网络安装Centos 7 System</strong></p>
+<ul>
+<li>安装、配置、启服务</li>
+<li>导入ISO镜像系统文件</li>
+<li>定义kickstarts文件</li>
+<li>使用脚本实现系统批量一键安装</li>
+</ul>
+</li>
+</ul>
+    
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Linux-svc</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/01/05/cobbler-%E6%89%B9%E9%87%8F%E5%AE%89%E8%A3%85-Linux-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-windows-2012多用户远程登录" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2023/01/05/windows-2012%E5%A4%9A%E7%94%A8%E6%88%B7%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/">windows 2012多用户远程登录</a>
+	
+    </h1>
+  
+
+
+  
+  
+<a href="/2023/01/05/windows-2012%E5%A4%9A%E7%94%A8%E6%88%B7%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/" class="archive-article-date">
+        <time datetime="2023-01-05T14:58:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-01-05</time>
+</a>
+
+
+  
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <ul>
+<li><strong>windows 2012多用户登陆</strong><ul>
+<li>默认只允许2个用户同时登录</li>
+<li>通过相关配置解决多用户登陆并且打开任务进程互不影响</li>
+</ul>
+</li>
+</ul>
+    
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Windows-svc</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2023/01/05/windows-2012%E5%A4%9A%E7%94%A8%E6%88%B7%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
 
 
   
@@ -685,194 +976,9 @@
 
 
   
-    <article id="post-linux-系统命令" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/01/05/linux-%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4/">linux 系统命令</a>
-	
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/01/05/linux-%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4/" class="archive-article-date">
-        <time datetime="2023-01-05T05:55:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-01-05</time>
-</a>
-
-
-  
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <ul>
-<li><strong>收录和整理一些基础的比较有价值的一些命令</strong><ul>
-<li>centos 7 root密码修改</li>
-<li>物理服务器配置查看(cpu&#x2F;mem&#x2F;…)</li>
-<li>nload 网卡流量查询工具</li>
-<li>dd 命令</li>
-<li>存储空间单位的区别</li>
-<li>……</li>
-</ul>
-</li>
-</ul>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux-base</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/01/05/linux-%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-vim-快捷键使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2023/01/04/vim-%E5%BF%AB%E6%8D%B7%E9%94%AE%E4%BD%BF%E7%94%A8/">vim 快捷键使用</a>
-	
-    </h1>
-  
-
-
-  
-  
-<a href="/2023/01/04/vim-%E5%BF%AB%E6%8D%B7%E9%94%AE%E4%BD%BF%E7%94%A8/" class="archive-article-date">
-        <time datetime="2023-01-04T08:58:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-01-04</time>
-</a>
-
-
-  
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <ul>
-<li><strong>vim 共有3种模式</strong><ul>
-<li>一般模式: 进入到文本文件界面,此时为不可编辑状态</li>
-<li>末行模式: 用于搜索查询、批量修改、退出等</li>
-<li>插入模式: 进入到文本文件可编辑状态</li>
-</ul>
-</li>
-</ul>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux-base</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2023/01/04/vim-%E5%BF%AB%E6%8D%B7%E9%94%AE%E4%BD%BF%E7%94%A8/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/3/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
+      <a class="extend prev" rel="prev" href="/page/3/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/">Next &amp;raquo;</a>
     </nav>
   
 
@@ -982,11 +1088,15 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Server-tool</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Linux-svc</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Server-tool</a>
+                <a href="javascript:void(0)" class="js-tag color4">Linux-storage</a>
               </li>
              
               <li class="article-tag-list-item">
