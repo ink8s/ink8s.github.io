@@ -10,12 +10,12 @@
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="ceph 集群部署 ceph deploy 安装 RBD 块存储 RGW 对象存储 OSD 扩容 RGW 高可用集群 RBD 高级功能 监控管理">
+  <meta name="description" content="ceph 集群部署 ceph deploy 安装 RBD 块存储 RGW 对象存储 OSD 扩容 RGW 高可用集群 ceph 集群运维 CRUSH Map 调整 RBD 高级功能 ceph 监控管理">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ceph deploy 部署">
-<meta property="og:url" content="https://www.ink8s.com/2025/06/13/ceph-deploy-%E9%83%A8%E7%BD%B2/index.html">
+<meta property="og:url" content="https://www.ink8s.com/2025/07/12/ceph-deploy-%E9%83%A8%E7%BD%B2/index.html">
 <meta property="og:site_name" content="INK8S">
-<meta property="og:description" content="ceph 集群部署 ceph deploy 安装 RBD 块存储 RGW 对象存储 OSD 扩容 RGW 高可用集群 RBD 高级功能 监控管理">
+<meta property="og:description" content="ceph 集群部署 ceph deploy 安装 RBD 块存储 RGW 对象存储 OSD 扩容 RGW 高可用集群 ceph 集群运维 CRUSH Map 调整 RBD 高级功能 ceph 监控管理">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://www.ink8s.com/images/pasted-273.png">
 <meta property="og:image" content="https://www.ink8s.com/images/pasted-274.png">
@@ -55,8 +55,9 @@
 <meta property="og:image" content="https://www.ink8s.com/images/pasted-313.png">
 <meta property="og:image" content="https://www.ink8s.com/images/pasted-314.png">
 <meta property="og:image" content="https://www.ink8s.com/images/pasted-315.png">
-<meta property="article:published_time" content="2025-06-12T17:02:35.000Z">
-<meta property="article:modified_time" content="2025-07-14T04:27:19.516Z">
+<meta property="og:image" content="https://www.ink8s.com/images/pasted-316.png">
+<meta property="article:published_time" content="2025-07-11T17:02:35.000Z">
+<meta property="article:modified_time" content="2025-07-14T12:54:50.462Z">
 <meta property="article:author" content="weixj@inadm.com">
 <meta property="article:tag" content="Linux-storage">
 <meta name="twitter:card" content="summary">
@@ -286,8 +287,8 @@
         
 
 
-<a href="/2025/06/13/ceph-deploy-%E9%83%A8%E7%BD%B2/" class="archive-article-date">
-        <time datetime="2025-06-12T17:02:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-06-13</time>
+<a href="/2025/07/12/ceph-deploy-%E9%83%A8%E7%BD%B2/" class="archive-article-date">
+        <time datetime="2025-07-11T17:02:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-07-12</time>
 </a>
 
 
@@ -304,8 +305,10 @@
 <li>RGW 对象存储</li>
 <li>OSD 扩容</li>
 <li>RGW 高可用集群</li>
+<li>ceph 集群运维</li>
+<li>CRUSH Map 调整</li>
 <li>RBD 高级功能</li>
-<li>监控管理</li>
+<li>ceph 监控管理</li>
 </ul>
 </li>
 </ul>
@@ -665,27 +668,8 @@
 <ul>
 <li>浏览器访问: <a target="_blank" rel="noopener" href="http://10.16.41.150:9999/haproxy-status">http://10.16.41.150:9999/haproxy-status</a><br>  admin:ink8s.com</li>
 </ul>
+<p><img src="/images/pasted-316.png" alt="upload successful"></p>
 <h5 id="5-2-3-修改客户端指向"><a href="#5-2-3-修改客户端指向" class="headerlink" title="5.2.3 修改客户端指向"></a>5.2.3 <strong>修改客户端指向</strong></h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">[root@ceph-node01 ~]<span class="comment"># vim /root/.s3cfg</span></span><br><span class="line">...</span><br><span class="line">host_base = 10.16.41.150:80				<span class="comment"># 修改为 vip 地址</span></span><br><span class="line">host_bucket = 10.16.41.150:80/%(bucket)s</span><br><span class="line"></span><br><span class="line">// 可以正常的指向 vip 的客户端了</span><br><span class="line">[root@ceph-node01 ~]<span class="comment"># s3cmd ls</span></span><br><span class="line"></span><br><span class="line">// swift 环境变量修改</span><br><span class="line">[root@ceph-admin ~]<span class="comment"># vim /etc/profile</span></span><br><span class="line">...</span><br><span class="line"><span class="built_in">export</span> ST_AUTH=http://10.16.41.150:80/auth</span><br><span class="line"><span class="built_in">export</span> ST_USER=ceph-s3-user01:swift</span><br><span class="line"><span class="built_in">export</span> ST_KEY=ygooKvSwxPbed0Jpem31kbCKprHATI1U1XE5ARCa</span><br><span class="line"></span><br><span class="line">[root@ceph-admin ~]<span class="comment"># source /etc/profile</span></span><br><span class="line"></span><br><span class="line">[root@ceph-admin ~]<span class="comment"># swift post test-1		# 创建一个 backet</span></span><br><span class="line">[root@ceph-admin ~]<span class="comment"># swift delete test-1	# 删除对应的 backet</span></span><br></pre></td></tr></table></figure>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     
 
     
@@ -726,7 +710,7 @@
         </li>
         <li>
           <strong>本文链接：</strong>
-          <a href="https://www.ink8s.com/2025/06/13/ceph-deploy-部署/" title="ceph deploy 部署" target="_blank">https://www.ink8s.com/2025/06/13/ceph-deploy-部署/</a>
+          <a href="https://www.ink8s.com/2025/07/12/ceph-deploy-部署/" title="ceph deploy 部署" target="_blank">https://www.ink8s.com/2025/07/12/ceph-deploy-部署/</a>
         </li>
         
         <li>
@@ -804,7 +788,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-     <!-- <img src="//pan.baidu.com/share/qrcode?url=https://www.ink8s.com/2025/06/13/ceph-deploy-%E9%83%A8%E7%BD%B2/" alt="微信分享二维码"> -->
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=https://www.ink8s.com/2025/07/12/ceph-deploy-%E9%83%A8%E7%BD%B2/" alt="微信分享二维码"> -->
     </div>
 </div>
 
@@ -874,7 +858,7 @@
   <script>
   <!-- id: "ceph deploy 部署" -->
   var giteement = new Giteement({
-    id: '20250613010235',
+    id: '20250712010235',
     owner: 'weixj90',
     repo: 'ink8s-msg',
     backcall_uri: 'https://www.ink8s.com',
@@ -999,19 +983,19 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Server-tool</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Linux-svc</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Linux-base</a>
+                <a href="javascript:void(0)" class="js-tag color2">Server-tool</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Linux-storage</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Linux-base</a>
               </li>
              
               <li class="article-tag-list-item">
