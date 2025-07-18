@@ -6,19 +6,27 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://www.ink8s.com">
-  <title>Archives | INK8S</title>
+  <title>kubernetes 资源对象 | INK8S</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="in 运维">
-<meta property="og:type" content="website">
-<meta property="og:title" content="INK8S">
-<meta property="og:url" content="https://www.ink8s.com/archives/page/5/index.html">
+  <meta name="description" content="kubernets 资源对象 k8s 基础应用 Pod 生命周期 Pod 资源限制 deployment daemonset job、cronjob service ingress configmap secret statefulset 授权与认证（RBAC） 准入控制（ResoucesQuta、LimitRange）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="kubernetes 资源对象">
+<meta property="og:url" content="https://www.ink8s.com/2025/07/17/k8s-%E8%B5%84%E6%BA%90%E5%AF%B9%E8%B1%A1/index.html">
 <meta property="og:site_name" content="INK8S">
-<meta property="og:description" content="in 运维">
+<meta property="og:description" content="kubernets 资源对象 k8s 基础应用 Pod 生命周期 Pod 资源限制 deployment daemonset job、cronjob service ingress configmap secret statefulset 授权与认证（RBAC） 准入控制（ResoucesQuta、LimitRange）">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://www.ink8s.com/images/pasted-338.png">
+<meta property="og:image" content="https://www.ink8s.com/images/pasted-339.png">
+<meta property="og:image" content="https://www.ink8s.com/images/pasted-340.png">
+<meta property="og:image" content="https://www.ink8s.com/images/pasted-341.png">
+<meta property="article:published_time" content="2025-07-17T13:36:49.000Z">
+<meta property="article:modified_time" content="2025-07-18T10:08:35.198Z">
 <meta property="article:author" content="weixj@inadm.com">
+<meta property="article:tag" content="Linux-k8s">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.ink8s.com/images/pasted-338.png">
   
     <link rel="alternative" href="/atom.xml" title="INK8S" type="application/atom+xml">
   
@@ -227,246 +235,375 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-k8s-资源对象" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
   
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2023" class="archive-year">2023</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/01/05/ansible%E3%80%81Ansible-playbook%E3%80%81Ansible-playbook-roles-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4%E5%B7%A5%E5%85%B7/" class="archive-article-date">
-        <time datetime="2023-01-05T13:24:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-01-05</time>
-</a>
-
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/01/05/ansible%E3%80%81Ansible-playbook%E3%80%81Ansible-playbook-roles-%E8%87%AA%E5%8A%A8%E5%8C%96%E8%BF%90%E7%BB%B4%E5%B7%A5%E5%85%B7/">ansible、Ansible-playbook、Ansible-playbook roles 自动化运维工具</a>
-	
+    <h1 class="article-title" itemprop="name">
+      kubernetes 资源对象
     </h1>
   
 
 
-        <div class="article-info info-on-right">
+  
+  
+        
+
+
+<a href="/2025/07/17/k8s-%E8%B5%84%E6%BA%90%E5%AF%B9%E8%B1%A1/" class="archive-article-date">
+        <time datetime="2025-07-17T13:36:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-07-17</time>
+</a>
+
+
+  
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <ul>
+<li><strong>kubernets 资源对象</strong><ul>
+<li>k8s 基础应用</li>
+<li>Pod 生命周期</li>
+<li>Pod 资源限制</li>
+<li>deployment</li>
+<li>daemonset</li>
+<li>job、cronjob</li>
+<li>service</li>
+<li>ingress</li>
+<li>configmap</li>
+<li>secret</li>
+<li>statefulset</li>
+<li>授权与认证（RBAC）</li>
+<li>准入控制（ResoucesQuta、LimitRange）</li>
+</ul>
+</li>
+</ul>
+<span id="more"></span>
+
+<h1 id="1-0-k8s-基础应用"><a href="#1-0-k8s-基础应用" class="headerlink" title="1.0 k8s 基础应用"></a>1.0 <strong>k8s 基础应用</strong></h1><h2 id="1-1-deploy"><a href="#1-1-deploy" class="headerlink" title="1.1 deploy"></a>1.1 <strong>deploy</strong></h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 空跑 deploy def-www 资源来获取模版</span><br><span class="line"><span class="comment"># kubectl create deploy default-www --image=nginx --replicas=3 --dry-run=client -o yaml</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/pasted-338.png" alt="upload successful"></p>
+<h2 id="1-2-pod-镜像拉取策略"><a href="#1-2-pod-镜像拉取策略" class="headerlink" title="1.2 pod 镜像拉取策略"></a>1.2 <strong>pod 镜像拉取策略</strong></h2><ul>
+<li>imagePullPolicy: 容器的镜像拉取策略:<ul>
+<li>IfNotPresent: 本地有镜像则使用本地镜像，本地不存在则拉取镜像 (默认)</li>
+<li>Always: 每次都会尝试拉取镜像</li>
+<li>Never: 永不拉取，如果镜像已经在本地，kubelet 会尝试使用镜像启动容器；否则,会启动失败</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">    spec:</span><br><span class="line">      containers:</span><br><span class="line">      - name: demo-container                           <span class="comment"># 容器的名称</span></span><br><span class="line">        image: harbor.inadm.com/demo/demoapp:v1.1</span><br><span class="line">        imagePullPolicy: Always                        <span class="comment"># 指定容器镜像拉取策略</span></span><br><span class="line"></span><br><span class="line">// 默认镜像拉取策略，当控制器向API服务器提交新的Pod时，集群会满足特定条件时设置 imagePullPolicy 字段</span><br><span class="line">    如果你省略了 imagePullPolicy 字段，并且容器镜像的标签是 :latest ，imagePullPolicy 会自动设置为 Always</span><br><span class="line">    如果你省略了 imagePullPolicy 字段，并且没有指定容器镜像的标签，imagePullPolicy 会自动设置为 Always</span><br><span class="line">    如果你省略了 imagePullPolicy 字段，并且为容器镜像指定了非 :latest 的标签，imagePullPolicy 就会自动设置为 IfNotPresent</span><br></pre></td></tr></table></figure>
+
+<h2 id="1-3-获取私有仓库镜像"><a href="#1-3-获取私有仓库镜像" class="headerlink" title="1.3 获取私有仓库镜像"></a>1.3 <strong>获取私有仓库镜像</strong></h2><h3 id="1-3-1-创建-secret-认证"><a href="#1-3-1-创建-secret-认证" class="headerlink" title="1.3.1 创建 secret 认证"></a>1.3.1 <strong>创建 secret 认证</strong></h3><ul>
+<li>ImagePullSecrets 拉取私有仓库中的镜像</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// 将 harbor 的认证信息保存到 k8s secret 资源中</span><br><span class="line"><span class="comment"># kubectl create secret docker-registry harbor-registry-auth \</span></span><br><span class="line">  --docker-server=harbor.inadm.com \</span><br><span class="line">  --docker-username=admin \</span><br><span class="line">  --docker-password=ink8s.comA \</span><br><span class="line">  --docker-email=user01@inadm.com                            <span class="comment"># 可选</span></span><br><span class="line">// 查看 harbor-registry-auth 内容</span><br><span class="line"><span class="comment"># kubectl get secret harbor-registry-auth --output=yaml</span></span><br><span class="line">// harbor-registry-auth 数据转换为可读格式</span><br><span class="line"><span class="comment"># kubectl get secret harbor-registry-auth --output=&quot;jsonpath=&#123;.data.\.dockerconfigjson&#125;&quot; | base64 --decode</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/pasted-339.png" alt="upload successful"></p>
+<h3 id="1-3-2-yaml-部署验证"><a href="#1-3-2-yaml-部署验证" class="headerlink" title="1.3.2 yaml 部署验证"></a>1.3.2 <strong>yaml 部署验证</strong></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">    spec:</span><br><span class="line">      imagePullSecrets:                                    <span class="comment"># 指定 harbor 认证凭据</span></span><br><span class="line">      - name: harbor-registry-auth</span><br><span class="line">      containers:</span><br><span class="line">      - image: harbor.inadc.com/java-demo/java-demo:v1</span><br><span class="line">        name: java-demo</span><br><span class="line">        resources: &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="1-4-传递环境变量"><a href="#1-4-传递环境变量" class="headerlink" title="1.4 传递环境变量"></a>1.4 <strong>传递环境变量</strong></h2><ul>
+<li>使用 env 控制容器环境变量</li>
+<li><a target="_blank" rel="noopener" href="https://hub.docker.com/_/mysql">mysql docker 镜像下载及变量等信息</a></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cat mysql-demo-env.yaml </span></span><br><span class="line">apiVersion: v1</span><br><span class="line">kind: Pod</span><br><span class="line">metadata:</span><br><span class="line">  name: mysql-demo-env</span><br><span class="line">spec:</span><br><span class="line">  containers:</span><br><span class="line">  - name: mysql-demo-env</span><br><span class="line">    image: mysql:5.7.37</span><br><span class="line">    <span class="built_in">env</span>:</span><br><span class="line">    - name: MYSQL_ROOT_PASSWORD</span><br><span class="line">      value: <span class="string">&quot;inadm.com&quot;</span></span><br><span class="line">    - name: MYSQL_DATABASE</span><br><span class="line">      value: <span class="string">&quot;testdb&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># kubectl get pod -o wide</span></span><br><span class="line"><span class="comment"># mysql -h 10.1.135.133 -uroot -pinadm.com</span></span><br><span class="line">MySQL [(none)]&gt; </span><br></pre></td></tr></table></figure>
+
+<h2 id="1-5-自定义容器命令与参数"><a href="#1-5-自定义容器命令与参数" class="headerlink" title="1.5 自定义容器命令与参数"></a>1.5 <strong>自定义容器命令与参数</strong></h2><ul>
+<li>command: 为容器指定启动命令，会覆盖容器启动的默认命令，不指定则默认容器的启动命令</li>
+<li>args: 为命令提供选项或参数</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cat pod-busybox-command.yaml</span></span><br><span class="line">apiVersion: v1</span><br><span class="line">kind: Pod</span><br><span class="line">metadata:</span><br><span class="line">  name: pod-busybox-command</span><br><span class="line">spec:</span><br><span class="line">  containers:</span><br><span class="line">  - name: busy</span><br><span class="line">    image: busybox</span><br><span class="line">    <span class="comment"># command: [ &quot;/bin/sh&quot;, &quot;-c&quot;, &quot;sleep 999999&quot; ]</span></span><br><span class="line">    <span class="built_in">command</span>:</span><br><span class="line">    - <span class="string">&quot;/bin/sh&quot;</span></span><br><span class="line">    - <span class="string">&quot;-c&quot;</span></span><br><span class="line">    - <span class="string">&quot;sleep 999999&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># kubectl apply -f pod-busybox-command.yaml </span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">// 重点在于颜色 args</span><br><span class="line"><span class="comment"># cat redis-leader.yaml </span></span><br><span class="line">apiVersion: v1</span><br><span class="line">kind: Pod</span><br><span class="line">metadata:</span><br><span class="line">  name: redis-leader</span><br><span class="line">  labels:</span><br><span class="line">    role: leader</span><br><span class="line">spec:</span><br><span class="line">  containers:</span><br><span class="line">  - name: redis-leader</span><br><span class="line">    image: redis</span><br><span class="line">    ports:</span><br><span class="line">    - containerPort: 6379</span><br><span class="line"></span><br><span class="line"><span class="comment"># kubectl apply -f redis-leader.yaml</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># cat redis-slave.yaml </span></span><br><span class="line">apiVersion: v1</span><br><span class="line">kind: Pod</span><br><span class="line">metadata:</span><br><span class="line">  name: redis-slave</span><br><span class="line">  labels:</span><br><span class="line">    role: slave</span><br><span class="line">spec:</span><br><span class="line">  containers:</span><br><span class="line">  - name: redis-slave</span><br><span class="line">    image: redis</span><br><span class="line">    <span class="built_in">command</span>: [<span class="string">&quot;redis-server&quot;</span>]</span><br><span class="line">    args:</span><br><span class="line">    - --port 6380</span><br><span class="line">    - --slaveof  10.1.135.134 6379		<span class="comment"># redis_leader_pod_ip</span></span><br><span class="line">    ports:</span><br><span class="line">    - containerPort: 6380</span><br><span class="line"></span><br><span class="line"><span class="comment"># kubectl apply -f redis-slave.yaml</span></span><br><span class="line"><span class="comment"># redis-cli -h redis_leader_pod_ip info</span></span><br></pre></td></tr></table></figure>
+<h1 id="2-0-Pod-生命周期"><a href="#2-0-Pod-生命周期" class="headerlink" title="2.0 Pod 生命周期"></a>2.0 <strong>Pod 生命周期</strong></h1><h2 id="2-1-初始化容器"><a href="#2-1-初始化容器" class="headerlink" title="2.1 初始化容器"></a>2.1 <strong>初始化容器</strong></h2><ul>
+<li>init container 是用来做初始化工作的容器，可以有一个或多个，如果多个按照定义的顺序依次执行，只有所有的执行完成后，主容器才启动，由于一个 pod 里的存储卷是共享的，所以 init container 里产生的数据可以被主容器使用到，但它仅仅是在启动时，在主容器启动前执行，做初始化工作。如果 pod 的 init 容器失败，kubernetes 会不断重启该 pod，直到 init 容器成功为止。如果 pod 对应的 restartPolicy 值为 Never， kubernetes 不会重新启动 pod。</li>
+<li>应用场景:<ul>
+<li>app 容器依赖 mysql 的数据交互，所以可以启动一个初始化容器检查 mysql 服务是否正常，如果正常则启动主容器</li>
+<li>在启动主容器之前，使用初始化容器对系统内核参数进行调优，然后共享给主容器使用</li>
+<li>获取集群成员节点地址，为主容器生成对应配置信息，这样主容器启动后，可以通过配置信息加入集群环境</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-1-1-场景1-端口检查"><a href="#2-1-1-场景1-端口检查" class="headerlink" title="2.1.1 场景1-端口检查"></a>2.1.1 <strong>场景1-端口检查</strong></h3><ul>
+<li>编写 yaml，使用初始化容器对 mysql 端口进行检查，如果存活则运行 pod，否则就一直重启尝试</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cat init-check-mysql.yaml </span></span><br><span class="line">apiVersion: v1</span><br><span class="line">kind: Pod</span><br><span class="line">metadata:</span><br><span class="line">  name: init-check-mysql</span><br><span class="line">spec:</span><br><span class="line">  imagePullSecrets:</span><br><span class="line">  - name: harbor-registry-auth</span><br><span class="line">  initContainers:</span><br><span class="line">  - name: check-mysql</span><br><span class="line">    image: harbor.inadm.com/inadm_kubernetes/tools:latest</span><br><span class="line">    <span class="built_in">command</span>: [<span class="string">&quot;sh&quot;</span>, <span class="string">&quot;-c&quot;</span>, <span class="string">&quot;nc -z MYSQL_POD_IP 3306&quot;</span>]</span><br><span class="line">    securityContext:                                    <span class="comment"># 特权模式运行容器，否则无法修改内核参数</span></span><br><span class="line">      privileged: <span class="literal">true</span></span><br><span class="line">  containers:</span><br><span class="line">  - name: app-mysql</span><br><span class="line">    image: nginx</span><br><span class="line">    ports:</span><br><span class="line">    - containerPort: 80</span><br><span class="line"></span><br><span class="line">// 这里的 <span class="string">&quot;MYSQL_POD_IP&quot;</span> 是使用的 1.4 mysql-demo-env 容器 IP 地址,主要是为了演示初始化容器场景的实现</span><br><span class="line"><span class="comment"># kubectl apply -f init-check-mysql.yaml </span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-1-2-场景2-内核参数优化"><a href="#2-1-2-场景2-内核参数优化" class="headerlink" title="2.1.2 场景2-内核参数优化"></a>2.1.2 <strong>场景2-内核参数优化</strong></h3><ul>
+<li>使用初始化容器对内核参数进行优化</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cat init-sysctl-nginx.yaml </span></span><br><span class="line">apiVersion: v1</span><br><span class="line">kind: Pod</span><br><span class="line">metadata:</span><br><span class="line">  name: init-sysctl-nginx</span><br><span class="line">spec:</span><br><span class="line">  initContainers:</span><br><span class="line">  - name: set-sysctl</span><br><span class="line">    image: alpine:3.13</span><br><span class="line">    <span class="built_in">command</span>: [<span class="string">&quot;sh&quot;</span>, <span class="string">&quot;-c&quot;</span>, <span class="string">&quot;sysctl -w net.core.somaxconn=32769; sysctl -w net.ipv4.ip_local_port_range=&#x27;1024 65000&#x27;&quot;</span>]</span><br><span class="line">    securityContext:</span><br><span class="line">      privileged: <span class="literal">true</span></span><br><span class="line">  containers:</span><br><span class="line">  - name: app-sysctl</span><br><span class="line">    image: nginx</span><br><span class="line">    ports:</span><br><span class="line">    - containerPort: 80</span><br><span class="line"></span><br><span class="line"><span class="comment"># kubectl apply -f init-sysctl-nginx.yaml </span></span><br><span class="line">// 检查验证</span><br><span class="line"><span class="comment"># kubectl exec -it init-sysctl-nginx -c &quot;app-sysctl&quot; -- /bin/bash -c &quot;cat /proc/sys/net/core/somaxconn&quot;		# 值为 &quot;32769&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="2-2-钩子函数"><a href="#2-2-钩子函数" class="headerlink" title="2.2 钩子函数"></a>2.2 <strong>钩子函数</strong></h2><ul>
+<li>钩子函数用来监听容器生命周期的特定事件，并在事件发生时执行已注册的回调函数<ul>
+<li>当一个容器启动后，kubernetes 将立即执行 postStart 事件关联的动作</li>
+<li>在容器被终结之前，kubernetes 将立即执行 preStop 事件关联的动作</li>
+</ul>
+</li>
+<li>两种钩子<ul>
+<li>postStart: 容器创建后立即执行，由于是异步执行，它无法保证在容器之前运行。如果失败，容器会杀死，并根据 RestartPolicy 决定是否重启</li>
+<li>preStop: 在容器终止前执行。用于: 释放占用的资源、清理注册过的信息、优雅的关闭进程。在其完成之前会阻塞删除容器的操作，默认等待时间为 30s，可以通过 terminationGracePeriodSeconds 宽限时间</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-2-1-钩子示例"><a href="#2-2-1-钩子示例" class="headerlink" title="2.2.1 钩子示例"></a>2.2.1 <strong>钩子示例</strong></h3><figure class="highlight bash"><figcaption><span>postStart 示例</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 通过 postStart 设定端口重定向，将请求本机的 8080 调度到本机 80 端口</span><br><span class="line">lifecycle:</span><br><span class="line">  postStart:</span><br><span class="line">    <span class="built_in">exec</span>:</span><br><span class="line">      <span class="built_in">command</span>:</span><br><span class="line">      - <span class="string">&quot;/bin/bash&quot;</span></span><br><span class="line">      - <span class="string">&quot;-c&quot;</span></span><br><span class="line">      - <span class="string">&quot;iptables -t nat -A REROUTING -p tcp --dport 8080 -j REDIRECT --to-ports 80&quot;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><figcaption><span>preStop 示例</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// runner 主要用来编译打包提高 CI 效率。启动后会注册到 gitlab 上，后续不需要可以删除 Pod，然后清理注册信息</span><br><span class="line">// 通过 preStop 清理 runner 注册信息</span><br><span class="line">lifecycle:</span><br><span class="line">  preStop:</span><br><span class="line">    <span class="built_in">exec</span>:</span><br><span class="line">      <span class="built_in">command</span>:</span><br><span class="line">      - <span class="string">&quot;/bin/bash&quot;</span></span><br><span class="line">      - <span class="string">&quot;-c&quot;</span></span><br><span class="line">      - <span class="string">&quot;/usr/bin/gitlab-runner unregister -n <span class="variable">$RUNNER_NAME</span>&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2-2-钩子场景1"><a href="#2-2-2-钩子场景1" class="headerlink" title="2.2.2 钩子场景1"></a>2.2.2 <strong>钩子场景1</strong></h3><ul>
+<li>postStart 命令在容器的 &#x2F;usr&#x2F;share&#x2F;nginx&#x2F;html&#x2F;index.html 自定义一段内容 </li>
+<li>preStop 负责优雅地终止 nginx 服务</li>
+<li>terminationGracePeriodSeconds 宽限期，如果超过宽限期 pod 还没有终止，则会由 SIGKLL 强制关闭信号介入。</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cat 1-pod-postStart.yaml </span></span><br><span class="line">apiVersion: v1</span><br><span class="line">kind: Pod</span><br><span class="line">metadata:</span><br><span class="line">  name: lifecycle-nginx</span><br><span class="line">spec:</span><br><span class="line">  containers:</span><br><span class="line">  - name: lifecycle-demo-container</span><br><span class="line">    image: nginx</span><br><span class="line">    lifecycle:</span><br><span class="line">      postStart:</span><br><span class="line">        <span class="built_in">exec</span>:</span><br><span class="line">          <span class="built_in">command</span>:</span><br><span class="line">          - <span class="string">&quot;/bin/sh&quot;</span></span><br><span class="line">          - <span class="string">&quot;-c&quot;</span></span><br><span class="line">          - <span class="string">&quot;echo Hello from the postStart handler... &gt; /usr/share/nginx/html/index.html&quot;</span></span><br><span class="line">      preStop:</span><br><span class="line">        <span class="built_in">exec</span>:</span><br><span class="line">          <span class="built_in">command</span>:</span><br><span class="line">          - <span class="string">&quot;/bin/sh&quot;</span></span><br><span class="line">          - <span class="string">&quot;-c&quot;</span></span><br><span class="line">          - <span class="string">&quot;sleep 10; nginx -s quit&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># kubectl apply -f 1-pod-postStart.yaml</span></span><br><span class="line"><span class="comment"># kubectl exec -it lifecycle-nginx -- cat /usr/share/nginx/html/index.html	# postStart 演示结果</span></span><br><span class="line">// preStop 演示,在删除时使用 describe 可查看到 Killing 在 11s 时完全删除完毕,如图</span><br><span class="line">// <span class="built_in">sleep</span> 10s + pod 自身1s 时间</span><br><span class="line"><span class="comment"># kubectl describe pod lifecycle-nginx </span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/pasted-340.png" alt="upload successful"></p>
+<h3 id="2-2-3-钩子场景2"><a href="#2-2-3-钩子场景2" class="headerlink" title="2.2.3 钩子场景2"></a>2.2.3 <strong>钩子场景2</strong></h3><ul>
+<li>postStart 命令负责将默认页面拷贝至 &#x2F;usr&#x2F;local&#x2F;tomcat&#x2F;webapps</li>
+<li>preStop 负责给容器发送 SIGTERM 信号，从而优雅地终止 tomcat 服务</li>
+<li>terminationGracePeriodSeconds 宽限期，如果超过宽限期 pod 还没有终止，则会由 SIGKILL 强制关闭信号介入</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># cat 2-pod-postStart.yaml </span></span><br><span class="line">apiVersion: v1</span><br><span class="line">kind: Pod</span><br><span class="line">metadata:</span><br><span class="line">  name: pod-lifecycle-2</span><br><span class="line">  labels:</span><br><span class="line">    app: tomcat</span><br><span class="line">spec:</span><br><span class="line">  terminationGracePeriodSeconds: 120                        <span class="comment"># 超过宽限期,优雅关闭未执行完情况下，强制SIGKILL</span></span><br><span class="line">  containers:</span><br><span class="line">  - name: tomcat-web</span><br><span class="line">    image: tomcat</span><br><span class="line">    ports:</span><br><span class="line">    - containerPort: 8080</span><br><span class="line">    lifecycle:</span><br><span class="line">      postStart:</span><br><span class="line">        <span class="built_in">exec</span>:</span><br><span class="line">          <span class="built_in">command</span>:</span><br><span class="line">          - <span class="string">&quot;/bin/bash&quot;</span></span><br><span class="line">          - <span class="string">&quot;-c&quot;</span></span><br><span class="line">          - <span class="string">&quot;cp -rp /usr/local/tomcat/webapps.dist/* /usr/local/tomcat/webapps/&quot;</span></span><br><span class="line">      preStop:</span><br><span class="line">        <span class="built_in">exec</span>:</span><br><span class="line">          <span class="built_in">command</span>:</span><br><span class="line">          - <span class="string">&quot;/bin/sh&quot;</span></span><br><span class="line">          - <span class="string">&quot;-c&quot;</span></span><br><span class="line">          - <span class="string">&quot;/usr/local/tomcat/bin/shutdown.sh&quot;</span>                <span class="comment"># 优雅关闭</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># kubectl apply -f 2-pod-postStart.yaml </span></span><br><span class="line"><span class="comment"># kubectl expose pod pod-lifecycle-2 --port=9999 --target-port=8080 --type=NodePort</span></span><br><span class="line">// 浏览器访问: http://10.16.41.24:30597/</span><br><span class="line">// 下图表示,删除 Pod 时,的优雅关闭</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/pasted-341.png" alt="upload successful"></p>
+<h2 id="2-3-检测探针"><a href="#2-3-检测探针" class="headerlink" title="2.3 检测探针"></a>2.3 <strong>检测探针</strong></h2><ul>
+<li>为何需要探针: 当容器进程运行时如出现异常退出，k8s 则会认为容器发生故障，会尝试进行重启解决该问题。但有些情况是发生了故障，但进程没有退出。比如访问 web 服务时出现 500 错误，可能是系统超载，也可能资源死锁，但 nginx 进程并没有异常退出，在这种情况下重启容器是最佳方法，如何来实现检测</li>
+<li>kubernetes 使用探针(probe)方式来保障容器正常运行，实现零宕机。它通过 kubelet 定期对容器进行健康检查 (exec 、tpc、http)，当探针检测到容器状态异常时，会通过重启策略来进行重启或重建完成修复。修复后继续进行探针检测，以确保容器稳定运行</li>
+</ul>
+<h3 id="2-3-1-探针检测类型"><a href="#2-3-1-探针检测类型" class="headerlink" title="2.3.1 探针检测类型"></a>2.3.1 <strong>探针检测类型</strong></h3><ul>
+<li>针对运行中的容器，kubelet 可以选择一下三种探针来探测容器的状态<ul>
+<li><strong>startupProbe</strong> 启动探针: 用于检测容器中的应用是否已经正常启动。如果使用了<strong>启动探针</strong>，则所有其它探针都会被禁用，需要等待启动探针检测成功之后才可以执行。如果<strong>启动探针</strong>探测失败，则 kubelet 会将容器杀死，而容器以其<strong>重启策略</strong>进行重启。如果容器没有提供启动探测，则默认状态为 Success。</li>
+<li><strong>livenessProbe</strong> 存活探针: 用于检测容器是否存活，如果存活探测检测失败， kubelet 会杀死容器，然后根据容器重启策略，决定是否重启该容器。如果容器不提供存活探针，则默认状态为 Success</li>
+<li><strong>readinessProbe</strong> 就绪探针: 指容器是否准备好接收网络请求，如果<strong>就绪探测</strong>失败，则将容器设定为未就绪状态，然后将其从负载均衡列表移除，这样就不会有请求会调度到该 Pod 上。如果容器不提供就绪探针，则默认状态为 Success</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-3-2-探针检查机制"><a href="#2-3-2-探针检查机制" class="headerlink" title="2.3.2 探针检查机制"></a>2.3.2 <strong>探针检查机制</strong></h3><ul>
+<li>使用探针来检查容器 [只能任选其一]<ul>
+<li>exec: 在容器内执行指定命令。如果命令退出时返回码为 0 则认为诊断成功</li>
+<li>httpGet: 对指定的 IP、端口，执行 HTTP 请求。如果响应的状态码大于等于 200 且小于 400，则诊断被认为是成功的</li>
+<li>tcpSocket: 对容器的 IP 地址上的指定端口执行 TCP 检查。如果端口打开，则诊断被认为是成功的</li>
+</ul>
+</li>
+<li>每次探测都获得以下三种结果之一<ul>
+<li>Success：容器通过诊断</li>
+<li>Failure：容器未通过诊断，可能会触发重启操作</li>
+<li>Unknown：诊断失败，因此不会采取任何行动</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-3-3-startupProbe"><a href="#2-3-3-startupProbe" class="headerlink" title="2.3.3 startupProbe"></a>2.3.3 <strong>startupProbe</strong></h3><ul>
+<li>有时会有一些应用在启动时需要较长的初始化时间。若要不影响对死锁做出快速响应的探测，设置<strong>存活探测</strong>参数是要技巧的。技巧就是使用相同的命令来设置<strong>启动探测</strong>，针对 HTTP 或 TCP 检测，可以通过将 failureThreshold * periodSeconds 参数设置为足够长的时间来应对最糟糕情况下的启动时间</li>
+</ul>
+
+    
+
+    
+    <div class="page-reward">
+      <a href="javascript:void(0);" class="page-reward-btn tooltip-top" target="_self">
+        <div class="tooltip tooltip-east">
+          <span class="tooltip-item">
+            微信
+          </span>
+          <span class="tooltip-content">
+            <span class="tooltip-text">
+              <span class="tooltip-inner">
+                <p class="reward-p"><i class="icon icon-quo-left"></i>加微信,入技术群<i
+                    class="icon icon-quo-right"></i></p>
+                <div class="reward-box">
+                  
+                  
+                  <div class="reward-box-item">
+                    <img class="reward-img" src="/img/wechat.jpg">
+                    <span class="reward-type">微信</span>
+                  </div>
+                  
+                </div>
+              </span>
+            </span>
+          </span>
+        </div>
+      </a>
+    </div>
+    
+
+    
+    <div class="declare"> 
+      <ul class="post-copyright">
+        <li>
+          <strong>本文作者：</strong>
+          weixj@inadm.com
+        </li>
+        <li>
+          <strong>本文链接：</strong>
+          <a href="https://www.ink8s.com/2025/07/17/k8s-资源对象/" title="kubernetes 资源对象" target="_blank">https://www.ink8s.com/2025/07/17/k8s-资源对象/</a>
+        </li>
+        
+        <li>
+          <strong>版权声明： </strong>
           
+          本博客所有文章除特别声明外，均采用 <a href="https://github.com/JoeyBling/hexo-theme-yilia-plus/blob/master/LICENSE" rel="external nofollow" target="_blank">MIT</a> 许可协议。转载请注明出处！
+        </li>
+        
+      </ul>
+    </div>
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Server-tool</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Linux-k8s</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+    
 
+    
+
+    
+    
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <!-- <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a> -->
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+     <!-- <img src="//pan.baidu.com/share/qrcode?url=https://www.ink8s.com/2025/07/17/k8s-%E8%B5%84%E6%BA%90%E5%AF%B9%E8%B1%A1/" alt="微信分享二维码"> -->
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+
+    
+    <div class="clearfix"></div>
+  </div>
   </div>
 </article>
+
+
+<nav id="article-nav">
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/01/05/perccli-%E6%88%B4%E5%B0%94%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/" class="archive-article-date">
-        <time datetime="2023-01-05T12:57:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-01-05</time>
-</a>
+  
+    <a href="/2025/07/17/ceph-%E4%B8%8E-kubernetes-%E9%9B%86%E6%88%90/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">ceph 与 kubernetes 集成</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
 
 
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/01/05/perccli-%E6%88%B4%E5%B0%94%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/">perccli 戴尔服务器管理工具</a>
-	
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Server-tool</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-0-k8s-%E5%9F%BA%E7%A1%80%E5%BA%94%E7%94%A8"><span class="toc-number">1.</span> <span class="toc-text">1.0 k8s 基础应用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-deploy"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 deploy</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-pod-%E9%95%9C%E5%83%8F%E6%8B%89%E5%8F%96%E7%AD%96%E7%95%A5"><span class="toc-number">1.2.</span> <span class="toc-text">1.2 pod 镜像拉取策略</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-%E8%8E%B7%E5%8F%96%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93%E9%95%9C%E5%83%8F"><span class="toc-number">1.3.</span> <span class="toc-text">1.3 获取私有仓库镜像</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-1-%E5%88%9B%E5%BB%BA-secret-%E8%AE%A4%E8%AF%81"><span class="toc-number">1.3.1.</span> <span class="toc-text">1.3.1 创建 secret 认证</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-2-yaml-%E9%83%A8%E7%BD%B2%E9%AA%8C%E8%AF%81"><span class="toc-number">1.3.2.</span> <span class="toc-text">1.3.2 yaml 部署验证</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-4-%E4%BC%A0%E9%80%92%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-number">1.4.</span> <span class="toc-text">1.4 传递环境变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-5-%E8%87%AA%E5%AE%9A%E4%B9%89%E5%AE%B9%E5%99%A8%E5%91%BD%E4%BB%A4%E4%B8%8E%E5%8F%82%E6%95%B0"><span class="toc-number">1.5.</span> <span class="toc-text">1.5 自定义容器命令与参数</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-0-Pod-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="toc-number">2.</span> <span class="toc-text">2.0 Pod 生命周期</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%E5%88%9D%E5%A7%8B%E5%8C%96%E5%AE%B9%E5%99%A8"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 初始化容器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-1-%E5%9C%BA%E6%99%AF1-%E7%AB%AF%E5%8F%A3%E6%A3%80%E6%9F%A5"><span class="toc-number">2.1.1.</span> <span class="toc-text">2.1.1 场景1-端口检查</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-2-%E5%9C%BA%E6%99%AF2-%E5%86%85%E6%A0%B8%E5%8F%82%E6%95%B0%E4%BC%98%E5%8C%96"><span class="toc-number">2.1.2.</span> <span class="toc-text">2.1.2 场景2-内核参数优化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E9%92%A9%E5%AD%90%E5%87%BD%E6%95%B0"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 钩子函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-1-%E9%92%A9%E5%AD%90%E7%A4%BA%E4%BE%8B"><span class="toc-number">2.2.1.</span> <span class="toc-text">2.2.1 钩子示例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-2-%E9%92%A9%E5%AD%90%E5%9C%BA%E6%99%AF1"><span class="toc-number">2.2.2.</span> <span class="toc-text">2.2.2 钩子场景1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-3-%E9%92%A9%E5%AD%90%E5%9C%BA%E6%99%AF2"><span class="toc-number">2.2.3.</span> <span class="toc-text">2.2.3 钩子场景2</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-%E6%A3%80%E6%B5%8B%E6%8E%A2%E9%92%88"><span class="toc-number">2.3.</span> <span class="toc-text">2.3 检测探针</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-1-%E6%8E%A2%E9%92%88%E6%A3%80%E6%B5%8B%E7%B1%BB%E5%9E%8B"><span class="toc-number">2.3.1.</span> <span class="toc-text">2.3.1 探针检测类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-2-%E6%8E%A2%E9%92%88%E6%A3%80%E6%9F%A5%E6%9C%BA%E5%88%B6"><span class="toc-number">2.3.2.</span> <span class="toc-text">2.3.2 探针检查机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-3-startupProbe"><span class="toc-number">2.3.3.</span> <span class="toc-text">2.3.3 startupProbe</span></a></li></ol></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
+
+
+
+
+
+
+
+  <div id="giteement-ctn"></div>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/01/05/iptables-%E9%98%B2%E7%81%AB%E5%A2%99/" class="archive-article-date">
-        <time datetime="2023-01-05T09:18:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-01-05</time>
-</a>
-
-
-        </div>
-    	 
+    <link rel="stylesheet" href="/lib/default.css">
+    <script src="/lib/giteement.browser.js"></script>
   
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/01/05/iptables-%E9%98%B2%E7%81%AB%E5%A2%99/">iptables 防火墙</a>
-	
-    </h1>
-  
+  <script>
+  <!-- id: "kubernetes 资源对象" -->
+  var giteement = new Giteement({
+    id: '20250717213649',
+    owner: 'weixj90',
+    repo: 'ink8s-msg',
+    backcall_uri: 'https://www.ink8s.com',
+    oauth_uri: 'https://cors-anywhere.herokuapp.com/https://gitee.com/oauth/token',
+    oauth: {
+      client_id: '50776f958ea15d74ac6d512eeadb5d45fce926378764764cb8d6998f95617e18',
+      client_secret: '5b53bcab62e8a4c917eab413aa2dc40ec6b2b69344411c51bf11285bbe734d8c'
+    },
+  })
+  giteement.render('giteement-ctn')
+  </script>
 
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux-base</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/01/05/linux-%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4/" class="archive-article-date">
-        <time datetime="2023-01-05T05:55:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-01-05</time>
-</a>
 
 
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/01/05/linux-%E7%B3%BB%E7%BB%9F%E5%91%BD%E4%BB%A4/">linux 系统命令</a>
-	
-    </h1>
-  
 
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux-base</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2023/01/04/vim-%E5%BF%AB%E6%8D%B7%E9%94%AE%E4%BD%BF%E7%94%A8/" class="archive-article-date">
-        <time datetime="2023-01-04T08:58:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-01-04</time>
-</a>
-
-
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-	
-	  <a class="archive-article-title" href="/2023/01/04/vim-%E5%BF%AB%E6%8D%B7%E9%94%AE%E4%BD%BF%E7%94%A8/">vim 快捷键使用</a>
-	
-    </h1>
-  
-
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux-base</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/page/4/">&amp;laquo; Prev</a><a class="page-number" href="/archives/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/3/">3</a><a class="page-number" href="/archives/page/4/">4</a><span class="page-number current">5</span>
-    </nav>
-  
 
 
           </div>
@@ -507,8 +644,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
