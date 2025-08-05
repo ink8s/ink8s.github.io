@@ -124,7 +124,7 @@
 <meta property="og:image" content="https://www.ink8s.com/images/pasted-578.png">
 <meta property="og:image" content="https://www.ink8s.com/images/pasted-579.png">
 <meta property="article:published_time" content="2025-07-17T13:36:00.000Z">
-<meta property="article:modified_time" content="2025-08-05T04:19:04.992Z">
+<meta property="article:modified_time" content="2025-08-05T05:46:42.907Z">
 <meta property="article:author" content="weixj@inadm.com">
 <meta property="article:tag" content="Linux-k8s">
 <meta name="twitter:card" content="summary">
@@ -1483,7 +1483,7 @@
 
 <h3 id="12-3-3-RBAC-场景-3"><a href="#12-3-3-RBAC-场景-3" class="headerlink" title="12.3.3 RBAC 场景-3"></a><strong>12.3.3 RBAC 场景-3</strong></h3><ul>
 <li>场景说明: 赋予 user01 用户对 default 名称空间拥有管理员权限<ul>
-<li>系统内置了一个 ClusterRole: admin 的集群管理员，我们可以通过 rolebinding 引用 ClusterRole: admin 集群角色，该引用会造成用户仅对 rolebinding 所在的名称空间有管理员权限。（因为 rolebinding 仅能作用在空间）</li>
+<li>系统内置了一个 ClusterRole: admin 的集群管理员，我们可以通过 rolebinding 引用 ClusterRole: admin 集群角色，该引用会造成用户仅对 rolebinding 所在的名称空间有管理员权限。（因为 rolebinding 仅能作用在名称空间范围内）</li>
 </ul>
 </li>
 </ul>
