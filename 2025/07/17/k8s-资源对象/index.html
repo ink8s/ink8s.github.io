@@ -124,7 +124,7 @@
 <meta property="og:image" content="https://www.ink8s.com/images/pasted-578.png">
 <meta property="og:image" content="https://www.ink8s.com/images/pasted-579.png">
 <meta property="article:published_time" content="2025-07-17T13:36:00.000Z">
-<meta property="article:modified_time" content="2025-08-04T12:03:39.553Z">
+<meta property="article:modified_time" content="2025-08-05T02:59:03.260Z">
 <meta property="article:author" content="weixj@inadm.com">
 <meta property="article:tag" content="Linux-k8s">
 <meta name="twitter:card" content="summary">
@@ -1364,7 +1364,7 @@
 </li>
 <li>认证的方式：<ul>
 <li>UserAcconunt：使用 kubectl 创建资源，首先要进行客户端身份认证，所以客户端每次请求 APIServer 时都会携带上数字证书，用于认证 API-Server，当认证通过后，证书中的 Subject 将被识别为用户标识，其中的 CN 字段的值为用户名，字段 O 的值就是用户所属的组，例如：Subject： O&#x3D;ops,CN&#x3D;user01 用户名为 user01，用户的组为 ops</li>
-<li>ServiceAccount：有些情况下，期望在 Pod 内部能够访问 API-Server，获取集群的信息，甚至对集群进行改动。针对这种情况，k8s 提供了一种特殊的认证方式：ServiceAccount。默认情况下，创建的 Pod 如果没有指定 ServiceAccount 则系统默认提供一个 ServiceAccount，而后通过 mount 方式挂载到 Pod 文件系统，该 ServiceAccount 能通过 DownWardAPI 获取该 Pod 相关的一些元数据信息。当人也可以自行创建 ServiceAccount 来完成 API-Server 的身份认证，至于能否对集群进行改变，则需要看该 ServiceAccount 是否拥有权限</li>
+<li>ServiceAccount：有些情况下，期望在 Pod 内部能够访问 API-Server，获取集群的信息，甚至对集群进行改动。针对这种情况，k8s 提供了一种特殊的认证方式：ServiceAccount。默认情况下，创建的 Pod 如果没有指定 ServiceAccount 则系统默认提供一个 ServiceAccount，而后通过 mount 方式挂载到 Pod 文件系统，该 ServiceAccount 能通过 DownWardAPI 获取该 Pod 相关的一些元数据信息。当然也可以自行创建 ServiceAccount 来完成 API-Server 的身份认证，至于能否对集群进行改变，则需要看该 ServiceAccount 是否拥有权限</li>
 </ul>
 </li>
 </ul>
@@ -1966,11 +1966,11 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Linux-svc</a>
+                <a href="javascript:void(0)" class="js-tag color4">Linux-storage</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Linux-storage</a>
+                <a href="javascript:void(0)" class="js-tag color5">Linux-svc</a>
               </li>
              
               <li class="article-tag-list-item">
