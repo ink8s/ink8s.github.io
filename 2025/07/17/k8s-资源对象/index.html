@@ -124,7 +124,7 @@
 <meta property="og:image" content="https://www.ink8s.com/images/pasted-578.png">
 <meta property="og:image" content="https://www.ink8s.com/images/pasted-579.png">
 <meta property="article:published_time" content="2025-07-17T13:36:00.000Z">
-<meta property="article:modified_time" content="2025-08-05T06:13:42.476Z">
+<meta property="article:modified_time" content="2025-08-05T07:15:55.612Z">
 <meta property="article:author" content="weixj@inadm.com">
 <meta property="article:tag" content="Linux-k8s">
 <meta name="twitter:card" content="summary">
@@ -1507,7 +1507,7 @@
 
 <h1 id="13-0-准入控制"><a href="#13-0-准入控制" class="headerlink" title="13.0 准入控制"></a><strong>13.0 准入控制</strong></h1><ul>
 <li>APIServer 中准入控制器是以插件形式存在的，他们会拦截所有已完成认证的用户，且与资源创建、更新、删除操作相关的请求</li>
-<li>通过 APIServer 启用的准入控制插件，然后强制实现定义的功能，比如：对象的语义验证、以及设置确实字段的默认值等 k8s 通过 ResourceQuota 以及 LImitRange 准入控制器，可以为多租户或多项目的集群环境提供资源配额与限制</li>
+<li>通过 APIServer 启用的准入控制插件，然后强制实现定义的功能，比如：对象的语义验证、以及设置缺省字段的默认值等 k8s 通过 ResourceQuota 以及 LImitRange 准入控制器，可以为多租户或多项目的集群环境提供资源配额与限制</li>
 </ul>
 <h2 id="13-1-ResoucesQuta"><a href="#13-1-ResoucesQuta" class="headerlink" title="13.1 ResoucesQuta"></a><strong>13.1 ResoucesQuta</strong></h2><ul>
 <li><p>资源配额：当系统存在多个用户或团队共享具有固定节点的 k8s 集群时，一般会根据不同团队创建不同的命名空间，但可能会出现某个应用将该命名空间的 CPU 或 内存耗尽的情况，无法保证其公平分配原则。可以通过 ResourceQuotas 资源配额来解决这个问题。ResourceQuota 主要是对每个命名空间的资源使用总量设定限制</p>
@@ -1538,7 +1538,7 @@
   <tr><th>资源名称</th><th>描述</th></tr>
   <tr><td>requests.cpu</td><td>所有非终止状态的 Pod，其 CPU  申请的总量不能超过该值</td></tr>
   <tr><td>requests.memory</td><td>所有非终止状态的 Pod，其 内存 申请的总量不能超过该值</td></tr>
-  <tr><td>1limits.cpu</td><td>所有非终止状态的 Pod，其 CPU 运行期间限制总量不能超过该值</td></tr>
+  <tr><td>limits.cpu</td><td>所有非终止状态的 Pod，其 CPU 运行期间限制总量不能超过该值</td></tr>
   <tr><td>limits.memory</td><td>所有非终止状态的 Pod，其 内存 运行期间限制总量不能超过该值</td></tr>
 </table>   
 </escape>
@@ -1558,7 +1558,7 @@
 </table>   
 </escape>
 
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">// 示例</span><br><span class="line">apiVersion: v1</span><br><span class="line">kind: ResourceQuota</span><br><span class="line">metadata:</span><br><span class="line">  name: storage-demo</span><br><span class="line">  namespace: ops</span><br><span class="line">spec:</span><br><span class="line">  hard:</span><br><span class="line">    requests.storage: 500Gi                                     <span class="comment"># 总共可以申请的 PVC 总量</span></span><br><span class="line">    persistentvolumeclaims: 20                                  <span class="comment"># 命名空间中总共能申请的 PVC 数量</span></span><br><span class="line">    nfs.storageclass.storage.k8s.io/requests.storage: 100Gi     <span class="comment"># 对 nfs 存储类型限制 100G 的申请</span></span><br><span class="line">    gfs:storageclass.storage.k8s.io/requests.storage: 100Gi     <span class="comment"># 对 gfs 存储类型限制 100Gi 的申请</span></span><br><span class="line">    </span><br><span class="line"><span class="comment"># kubectl get storageclass					# storageclass NAME 查看</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">// 示例</span><br><span class="line">apiVersion: v1</span><br><span class="line">kind: ResourceQuota</span><br><span class="line">metadata:</span><br><span class="line">  name: storage-demo</span><br><span class="line">  namespace: ops</span><br><span class="line">spec:</span><br><span class="line">  hard:</span><br><span class="line">    requests.storage: 500Gi                                     <span class="comment"># 总共可以申请的 PVC 总量</span></span><br><span class="line">    persistentvolumeclaims: 20                                  <span class="comment"># 命名空间中总共能申请的 PVC 数量</span></span><br><span class="line">    nfs.storageclass.storage.k8s.io/requests.storage: 100Gi     <span class="comment"># 对 nfs 存储类型限制 100G 的申请</span></span><br><span class="line">    gfs:storageclass.storage.k8s.io/requests.storage: 100Gi     <span class="comment"># 对 gfs 存储类型限制 100Gi 的申请</span></span><br><span class="line">    csi-rbd-sc.storageclass.storage.k8s.io/requests.storage: 100Gi</span><br><span class="line">    </span><br><span class="line"><span class="comment"># kubectl get storageclass					# storageclass NAME 查看</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="13-1-3-对象数量配额"><a href="#13-1-3-对象数量配额" class="headerlink" title="13.1.3 对象数量配额"></a><strong>13.1.3 对象数量配额</strong></h3><ul>
 <li>当使用 count&#x2F;* 资源配额时，如果对象存在于服务器存储中，则会根据配额管理资源。这些类型的配额有助于防止存储资源耗尽。例如<ul>
