@@ -124,7 +124,7 @@
 <meta property="og:image" content="https://www.ink8s.com/images/pasted-578.png">
 <meta property="og:image" content="https://www.ink8s.com/images/pasted-579.png">
 <meta property="article:published_time" content="2025-07-17T13:36:00.000Z">
-<meta property="article:modified_time" content="2025-08-05T06:09:13.938Z">
+<meta property="article:modified_time" content="2025-08-05T06:13:42.476Z">
 <meta property="article:author" content="weixj@inadm.com">
 <meta property="article:tag" content="Linux-k8s">
 <meta name="twitter:card" content="summary">
@@ -1013,7 +1013,7 @@
 <ul>
 <li>Service 持续监视 API-Server，监视 Service 标签选择器所匹配的后端 Pod，并实时跟踪这些 Pod 对象的变动情况，例如 IP 地址发生变化、或 Pod 对象新增与减少</li>
 <li>不过 Service 并不直接与 Pod 建立关联关系，它们之间还有一个中间层 Endpoints，Endpoints 对象是由一个 IP 地址和端口组成的列表，这些 IP 地址和端口则来自于 Service 标签选择器所匹配到的 Pod，默认情况下，创建 Service 资源时，其关联的 Endpoints 对象会被自动创建</li>
-<li>Service：用户通过 kubuectl 命令向 apiServer 发送创建 Service 请求，APIServer 收到后存入 etcd</li>
+<li>Service：用户通过 kubectl 命令向 apiServer 发送创建 Service 请求，APIServer 收到后存入 etcd</li>
 <li>nedpoints：获取 Service 所匹配的 Pod 地址，而后将信息写入与 Service 同名的 endpoints 资源中</li>
 <li>kube-proxy：获取 Service 和 Endpoints 资源的变动，而后生存 iptables 、IPVS 规则，在本级执行</li>
 <li>iptables：当用户请求 service_ip 时，使用 iptables 的 DNAT 技术将 ServiceIP 的请求调度至 endpoint 保存 ip 列表</li>
