@@ -6,35 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://www.ink8s.com">
-  <title>ceph 与 kubernetes 集成 | INK8S</title>
+  <title>Archives: 2025/8 | INK8S</title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="ceph 与 kubernetes 集成 ceph 与 kubernetes 集成概述 ceph 与 volumes 结合 ceph 与 pv pvc 结合 ceph 与 storageClass 结合">
-<meta property="og:type" content="article">
-<meta property="og:title" content="ceph 与 kubernetes 集成">
-<meta property="og:url" content="https://www.ink8s.com/2025/07/17/ceph-%E4%B8%8E-kubernetes-%E9%9B%86%E6%88%90/index.html">
+  <meta name="description" content="in 运维">
+<meta property="og:type" content="website">
+<meta property="og:title" content="INK8S">
+<meta property="og:url" content="https://www.ink8s.com/archives/2025/08/index.html">
 <meta property="og:site_name" content="INK8S">
-<meta property="og:description" content="ceph 与 kubernetes 集成 ceph 与 kubernetes 集成概述 ceph 与 volumes 结合 ceph 与 pv pvc 结合 ceph 与 storageClass 结合">
+<meta property="og:description" content="in 运维">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://www.ink8s.com/images/pasted-328.png">
-<meta property="og:image" content="https://www.ink8s.com/images/pasted-329.png">
-<meta property="og:image" content="https://www.ink8s.com/images/pasted-330.png">
-<meta property="og:image" content="https://www.ink8s.com/images/pasted-331.png">
-<meta property="og:image" content="https://www.ink8s.com/images/pasted-346.png">
-<meta property="og:image" content="https://www.ink8s.com/images/pasted-332.png">
-<meta property="og:image" content="https://www.ink8s.com/images/pasted-344.png">
-<meta property="og:image" content="https://www.ink8s.com/images/pasted-333.png">
-<meta property="og:image" content="https://www.ink8s.com/images/pasted-334.png">
-<meta property="og:image" content="https://www.ink8s.com/images/pasted-335.png">
-<meta property="og:image" content="https://www.ink8s.com/images/pasted-336.png">
-<meta property="og:image" content="https://www.ink8s.com/images/pasted-337.png">
-<meta property="article:published_time" content="2025-07-16T21:35:51.000Z">
-<meta property="article:modified_time" content="2025-07-21T20:51:19.223Z">
 <meta property="article:author" content="weixj@inadm.com">
-<meta property="article:tag" content="Linux-storage">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://www.ink8s.com/images/pasted-328.png">
   
     <link rel="alternative" href="/atom.xml" title="INK8S" type="application/atom+xml">
   
@@ -243,357 +227,55 @@
               class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-ceph-与-kubernetes-集成" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
+            
+  
+  
     
-      <header class="article-header">
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2025" class="archive-year">2025</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	
+<a href="/2025/08/24/victoriametrics/" class="archive-article-date">
+        <time datetime="2025-08-24T15:02:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-08-24</time>
+</a>
+
+
+        </div>
+    	 
   
-  
-    <h1 class="article-title" itemprop="name">
-      ceph 与 kubernetes 集成
+    <h1 itemprop="name">
+	
+	  <a class="archive-article-title" href="/2025/08/24/victoriametrics/">victoriametrics 监控</a>
+	
     </h1>
   
 
 
-  
-  
-        
-
-
-<a href="/2025/07/17/ceph-%E4%B8%8E-kubernetes-%E9%9B%86%E6%88%90/" class="archive-article-date">
-        <time datetime="2025-07-16T21:35:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-07-17</time>
-</a>
-
-
-  
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <ul>
-<li><strong>ceph 与 kubernetes 集成</strong><ul>
-<li>ceph 与 kubernetes 集成概述</li>
-<li>ceph 与 volumes 结合</li>
-<li>ceph 与 pv pvc 结合</li>
-<li>ceph 与 storageClass 结合</li>
-</ul>
-</li>
-</ul>
-<span id="more"></span>
-
-<h3 id="1-0-ceph-与-kubernetes-集成"><a href="#1-0-ceph-与-kubernetes-集成" class="headerlink" title="1.0 ceph 与 kubernetes 集成"></a>1.0 <strong>ceph 与 kubernetes 集成</strong></h3><ul>
-<li><a href="https://www.ink8s.com/2025/07/12/ceph-deploy-%E9%83%A8%E7%BD%B2/">ceph 集群部署参考</a></li>
-</ul>
-<h4 id="1-1-ceph-与-kubernetes-集成概述"><a href="#1-1-ceph-与-kubernetes-集成概述" class="headerlink" title="1.1 ceph 与 kubernetes 集成概述"></a>1.1 <strong>ceph 与 kubernetes 集成概述</strong></h4><ul>
-<li>在 K8S 集群中，比较麻烦的是: 有状态服务持久化，并且保证高可用，面临的问题:<ul>
-<li><ol>
-<li>有状态服务 Pod 消亡时，持久化数据能够立刻转移到新拉起的 Pod</li>
-</ol>
-</li>
-<li><ol start="2">
-<li>持久化数据本身读写的高可用</li>
-</ol>
-</li>
-</ul>
-</li>
-<li>ceph 分布式存储就是解决问题2。同时使用独立的分布式存储集群，分离 PV 与 工作节点的耦合，确保 PV 能够转移给新的 Pod，解决问题1</li>
-<li>kubernetes 和 ceph 集成提供了三种实现方式:<ul>
-<li>volumes存储卷 &lt;<a target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/storage/volumes/">volumes结合</a>&gt;</li>
-<li>PV&#x2F;PVC持久化卷&#x2F;持久化声明 &lt;<a target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/">PV&#x2F;PVC结合</a>&gt;</li>
-<li>storageClass动态存储类，动态创建PV和PVC &lt;<a target="_blank" rel="noopener" href="https://kubernetes.io/docs/concepts/storage/storage-classes/">storageClass结合</a>&gt;</li>
-</ul>
-</li>
-</ul>
-<h3 id="2-0-ceph-与-volumes-结合"><a href="#2-0-ceph-与-volumes-结合" class="headerlink" title="2.0 ceph 与 volumes 结合"></a>2.0 <strong>ceph 与 volumes 结合</strong></h3><ul>
-<li>缺点: 管理员需要知道每一个 volumes 的细节</li>
-<li><a target="_blank" rel="noopener" href="https://github.com/kubernetes/examples/tree/master/volumes/rbd">RBD example</a></li>
-<li><a target="_blank" rel="noopener" href="https://blog.51cto.com/happylab/2488904">ceph 与 kubernetes volumes 集成文档:</a></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/kubernetes/examples/tree/master/volumes/rbd">https://github.com/kubernetes/examples/tree/master/volumes/rbd</a></li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">// 所有 k8s 节点都需要安装</span><br><span class="line"><span class="comment"># yum -y install ceph-common</span></span><br><span class="line"></span><br><span class="line">// 创建 pool</span><br><span class="line">[root@ceph-node01 ~]<span class="comment"># ceph osd pool create kubernetes 8 8</span></span><br><span class="line">[root@ceph-node01 ~]<span class="comment"># ceph osd pool application enable kubernetes rbd</span></span><br><span class="line">[root@ceph-node01 ~]<span class="comment"># ceph osd pool application get kubernetes</span></span><br><span class="line">[root@ceph-node01 ~]<span class="comment"># ceph osd lspools</span></span><br><span class="line"></span><br><span class="line">// 创建用户</span><br><span class="line">[root@ceph-node01 ~]<span class="comment"># ceph auth get-or-create client.kubernetes mon &#x27;profile rbd&#x27; osd &#x27;profile rbd pool=kubernetes&#x27;</span></span><br><span class="line">[client.kubernetes]</span><br><span class="line">	key = AQBblHdormInORAAp3q8n66Pj4f9Gtn0DLYihw==</span><br><span class="line"></span><br><span class="line">// 将生成的 key 使用 <span class="built_in">base64</span> 加密</span><br><span class="line">[root@ceph-node01 ~]<span class="comment"># echo &#x27;AQBblHdormInORAAp3q8n66Pj4f9Gtn0DLYihw==&#x27; | base64</span></span><br><span class="line">QVFCYmxIZG9ybUluT1JBQXAzcThuNjZQajRmOUd0bjBETFlpaHc9PQo=</span><br></pre></td></tr></table></figure>
-
-<h4 id="2-1-创建-secrets-对象"><a href="#2-1-创建-secrets-对象" class="headerlink" title="2.1 创建 secrets 对象"></a>2.1 <strong>创建 secrets 对象</strong></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master01 ~]<span class="comment"># cat ceph-secret.yaml </span></span><br><span class="line">apiVersion: v1</span><br><span class="line">kind: Secret</span><br><span class="line">metadata:</span><br><span class="line">  name: ceph-secret</span><br><span class="line"><span class="built_in">type</span>: <span class="string">&quot;kubernetes.io/rbd&quot;</span></span><br><span class="line">data:</span><br><span class="line">  key: QVFCYmxIZG9ybUluT1JBQXAzcThuNjZQajRmOUd0bjBETFlpaHc9PQo=</span><br><span class="line"></span><br><span class="line">[root@k8s-master01 ~]<span class="comment"># kubectl apply -f ceph-secret.yaml </span></span><br><span class="line">[root@k8s-master01 ~]<span class="comment"># kubectl get secret</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="2-2-创建-rbd-块"><a href="#2-2-创建-rbd-块" class="headerlink" title="2.2 创建 rbd 块"></a>2.2 <strong>创建 rbd 块</strong></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@ceph-node01 ~]<span class="comment"># rbd create kubernetes/volumes-rbd.img --size 10G</span></span><br><span class="line">[root@ceph-node01 ~]<span class="comment"># rbd info kubernetes/volumes-rbd.img</span></span><br><span class="line">[root@ceph-node01 ~]<span class="comment"># rbd -p kubernetes ls</span></span><br><span class="line"></span><br><span class="line">// 去掉它的不支持的相关特性</span><br><span class="line">[root@ceph-node01 ~]<span class="comment"># rbd feature disable kubernetes/volumes-rbd.img deep-flatten</span></span><br><span class="line">[root@ceph-node01 ~]<span class="comment"># rbd feature disable kubernetes/volumes-rbd.img fast-diff</span></span><br><span class="line">[root@ceph-node01 ~]<span class="comment"># rbd feature disable kubernetes/volumes-rbd.img exclusive-lock</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">// pod 中引用 RBD volumes</span><br><span class="line">[root@k8s-master01 ~]<span class="comment"># cat rbd-pod.yaml </span></span><br><span class="line">apiVersion: v1</span><br><span class="line">kind: Pod</span><br><span class="line">metadata:</span><br><span class="line">  name: volume-rbd-pod</span><br><span class="line">spec:</span><br><span class="line">  containers:</span><br><span class="line">    - name: pod-rbd-rw</span><br><span class="line">      image: nginx:1.18</span><br><span class="line">      imagePullPolicy: IfNotPresent</span><br><span class="line">      ports:</span><br><span class="line">        - name: www</span><br><span class="line">          containerPort: 80</span><br><span class="line">          protocol: TCP</span><br><span class="line">      volumeMounts:</span><br><span class="line">        - name: volume-rbd</span><br><span class="line">          mountPath: /data</span><br><span class="line">  volumes:</span><br><span class="line">    - name: volume-rbd</span><br><span class="line">      rbd:</span><br><span class="line">        monitors:</span><br><span class="line">          - <span class="string">&#x27;10.16.41.136:6789&#x27;</span></span><br><span class="line">          - <span class="string">&#x27;10.16.41.30:6789&#x27;</span></span><br><span class="line">          - <span class="string">&#x27;10.16.41.169:6789&#x27;</span></span><br><span class="line">        pool: kubernetes</span><br><span class="line">        image: volumes-rbd.img</span><br><span class="line">        fsType: ext4</span><br><span class="line">        user: kubernetes</span><br><span class="line">        secretRef:</span><br><span class="line">          name: ceph-secret</span><br><span class="line"></span><br><span class="line">// 查看pod所在节点的挂载情况</span><br><span class="line">[root@k8s-master01 ~]<span class="comment"># kubectl get pod -o wide                # 查看 pod 落在那个节点上</span></span><br><span class="line">[root@k8s-node03 ~]<span class="comment"># rbd showmapped                              # 在所在节点查看挂载情况</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="/images/pasted-328.png" alt="upload successful"></p>
-<p><img src="/images/pasted-329.png" alt="upload successful"></p>
-<h3 id="3-0-ceph-与-pv-pvc-结合"><a href="#3-0-ceph-与-pv-pvc-结合" class="headerlink" title="3.0 ceph 与 pv pvc 结合"></a>3.0 <strong>ceph 与 pv pvc 结合</strong></h3><ul>
-<li>预先将存储空间划分好</li>
-<li>pool、镜像、用户认证、secrets 参考 2.0</li>
-</ul>
-<h4 id="3-1-创建-pv、pvc"><a href="#3-1-创建-pv、pvc" class="headerlink" title="3.1 创建 pv、pvc"></a>3.1 <strong>创建 pv、pvc</strong></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">// 创建块</span><br><span class="line">[root@ceph-node01 ~]<span class="comment"># rbd create kubernetes/ceph-pv-rbd.img --image-feature layering --size 10G</span></span><br><span class="line">[root@ceph-node01 ~]<span class="comment"># rbd -p kubernetes ls</span></span><br><span class="line">[root@k8s-master01 ceph-kubernetes]<span class="comment"># cat ceph-pvpvc-rbd.yaml </span></span><br><span class="line">apiVersion: v1</span><br><span class="line">kind: PersistentVolume</span><br><span class="line">metadata:</span><br><span class="line">  name: ceph-pv-rbd</span><br><span class="line">spec:</span><br><span class="line">  accessModes:</span><br><span class="line">    - ReadWriteOnce</span><br><span class="line">  capacity:</span><br><span class="line">    storage: 10G</span><br><span class="line">  rbd:</span><br><span class="line">    monitors:</span><br><span class="line">      - <span class="string">&#x27;10.16.41.136:6789&#x27;</span></span><br><span class="line">      - <span class="string">&#x27;10.16.41.30:6789&#x27;</span></span><br><span class="line">      - <span class="string">&#x27;10.16.41.169:6789&#x27;</span></span><br><span class="line">    pool: kubernetes</span><br><span class="line">    image: ceph-pv-rbd.img</span><br><span class="line">    fsType: ext4</span><br><span class="line">    user: kubernetes</span><br><span class="line">    secretRef:</span><br><span class="line">      name: ceph-secret</span><br><span class="line">  persistentVolumeReclaimPolicy: Retain</span><br><span class="line">  storageClassName: rbd</span><br><span class="line"></span><br><span class="line">---</span><br><span class="line">apiVersion: v1</span><br><span class="line">kind: PersistentVolumeClaim</span><br><span class="line">metadata:</span><br><span class="line">  name: ceph-pvc-rbd</span><br><span class="line">spec:</span><br><span class="line">  accessModes:</span><br><span class="line">    - ReadWriteOnce</span><br><span class="line">  volumeName: ceph-pv-rbd</span><br><span class="line">  resources:</span><br><span class="line">    requests:</span><br><span class="line">      storage: 10G</span><br><span class="line">  storageClassName: rbd</span><br><span class="line"></span><br><span class="line">[root@k8s-master01 ceph-kubernetes]<span class="comment"># kubectl apply -f ceph-pvpvc-rbd.yaml</span></span><br><span class="line">[root@k8s-master01 ceph-kubernetes]<span class="comment"># kubectl get pv,pvc</span></span><br><span class="line"></span><br><span class="line">// 创建的 pv-rbd.img 不支持的功能需要取消。创建时可以直接加参数<span class="string">&quot;--image-feature layering</span></span><br><span class="line"><span class="string">&quot;</span>则不需要操作取消的相关命令了</span><br><span class="line">[root@ceph-node01 ~]<span class="comment"># rbd info kubernetes/ceph-pv-rbd.img</span></span><br><span class="line">[root@ceph-node01 ~]<span class="comment"># ceph osd pool application enable kubernetes rbd            # 不启用会报错，根据提示输入命令 &lt;volumes 已经启用了，此处不再需要 enable&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="/images/pasted-330.png" alt="upload successful"></p>
-<h4 id="3-2-容器引用-pvc-存储"><a href="#3-2-容器引用-pvc-存储" class="headerlink" title="3.2 容器引用 pvc 存储"></a>3.2 <strong>容器引用 pvc 存储</strong></h4><ul>
-<li>容器通过 pvc 调用存储</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">// 需要确认 kubernetes/ceph-pv-rbd.img 是否为 <span class="string">&quot;features: layering&quot;</span></span><br><span class="line">[root@k8s-master01 ceph-kubernetes]<span class="comment"># cat ceph-pvpvc-pod.yaml </span></span><br><span class="line">apiVersion: v1</span><br><span class="line">kind: Pod</span><br><span class="line">metadata:</span><br><span class="line">  name: pvc-pod</span><br><span class="line">spec:</span><br><span class="line">  containers:</span><br><span class="line">    - name: ceph-pvc-demo</span><br><span class="line">      image: nginx:1.18</span><br><span class="line">      imagePullPolicy: IfNotPresent</span><br><span class="line">      ports:</span><br><span class="line">        - name: www</span><br><span class="line">          protocol: TCP</span><br><span class="line">          containerPort: 80</span><br><span class="line">      volumeMounts:</span><br><span class="line">        - name: ceph-pvc-rbd</span><br><span class="line">          mountPath: /data</span><br><span class="line">  volumes:</span><br><span class="line">    - name: ceph-pvc-rbd</span><br><span class="line">      persistentVolumeClaim:</span><br><span class="line">        claimName: ceph-pvc-rbd			<span class="comment"># 实际PVC名称</span></span><br><span class="line"></span><br><span class="line">[root@k8s-master01 ceph-kubernetes]<span class="comment"># kubectl apply -f ceph-pvpvc-pod.yaml</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="/images/pasted-331.png" alt="upload successful"></p>
-<h3 id="4-0-ceph-与-storageClass-结合"><a href="#4-0-ceph-与-storageClass-结合" class="headerlink" title="4.0 ceph 与 storageClass 结合"></a>4.0 <strong><a target="_blank" rel="noopener" href="https://docs.ceph.com/en/reef/rbd/rbd-kubernetes/">ceph 与 storageClass 结合</a></strong></h3><ul>
-<li>准备工作: pool 创建、用户创建 &lt;2.0已经创建好了&gt;</li>
-</ul>
-<p><img src="/images/pasted-346.png" alt="upload successful"></p>
-<h4 id="4-1-ceph-csi-驱动安装"><a href="#4-1-ceph-csi-驱动安装" class="headerlink" title="4.1 ceph csi 驱动安装"></a>4.1 <strong>ceph csi 驱动安装</strong></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">// 生成 ceph-csi configmap 文件</span><br><span class="line">[root@ceph-node01 ~]<span class="comment"># ceph mon dump                 # 获取 fsid: 9504ad3b-d89d-4bba-9bd2-94be5c8d3f75</span></span><br><span class="line">[root@k8s-master01 ceph-kubernetes]<span class="comment"># cat csi-config-map.yaml </span></span><br><span class="line">apiVersion: v1</span><br><span class="line">kind: ConfigMap</span><br><span class="line">metadata:</span><br><span class="line">  name: ceph-csi-config</span><br><span class="line">data:</span><br><span class="line">  config.json: |-</span><br><span class="line">    [</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="string">&quot;clusterID&quot;</span>: <span class="string">&quot;9504ad3b-d89d-4bba-9bd2-94be5c8d3f75&quot;</span>,</span><br><span class="line">        <span class="string">&quot;monitors&quot;</span>: [</span><br><span class="line">          <span class="string">&quot;10.16.41.136:6789&quot;</span>,</span><br><span class="line">          <span class="string">&quot;10.16.41.30:6789&quot;</span>,</span><br><span class="line">          <span class="string">&quot;10.16.41.169:6789&quot;</span></span><br><span class="line">        ]</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line"></span><br><span class="line">[root@k8s-master01 ceph-kubernetes]<span class="comment"># kubectl apply -f csi-config-map.yaml </span></span><br><span class="line">[root@k8s-master01 ceph-kubernetes]<span class="comment"># kubectl get cm</span></span><br></pre></td></tr></table></figure>
-
-<h5 id="4-1-1-认证-key-配置"><a href="#4-1-1-认证-key-配置" class="headerlink" title="4.1.1 认证 key 配置"></a>4.1.1 <strong>认证 key 配置</strong></h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[root@ceph-node01 ~]<span class="comment"># ceph auth get client.kubernetes                    # 查询 key</span></span><br><span class="line">[client.kubernetes]</span><br><span class="line">	key = AQBblHdormInORAAp3q8n66Pj4f9Gtn0DLYihw==</span><br><span class="line">	caps mon = <span class="string">&quot;profile rbd&quot;</span></span><br><span class="line">	caps osd = <span class="string">&quot;profile rbd pool=kubernetes&quot;</span></span><br><span class="line"></span><br><span class="line">[root@k8s-master01 ceph-kubernetes]<span class="comment"># cat csi-rbd-secret.yaml </span></span><br><span class="line">apiVersion: v1</span><br><span class="line">kind: Secret</span><br><span class="line">metadata:</span><br><span class="line">  name: csi-rbd-secret</span><br><span class="line">  namespace: default</span><br><span class="line">stringData:</span><br><span class="line">  userID: kubernetes</span><br><span class="line">  userKey: AQBblHdormInORAAp3q8n66Pj4f9Gtn0DLYihw==</span><br><span class="line"></span><br><span class="line">[root@k8s-master01 ceph-kubernetes]<span class="comment"># kubectl apply -f csi-rbd-secret.yaml</span></span><br><span class="line">[root@k8s-master01 ceph-kubernetes]<span class="comment"># kubectl get secret</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="/images/pasted-332.png" alt="upload successful"></p>
-<h5 id="4-1-2-创建-sa-和-rbac"><a href="#4-1-2-创建-sa-和-rbac" class="headerlink" title="4.1.2 创建 sa 和 rbac"></a>4.1.2 <strong>创建 sa 和 rbac</strong></h5><ul>
-<li><a target="_blank" rel="noopener" href="https://github.com/ceph/ceph-csi/tree/release-v3.11">下载对应 kubernetes 的版本</a>。[<strong>kubernetes v1.28.0、ceph csi v3.11.0,如 k8s 版本迭代升级更新,ceph 版本不兼容,可能会出现兼容异常！！！</strong>]<ul>
-<li><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/ceph/ceph-csi/refs/heads/release-v3.11/deploy/rbd/kubernetes/csi-nodeplugin-rbac.yaml">官方文件.csi-nodeplugin-rbac.yaml</a></li>
-<li><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/ceph/ceph-csi/refs/heads/release-v3.11/deploy/rbd/kubernetes/csi-provisioner-rbac.yaml">官方文件.csi-provisioner-rbac.yaml</a></li>
-<li><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/ceph/ceph-csi/refs/heads/release-v3.11/deploy/rbd/kubernetes/csi-rbdplugin-provisioner.yaml">官方文件.csi-rbdplugin-provisioner.yaml</a></li>
-<li><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/ceph/ceph-csi/refs/heads/release-v3.11/deploy/rbd/kubernetes/csi-rbdplugin.yaml">官方文件.csi-rbdplugin.yaml</a></li>
-<li><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/ceph/ceph-csi/refs/heads/release-v3.11/deploy/ceph-conf.yaml">官方文件.ceph-conf.yaml</a></li>
-<li><a target="_blank" rel="noopener" href="https://github.com/ceph/ceph-csi/blob/release-v3.7/examples/kms/vault/kms-config.yaml">官方文件.kms-config.yaml</a></li>
-</ul>
-</li>
-</ul>
-<p><img src="/images/pasted-344.png" alt="upload successful"></p>
-<ul>
-<li>上面 6 个文件中,只有 “csi-rbdplugin.yaml” 文件需要添加几行内容,如下。</li>
-</ul>
-<figure class="highlight bash"><figcaption><span>csi-rbdplugin.yaml</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master01 csi]<span class="comment"># cat csi-rbdplugin.yaml </span></span><br><span class="line">---</span><br><span class="line">kind: DaemonSet</span><br><span class="line">apiVersion: apps/v1</span><br><span class="line">metadata:</span><br><span class="line">  name: csi-rbdplugin</span><br><span class="line">  <span class="comment"># replace with non-default namespace name</span></span><br><span class="line">  namespace: default</span><br><span class="line">spec:</span><br><span class="line">  selector:</span><br><span class="line">    matchLabels:</span><br><span class="line">      app: csi-rbdplugin</span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      labels:</span><br><span class="line">        app: csi-rbdplugin</span><br><span class="line">    spec:</span><br><span class="line">      tolerations:				<span class="comment"># 解决 master 不创建 node 的问题</span></span><br><span class="line">        - key: node-role.kubernetes.io/master</span><br><span class="line">          effect: NoSchedule</span><br><span class="line">      serviceAccountName: rbd-csi-nodeplugin</span><br><span class="line">      hostNetwork: <span class="literal">true</span></span><br><span class="line">      hostPID: <span class="literal">true</span></span><br><span class="line">      priorityClassName: system-node-critical</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master01 csi]<span class="comment"># ls</span></span><br><span class="line">ceph-conf.yaml  csi-nodeplugin-rbac.yaml  csi-provisioner-rbac.yaml  csi-rbdplugin-provisioner.yaml  csi-rbdplugin.yaml  kms-config.yaml</span><br><span class="line">[root@k8s-master01 csi]<span class="comment"># kubectl apply -f .</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="/images/pasted-333.png" alt="upload successful"></p>
-<h4 id="4-2-pvc-动态申请空间"><a href="#4-2-pvc-动态申请空间" class="headerlink" title="4.2 pvc 动态申请空间"></a>4.2 <strong><a target="_blank" rel="noopener" href="https://docs.ceph.com/en/reef/rbd/rbd-kubernetes/">pvc 动态申请空间</a></strong></h4><ul>
-<li>Kubernetes StorageClass定义了一类存储。可以创建多个 StorageClass 对象来映射到不同的服务质量级别（即 NVMe 与基于 HDD 的池）和功能</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">[root@ceph-node01 ~]<span class="comment"># ceph -s</span></span><br><span class="line">[root@k8s-master01 csi]<span class="comment"># cat csi-rbd-sc.yaml </span></span><br><span class="line">---</span><br><span class="line">apiVersion: storage.k8s.io/v1</span><br><span class="line">kind: StorageClass</span><br><span class="line">metadata:</span><br><span class="line">   name: csi-rbd-sc</span><br><span class="line">provisioner: rbd.csi.ceph.com</span><br><span class="line">parameters:</span><br><span class="line">   clusterID: 9504ad3b-d89d-4bba-9bd2-94be5c8d3f75                        <span class="comment"># ceph -s 查看集群 ID</span></span><br><span class="line">   pool: kubernetes                                                       <span class="comment"># 访问什么 pool</span></span><br><span class="line">   imageFeatures: layering</span><br><span class="line">   csi.storage.k8s.io/provisioner-secret-name: csi-rbd-secret             <span class="comment"># 什么 key</span></span><br><span class="line">   csi.storage.k8s.io/provisioner-secret-namespace: default</span><br><span class="line">   csi.storage.k8s.io/controller-expand-secret-name: csi-rbd-secret</span><br><span class="line">   csi.storage.k8s.io/controller-expand-secret-namespace: default               <span class="comment"># 空间</span></span><br><span class="line">   csi.storage.k8s.io/node-stage-secret-name: csi-rbd-secret</span><br><span class="line">   csi.storage.k8s.io/node-stage-secret-namespace: default</span><br><span class="line">reclaimPolicy: Delete</span><br><span class="line">allowVolumeExpansion: <span class="literal">true</span></span><br><span class="line">mountOptions:</span><br><span class="line">   - discard</span><br><span class="line"></span><br><span class="line">[root@k8s-master01 csi]<span class="comment"># kubectl apply -f csi-rbd-sc.yaml </span></span><br><span class="line">[root@k8s-master01 csi]<span class="comment"># kubectl get storageclass</span></span><br><span class="line">    <span class="comment"># 名称: csi-rbd-sc</span></span><br><span class="line">    <span class="comment"># 驱动: rbd.csi.ceph.com</span></span><br><span class="line">    <span class="comment"># 策略: Delete</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="/images/pasted-334.png" alt="upload successful"></p>
-<p><img src="/images/pasted-335.png" alt="upload successful"></p>
-<h5 id="4-2-1-块存储"><a href="#4-2-1-块存储" class="headerlink" title="4.2.1 块存储"></a>4.2.1 <strong>块存储</strong></h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master01 ceph-kubernetes]<span class="comment"># cat raw-block-pvc.yaml </span></span><br><span class="line">---</span><br><span class="line">apiVersion: v1</span><br><span class="line">kind: PersistentVolumeClaim</span><br><span class="line">metadata:</span><br><span class="line">  name: raw-block-pvc</span><br><span class="line">spec:</span><br><span class="line">  accessModes:</span><br><span class="line">    - ReadWriteOnce</span><br><span class="line">  volumeMode: Block</span><br><span class="line">  resources:</span><br><span class="line">    requests:</span><br><span class="line">      storage: 5Gi</span><br><span class="line">  storageClassName: csi-rbd-sc</span><br><span class="line"></span><br><span class="line">---</span><br><span class="line"></span><br><span class="line">apiVersion: v1</span><br><span class="line">kind: Pod</span><br><span class="line">metadata:</span><br><span class="line">  name: pod-with-raw-block-volume</span><br><span class="line">spec:</span><br><span class="line">  containers:</span><br><span class="line">    - name: fc-container</span><br><span class="line">      image: fedora:26</span><br><span class="line">      <span class="built_in">command</span>: [<span class="string">&quot;/bin/sh&quot;</span>, <span class="string">&quot;-c&quot;</span>]</span><br><span class="line">      args: [<span class="string">&quot;tail -f /dev/null&quot;</span>]</span><br><span class="line">      volumeDevices:</span><br><span class="line">        - name: data</span><br><span class="line">          devicePath: /dev/xvda</span><br><span class="line">  volumes:</span><br><span class="line">    - name: data</span><br><span class="line">      persistentVolumeClaim:</span><br><span class="line">        claimName: raw-block-pvc</span><br><span class="line"></span><br><span class="line">[root@k8s-master01 ceph-kubernetes]<span class="comment"># kubectl apply -f raw-block-pvc.yaml </span></span><br></pre></td></tr></table></figure>
-
-<h5 id="4-2-2-文件系统"><a href="#4-2-2-文件系统" class="headerlink" title="4.2.2 文件系统"></a>4.2.2 <strong>文件系统</strong></h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master01 ceph-kubernetes]<span class="comment"># cat fs-pvc.yaml </span></span><br><span class="line">---</span><br><span class="line">apiVersion: v1</span><br><span class="line">kind: PersistentVolumeClaim</span><br><span class="line">metadata:</span><br><span class="line">  name: rbd-pvc</span><br><span class="line">spec:</span><br><span class="line">  storageClassName: csi-rbd-sc</span><br><span class="line">  accessModes:</span><br><span class="line">    - ReadWriteOnce</span><br><span class="line">  volumeMode: Filesystem</span><br><span class="line">  resources:</span><br><span class="line">    requests:</span><br><span class="line">      storage: 5Gi</span><br><span class="line">---</span><br><span class="line">apiVersion: v1</span><br><span class="line">kind: Pod</span><br><span class="line">metadata:</span><br><span class="line">  name: csi-rbd-demo-pod</span><br><span class="line">spec:</span><br><span class="line">  containers:</span><br><span class="line">    - name: web-server</span><br><span class="line">      image: nginx</span><br><span class="line">      volumeMounts:</span><br><span class="line">        - name: mypvc</span><br><span class="line">          mountPath: /var/lib/www/html</span><br><span class="line">  volumes:</span><br><span class="line">    - name: mypvc</span><br><span class="line">      persistentVolumeClaim:</span><br><span class="line">        claimName: rbd-pvc</span><br><span class="line">        readOnly: <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">[root@k8s-master01 ceph-kubernetes]<span class="comment"># kubectl apply -f fs-pvc.yaml</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="/images/pasted-336.png" alt="upload successful"></p>
-<h5 id="4-2-3-sts-的-pvc"><a href="#4-2-3-sts-的-pvc" class="headerlink" title="4.2.3 sts 的 pvc"></a>4.2.3 <strong>sts 的 pvc</strong></h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">[root@k8s-master01 ceph-kubernetes]<span class="comment"># cat nginx.yaml </span></span><br><span class="line">apiVersion: v1</span><br><span class="line">kind: Service</span><br><span class="line">metadata:</span><br><span class="line">  name: nginx</span><br><span class="line">  labels:</span><br><span class="line">    app: nginx</span><br><span class="line">spec:</span><br><span class="line">  ports:</span><br><span class="line">    - port: 80</span><br><span class="line">      name: web</span><br><span class="line">  clusterIP: None</span><br><span class="line">  selector:</span><br><span class="line">    app: nginx</span><br><span class="line">---</span><br><span class="line">apiVersion: apps/v1</span><br><span class="line">kind: StatefulSet</span><br><span class="line">metadata:</span><br><span class="line">  name: web</span><br><span class="line">spec:</span><br><span class="line">  selector:</span><br><span class="line">    matchLabels:</span><br><span class="line">      app: nginx</span><br><span class="line">  serviceName: <span class="string">&quot;nginx&quot;</span></span><br><span class="line">  replicas: 3</span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      labels:</span><br><span class="line">        app: nginx</span><br><span class="line">    spec:</span><br><span class="line">      terminationGracePeriodSeconds: 10</span><br><span class="line">      containers:</span><br><span class="line">        - name: nginx</span><br><span class="line">          image: nginx</span><br><span class="line">          ports:</span><br><span class="line">            - containerPort: 80</span><br><span class="line">              name: web</span><br><span class="line">          volumeMounts:</span><br><span class="line">            - name: www</span><br><span class="line">              mountPath: /usr/share/nginx/html</span><br><span class="line">  volumeClaimTemplates:</span><br><span class="line">    - metadata:</span><br><span class="line">        name: www</span><br><span class="line">      spec:</span><br><span class="line">        accessModes: [ <span class="string">&quot;ReadWriteOnce&quot;</span> ]</span><br><span class="line">        storageClassName: <span class="string">&quot;csi-rbd-sc&quot;</span></span><br><span class="line">        resources:</span><br><span class="line">          requests:</span><br><span class="line">            storage: 6Gi</span><br><span class="line"></span><br><span class="line">[root@k8s-master01 ceph-kubernetes]<span class="comment"># kubectl apply -f nginx.yaml </span></span><br><span class="line">[root@k8s-master01 ceph-kubernetes]<span class="comment"># kubectl get pod,pv,pvc -o wide</span></span><br></pre></td></tr></table></figure>
-
-<p><img src="/images/pasted-337.png" alt="upload successful"></p>
-
-    
-
-    
-    <div class="page-reward">
-      <a href="javascript:void(0);" class="page-reward-btn tooltip-top" target="_self">
-        <div class="tooltip tooltip-east">
-          <span class="tooltip-item">
-            微信
-          </span>
-          <span class="tooltip-content">
-            <span class="tooltip-text">
-              <span class="tooltip-inner">
-                <p class="reward-p"><i class="icon icon-quo-left"></i>加微信,入技术群<i
-                    class="icon icon-quo-right"></i></p>
-                <div class="reward-box">
-                  
-                  
-                  <div class="reward-box-item">
-                    <img class="reward-img" src="/img/wechat.jpg">
-                    <span class="reward-type">微信</span>
-                  </div>
-                  
-                </div>
-              </span>
-            </span>
-          </span>
-        </div>
-      </a>
-    </div>
-    
-
-    
-    <div class="declare"> 
-      <ul class="post-copyright">
-        <li>
-          <strong>本文作者：</strong>
-          weixj@inadm.com
-        </li>
-        <li>
-          <strong>本文链接：</strong>
-          <a href="https://www.ink8s.com/2025/07/17/ceph-与-kubernetes-集成/" title="ceph 与 kubernetes 集成" target="_blank">https://www.ink8s.com/2025/07/17/ceph-与-kubernetes-集成/</a>
-        </li>
-        
-        <li>
-          <strong>版权声明： </strong>
+        <div class="article-info info-on-right">
           
-          本博客所有文章除特别声明外，均采用 <a href="https://github.com/JoeyBling/hexo-theme-yilia-plus/blob/master/LICENSE" rel="external nofollow" target="_blank">MIT</a> 许可协议。转载请注明出处！
-        </li>
-        
-      </ul>
-    </div>
-    
+          
 
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Linux-storage</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-
-    
-
-    
-    
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <!-- <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a> -->
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-     <!-- <img src="//pan.baidu.com/share/qrcode?url=https://www.ink8s.com/2025/07/17/ceph-%E4%B8%8E-kubernetes-%E9%9B%86%E6%88%90/" alt="微信分享二维码"> -->
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-
-    
-    <div class="clearfix"></div>
-  </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-
-<nav id="article-nav">
-  
-    <a href="/2025/07/17/k8s-%E8%B5%84%E6%BA%90%E5%AF%B9%E8%B1%A1/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          kubernetes 资源对象
-        
-      </div>
-    </a>
   
   
-    <a href="/2025/07/14/kubernets-%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">kubernets 集群搭建</div>
-      <i class="icon-circle-right"></i>
-    </a>
+    </div></section>
   
-</nav>
 
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-        <div class="toc-container tooltip-left">
-            <i class="icon-font icon-category"></i>
-            <div class="tooltip tooltip-east">
-                <span class="tooltip-item">
-                </span>
-                <span class="tooltip-content">
-                    <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-0-ceph-%E4%B8%8E-kubernetes-%E9%9B%86%E6%88%90"><span class="toc-number">1.</span> <span class="toc-text">1.0 ceph 与 kubernetes 集成</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1-ceph-%E4%B8%8E-kubernetes-%E9%9B%86%E6%88%90%E6%A6%82%E8%BF%B0"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 ceph 与 kubernetes 集成概述</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-0-ceph-%E4%B8%8E-volumes-%E7%BB%93%E5%90%88"><span class="toc-number">2.</span> <span class="toc-text">2.0 ceph 与 volumes 结合</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-%E5%88%9B%E5%BB%BA-secrets-%E5%AF%B9%E8%B1%A1"><span class="toc-number">2.1.</span> <span class="toc-text">2.1 创建 secrets 对象</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-%E5%88%9B%E5%BB%BA-rbd-%E5%9D%97"><span class="toc-number">2.2.</span> <span class="toc-text">2.2 创建 rbd 块</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-0-ceph-%E4%B8%8E-pv-pvc-%E7%BB%93%E5%90%88"><span class="toc-number">3.</span> <span class="toc-text">3.0 ceph 与 pv pvc 结合</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-1-%E5%88%9B%E5%BB%BA-pv%E3%80%81pvc"><span class="toc-number">3.1.</span> <span class="toc-text">3.1 创建 pv、pvc</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-%E5%AE%B9%E5%99%A8%E5%BC%95%E7%94%A8-pvc-%E5%AD%98%E5%82%A8"><span class="toc-number">3.2.</span> <span class="toc-text">3.2 容器引用 pvc 存储</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-0-ceph-%E4%B8%8E-storageClass-%E7%BB%93%E5%90%88"><span class="toc-number">4.</span> <span class="toc-text">4.0 ceph 与 storageClass 结合</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-ceph-csi-%E9%A9%B1%E5%8A%A8%E5%AE%89%E8%A3%85"><span class="toc-number">4.1.</span> <span class="toc-text">4.1 ceph csi 驱动安装</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#4-1-1-%E8%AE%A4%E8%AF%81-key-%E9%85%8D%E7%BD%AE"><span class="toc-number">4.1.1.</span> <span class="toc-text">4.1.1 认证 key 配置</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-1-2-%E5%88%9B%E5%BB%BA-sa-%E5%92%8C-rbac"><span class="toc-number">4.1.2.</span> <span class="toc-text">4.1.2 创建 sa 和 rbac</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-pvc-%E5%8A%A8%E6%80%81%E7%94%B3%E8%AF%B7%E7%A9%BA%E9%97%B4"><span class="toc-number">4.2.</span> <span class="toc-text">4.2 pvc 动态申请空间</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#4-2-1-%E5%9D%97%E5%AD%98%E5%82%A8"><span class="toc-number">4.2.1.</span> <span class="toc-text">4.2.1 块存储</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-2-2-%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F"><span class="toc-number">4.2.2.</span> <span class="toc-text">4.2.2 文件系统</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-2-3-sts-%E7%9A%84-pvc"><span class="toc-number">4.2.3.</span> <span class="toc-text">4.2.3 sts 的 pvc</span></a></li></ol></li></ol></li></ol>
-                    </div>
-                </span>
-            </div>
-        </div>
-        
-    </div>
-</aside>
-
-
-
-
-
-
-
-
-
-
-  <div id="giteement-ctn"></div>
-  
-    <link rel="stylesheet" href="/lib/default.css">
-    <script src="/lib/giteement.browser.js"></script>
-  
-  <script>
-  <!-- id: "ceph 与 kubernetes 集成" -->
-  var giteement = new Giteement({
-    id: '20250717053551',
-    owner: 'weixj90',
-    repo: 'ink8s-msg',
-    backcall_uri: 'https://www.ink8s.com',
-    oauth_uri: 'https://cors-anywhere.herokuapp.com/https://gitee.com/oauth/token',
-    oauth: {
-      client_id: '50776f958ea15d74ac6d512eeadb5d45fce926378764764cb8d6998f95617e18',
-      client_secret: '5b53bcab62e8a4c917eab413aa2dc40ec6b2b69344411c51bf11285bbe734d8c'
-    },
-  })
-  giteement.render('giteement-ctn')
-  </script>
-
-
-
-
-
-
+    
 
 
           </div>
@@ -634,8 +316,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
-		isArchive: false,
+		isPost: false,
+		isArchive: true,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
